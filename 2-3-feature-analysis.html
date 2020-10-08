@@ -243,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.3</span> Feature Analysis</h2>
 <div id="feature-distribution" class="section level3" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Feature Distribution</h3>
-<p><img src="D:/DS/0_ASS1/ASS2/Viz/Distribution1.png" /><!-- --></p>
+<p><img src="Distribution1.png" /><!-- --></p>
 <p><em>Figure 1. Feature log distributions</em></p>
 <p>Figure 1 shows the distributions of the main six features to be included in the modelling phase. The distributions, which come from the training set, demonstrate similar trends in the distributions visualized in phase 1 of the project, specifically:</p>
 <ul>
@@ -256,15 +256,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="pairwise-correlation" class="section level3" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Pairwise Correlation</h3>
-<p><img src="D:/DS/0_ASS1/ASS2/Viz/SPLOM.png" /><!-- --></p>
+<p><img src="SPLOM.png" /><!-- --></p>
 <p><em>Figure 2. Pairwise scatterplot matrix colored by pickup areas</em></p>
 <p>A sample of 100 points from the training set was plotted on a pairwise scatter-plot matrix, colored by pickup areas (Figure 2). As expected, all numerical features have statistically significant multicollinearity with each other, barring the instances with no tip. As our target variable is Total amount, it means that only one of Distance, Fare Amount, Tip Amount, and Duration should be included in the model so that coefficient estimates are not affected by scaling (see Feature Selection below). Furthermore, Total amount seems to be randomly distributed across different zones and pick-up hours, suggesting that these features may not be suitable predictors for the model. TAT is moderately linear to Total amount and shows clear interaction with pick-up areas from the coloring. Specifically, TAT and Total amount for airport areas are noticeably higher that the other areas.</p>
 </div>
 <div id="comparison-of-spatial-resolution" class="section level3" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> Comparison of Spatial Resolution</h3>
 <p>While visualizing the data on a zone-based resolution is effective in phase 1, the high cardinality of 250 different zones presents a challenge in model training. As such, a broader segmentation of location is proposed by grouping the zones into 6 areas: Downtown, Midtown, Uptown, LGA, JFK, Others. Although the initial plan was to compare the effectiveness of these two grouping strategies, the curse of dimensionality <a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> introduced by the number of zones bore an immense time complexity cost on training even the minimal dataset. Thus, this analysis is done pre-emptively to ensure that area-based grouping will not lose much information compared to zone-based grouping. As the analysis lends itself to the idea of information gain from information theory, the normalized mutual information (NMI) will be used as the metric for comparison <a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>.</p>
-<div id="htmlwidget-c5bb7545988d3323ba58" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-c5bb7545988d3323ba58">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Feature":["PULocationID","PUArea","DOLocationID","DOArea"],"NMI":[0.064,0.051,0.076,0.047]},"columns":[{"accessor":"Feature","name":"Feature","type":"character"},{"accessor":"NMI","name":"NMI","type":"numeric"}],"sortable":false,"defaultPageSize":4,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"c75cf8536ea711e70e133f0420e9a83f","key":"c75cf8536ea711e70e133f0420e9a83f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-86d5547b8319b3a6aeb0" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-86d5547b8319b3a6aeb0">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Feature":["PULocationID","PUArea","DOLocationID","DOArea"],"NMI":[0.064,0.051,0.076,0.047]},"columns":[{"accessor":"Feature","name":"Feature","type":"character"},{"accessor":"NMI","name":"NMI","type":"numeric"}],"sortable":false,"defaultPageSize":4,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"c75cf8536ea711e70e133f0420e9a83f","key":"c75cf8536ea711e70e133f0420e9a83f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>The Total amount is cut to 100000 bins, before being used to calculate the NMI with each of <code>PULocationID</code>, <code>PUArea</code>, <code>DOLocationID</code>, <code>DOArea.</code> While area-based grouping indeed results in information loss (see the NMI result table above), the trade-off between the loss and the reduction in training time as well as model simplicity is well-worth the use of area-based grouping over zone-based grouping strategy.</p>
 </div>
 <div id="categorical-numerical-feature-interactions" class="section level3" number="2.3.4">
