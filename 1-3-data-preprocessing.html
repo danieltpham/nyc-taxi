@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.3 Data Preprocessing | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</title>
+  <meta name="description" content="1.3 Data Preprocessing | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.3 Data Preprocessing | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.3 Data Preprocessing | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  
+  
+  
+
+<meta name="author" content="Daniel Pham" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="1-2-metrics.html"/>
+<link rel="next" href="1-4-exploratory-data-analysis.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/core-js-2.5.3/shim.min.js"></script>
+<script src="libs/react-16.12.0/react.min.js"></script>
+<script src="libs/react-16.12.0/react-dom.min.js"></script>
+<script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/reactable-binding-0.2.2/reactable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="1-phase1.html"><a href="1-phase1.html"><i class="fa fa-check"></i><b>1</b> Data Visualisation</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html"><i class="fa fa-check"></i><b>1.1</b> Dataset</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html#tlc-yellow-taxi-2019-data"><i class="fa fa-check"></i><b>1.1.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-1-dataset.html"><a href="1-1-dataset.html#mta-static-transport-accessibility-data"><i class="fa fa-check"></i><b>1.1.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-1-dataset.html"><a href="1-1-dataset.html#qri-transport-usage-data"><i class="fa fa-check"></i><b>1.1.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html"><i class="fa fa-check"></i><b>1.2</b> Metrics &amp; Feature Selection</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1-2-metrics.html"><a href="1-2-metrics.html#pick-up-zone-profitability"><i class="fa fa-check"></i><b>1.2.1</b> Pick-up Zone Profitability</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html#hourly-demands"><i class="fa fa-check"></i><b>1.2.2</b> Hourly Demands</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-2-metrics.html"><a href="1-2-metrics.html#public-transport-competition-factor"><i class="fa fa-check"></i><b>1.2.3</b> Public Transport Competition Factor</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html"><i class="fa fa-check"></i><b>1.3</b> Data Preprocessing</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#tlc-yellow-taxi-2019-data-1"><i class="fa fa-check"></i><b>1.3.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#mta-static-transport-accessibility-data-1"><i class="fa fa-check"></i><b>1.3.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#qri-transport-usage-data-1"><i class="fa fa-check"></i><b>1.3.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1.4</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#overall-trends-of-taxi-trips"><i class="fa fa-check"></i><b>1.4.1</b> Overall trends of taxi trips</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#hotspot-analysis"><i class="fa fa-check"></i><b>1.4.2</b> Hotspot Analysis</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#effect-of-public-transport-access"><i class="fa fa-check"></i><b>1.4.3</b> Effect of Public Transport Access</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1-5-conclusion.html"><a href="1-5-conclusion.html"><i class="fa fa-check"></i><b>1.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-phase2.html"><a href="2-phase2.html"><i class="fa fa-check"></i><b>2</b> Explanatory Modelling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html"><i class="fa fa-check"></i><b>2.1</b> Dataset &amp; Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#feature-engineering"><i class="fa fa-check"></i><b>2.1.1</b> Feature Engineering</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#sampling"><i class="fa fa-check"></i><b>2.1.2</b> Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html"><i class="fa fa-check"></i><b>2.2</b> Feature Transformation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#log-transformation-of-numerical-features"><i class="fa fa-check"></i><b>2.2.1</b> Log Transformation of Numerical Features</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#factorization-of-categorical-features"><i class="fa fa-check"></i><b>2.2.2</b> Factorization of Categorical Features</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html"><i class="fa fa-check"></i><b>2.3</b> Feature Analysis</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-distribution"><i class="fa fa-check"></i><b>2.3.1</b> Feature Distribution</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#pairwise-correlation"><i class="fa fa-check"></i><b>2.3.2</b> Pairwise Correlation</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#comparison-of-spatial-resolution"><i class="fa fa-check"></i><b>2.3.3</b> Comparison of Spatial Resolution</a></li>
+<li class="chapter" data-level="2.3.4" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#categorical-numerical-feature-interactions"><i class="fa fa-check"></i><b>2.3.4</b> Categorical – Numerical Feature Interactions</a></li>
+<li class="chapter" data-level="2.3.5" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-selection-for-explanatory-models"><i class="fa fa-check"></i><b>2.3.5</b> Feature Selection for Explanatory Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html"><i class="fa fa-check"></i><b>2.4</b> Model Selection</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-additive-models"><i class="fa fa-check"></i><b>2.4.1</b> Linear Additive Models</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-interaction-models"><i class="fa fa-check"></i><b>2.4.2</b> Linear Interaction Models</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-mixed-models-8"><i class="fa fa-check"></i><b>2.4.3</b> Linear Mixed Models </a></li>
+<li class="chapter" data-level="2.4.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#experimental-design"><i class="fa fa-check"></i><b>2.4.4</b> Experimental Design</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#model-selection-metrics"><i class="fa fa-check"></i><b>2.4.5</b> Model Selection Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html"><i class="fa fa-check"></i><b>2.5</b> Modelling Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#benchmark-model-term-relevance-analysis"><i class="fa fa-check"></i><b>2.5.1</b> Benchmark Model Term Relevance Analysis</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#model-comparison-on-the-10000-instance-subsample"><i class="fa fa-check"></i><b>2.5.2</b> Model Comparison on the 10000-Instance Subsample</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#final-model-inference"><i class="fa fa-check"></i><b>2.5.3</b> Final Model Inference</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#error-analysis"><i class="fa fa-check"></i><b>2.5.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2-6-conclusion-pt2.html"><a href="2-6-conclusion-pt2.html"><i class="fa fa-check"></i><b>2.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="code-section.html"><a href="code-section.html"><i class="fa fa-check"></i>Code Section</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html"><i class="fa fa-check"></i><b>2.7</b> Data Preprocessing (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-1"><i class="fa fa-check"></i><b>2.7.1</b> Phase 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-2"><i class="fa fa-check"></i><b>2.7.2</b> Phase 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html"><i class="fa fa-check"></i><b>2.8</b> Visualisation (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#sankey-diagram"><i class="fa fa-check"></i><b>2.8.1</b> Sankey diagram</a></li>
+<li class="chapter" data-level="2.8.2" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#profitability"><i class="fa fa-check"></i><b>2.8.2</b> Profitability</a></li>
+<li class="chapter" data-level="2.8.3" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#airport-stripe"><i class="fa fa-check"></i><b>2.8.3</b> Airport stripe</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="2-9-linear-modelling-r.html"><a href="2-9-linear-modelling-r.html"><i class="fa fa-check"></i><b>2.9</b> Linear Modelling (<code>R</code>)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-preprocessing" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Data Preprocessing</h2>
+<div id="tlc-yellow-taxi-2019-data-1" class="section level3" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> TLC Yellow Taxi 2019 Data</h3>
+<p>The following data preprocessing pipeline was applied for each of the monthly dataset:</p>
+<ul>
+<li>Only 9 relevant features identified in the section above were selected, namely:
+<code>trip_distance</code>, <code>DOLocationID</code>, <code>PULocationID</code>, <code>tpep_pickup_datetime</code>, <code>tpep_dropoff_datetime</code>, <code>payment_type</code>, <code>fare_amount</code>, <code>tip_amount</code>, <code>total_amount</code></li>
+<li>Trips with non-positive trip_distance were removed.</li>
+<li><code>tpep_pickup_datetime</code>, <code>tpep_dropoff_datetime</code> were converted to datetime objects, and trips that have either pick-up or drop-off time that fall outside the current month were removed.</li>
+<li>A <code>trip_duration</code> attribute was created by subtracting <code>tpep_pickup_datetime</code> from <code>tpep_dropoff_datetime</code> and rounded to the nearest minute.</li>
+<li>Trips with non-positive <code>trip_duration</code> were removed.</li>
+<li>Trips with a <code>trip_duration</code> value of more than 720 (equivalent to more than 12 hours) were also removed, as there are two possible reasons for a trip lasting more than 12 hours: either the driver forgot to turn off his meter at the end of a shift which is an input error; or it is a highly unusual interstate trip, in which case the <code>DOLocationID</code> is likely to no longer be in NYC and should be excluded.</li>
+<li>Trips with either <code>DOLocationID</code> or <code>PULocationID</code> being 264 or 265 were removed, as they are unknown locations according to the taxi zone lookup table.</li>
+<li>Duplicated instances were removed.</li>
+<li>A subset on <code>payment_type == 1</code> was also created with attributes <code>DOLocationID</code>, <code>PULocationID</code>, <code>trip_duration</code>, <code>total_amount</code>, <code>tpep_pickup_datetime</code>, <code>trip_distance.</code> Since only credit card tips (payment type 1) are consistently recorded, any analysis relating to profitability will use this subset. Note that the total_amount variable also encapsulates fare_amount, tip_amount and other taxes, and thus is more appropriate to represent revenue for profitability formula.</li>
+</ul>
+<p>After preprocessing all 12 monthly datasets, each attribute was merged to an annual Panda series and serialised into PyArrow feather format. For analysis and visualization, only the interested attributes are loaded onto memory (under 700MB per attribute), which allows for faster computation compared to using Spark. Geovisualisation was performed with the Geopandas package.</p>
+<p><a id=tab:tbl1></a></p>
+<p>Table 1: <strong>Dataset size (instances) comparison before and after preprocessing</strong></p>
+<div id="htmlwidget-213d8a7ea311f7f7f4cf" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-213d8a7ea311f7f7f4cf">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Month":["January","February","March","April","May","June","July","August","September","October","November","December","Total"],"Original":[7667792,7019375,7832545,7433139,7565261,6941024,6310419,6073357,6567788,7213891,6878111,6896317,84399019],"Preprocessed":[7406029,6855350,7676761,7264644,7391333,6770765,6147767,5908200,6400096,7042317,6708031,6725257,82296550],"Reduction %":[3.4,2.3,2,2.3,2.3,2.5,2.6,2.7,2.6,2.4,2.5,2.5,2.5],"Credit Only":[5321953,5088365,5630306,5254251,5353756,4883001,4327608,4117299,4624211,5111277,4875722,4772482,59360231],"Credit Only %":[71.9,74.2,73.3,72.3,72.4,72.1,70.4,69.7,72.3,72.6,72.7,71,72.1]},"columns":[{"accessor":"Month","name":"Month","type":"character"},{"accessor":"Original","name":"Original","type":"numeric"},{"accessor":"Preprocessed","name":"Preprocessed","type":"numeric"},{"accessor":"Reduction %","name":"Reduction %","type":"numeric"},{"accessor":"Credit Only","name":"Credit Only","type":"numeric"},{"accessor":"Credit Only %","name":"Credit Only %","type":"numeric"}],"defaultPageSize":13,"paginationType":"numbers","showPageInfo":true,"minRows":1,"rowStyle":[null,null,null,null,null,null,null,null,null,null,null,null,{"fontWeight":"700"}],"dataKey":"e8d533fcfdeb2c96299b3ab39a43f98e","key":"e8d533fcfdeb2c96299b3ab39a43f98e"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p>For profitability analysis, a dataframe consisting of credit-card only <code>trip_distance</code>, <code>PULocationID</code>, <code>trip_duration</code>, <code>total_amount</code> was created. A <code>rate_per_trip</code> attribute was created using the formula in Equation 2. The dataframe was then grouped by <code>PULocationID</code> and averaged the other values to calculate the <code>zone_profitability</code> according to Equation 1.</p>
+</div>
+<div id="mta-static-transport-accessibility-data-1" class="section level3" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> MTA Static Transport Accessibility Data</h3>
+<p>The schedule and stop location datasets require no cleaning as the data is static. The preprocessing steps for this data replicates the TAT calculation process by Correa, Xie and Ozbay (2019) <a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>, with the differences in a shorter cell diameter and aggregation based on taxi zones instead of Neighbourhood Tabulation Areas.</p>
+<ul>
+<li>Firstly, a hex grid with a cell diameter of 500m was fitted over the NYC map, which means that the time taken to traverse each cell on foot is about 5 minutes. Each cell is characterized by the location of its centroid and was assigned to its nearest subway station <code>stop_id</code> through a Nearest-Neighbor BallTree algorithm. The haversine shortest distance between a cell centroid and its assigned station was also returned (See Figure 10a in the Analysis section below).</li>
+<li><code>departure_time</code> was converted to 24-hour format and only the hour value was extracted. Values greater than or equal 24, such as “25:15”, indicate that the train has departed from its first stop on the previous day, and is now departing from its current stop at 1:15 AM on the next day. These values were also converted to standard 24-hour format and had their hour components extracted.</li>
+<li>To get the average number of trains per hour component of the TAT formula (Equation 3), the total count of trains departing from each <code>stop_id</code> – <code>departure_time</code> combination was divided by 3, since for each of these combinations, there are 3 types of schedules in the original dataset: Weekday, Saturday, and Sunday.</li>
+<li>The dataframe (11896 x 3) was converted from long to wide format, with each <code>departure_time</code> becoming its own column, resulting in a (496 x 24) dataframe with <code>stop_id</code> as the unique index for each row.</li>
+<li>The 8 extra values resulting from the pivot were due to stop 901 and 902 not having any trips between 12 AM and 4 AM, and as such were imputed with 0.</li>
+<li>The TAT per hour for each cell was calculated using the two components <code>avg_freq</code> and <code>distance</code> above.</li>
+<li>Once the TAT for each cell is determined, it is not difficult to calculate TAT per taxi zone by averaging the values across the cells included within the zone (See Figure 10b in the Analysis section below). Note that this resulted in each zone being assigned to a nearest stop, which would also be used in the preprocessing for the Transport Usage Dataset.</li>
+</ul>
+<p><a id=tab:tbl2></a></p>
+<p>Table 2: <strong>Final TAT dataframe (3750 rows of centroids, 496 stop IDs and 260 Zone IDs)</strong></p>
+<div id="htmlwidget-f2f75bdf590b3651139b" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f2f75bdf590b3651139b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Column":["zone_id","zone","geometry","centroid","stop_id","closest_stop_geom","distance","TAT_00_00","TAT_01_00","TAT_02_00","...","TAT_23_00"],"Description":["Taxi zone ID","Taxi zone name","Taxi zone Geometry","Hex cell Geometry","Closest station Stop ID","Closest station Geometry","Distance from centroid to closest station","Transport Access Time at 12AM","Transport Access Time at 1AM","Transport Access Time at 2AM","…","Transport Access Time at 23PM"],"Sample Data":["1","Newark Airport","POLYGON ((-74.18445 40.69500, -74.18449 40.695...","POINT (-73.91154 40.91112)","106","POINT (-73.90983 40.87456)","1142.440469","60.711021","61.78245","64.28245","...","58.78245"]},"columns":[{"accessor":"Column","name":"Column","type":"character"},{"accessor":"Description","name":"Description","type":"character"},{"accessor":"Sample Data","name":"Sample Data","type":"character"}],"sortable":false,"defaultPageSize":12,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"9b55319aa9cd3f515687322d56e84dfa","key":"9b55319aa9cd3f515687322d56e84dfa"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="qri-transport-usage-data-1" class="section level3" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> qri Transport Usage Data</h3>
+<p>The turnstile data has been preprocessed by qri while maintaining the original column structure by MTA, which allowed for little data cleaning and seamless SQL joins with the two previous datasets. Note that since the number of turnstile entries is just an estimate of the actual public transport usage and is collected periodically rather than in real-time, attempts to compare it with hourly taxi usage do not hold strong statistical power. Thus, averaging methods were used in the following preprocessing to reduce variance in the comparisons albeit losing the hourly resolution from the preprocessed TLC dataframe.</p>
+<ul>
+<li><code>complex_id</code> (the primary key for the Turnstile dataset) was converted to gtfs_stop_id (the primary key for the MTA schedule dataset which was also used for the TAT data) via a SQL join using the reference table from MTA website. Since the Turnstile dataset excludes data for the three commuter rails, a left join ensured that only stops with non-null usage data are included in the result dataframe.</li>
+<li>Each <code>gtfs_stop_id</code> was assigned to its containing taxi zone from the TAT data.</li>
+<li>The <code>entries</code> counts were then grouped by <code>zone</code> and taken the mean value to find the daily average number of people using public transport in each taxi zone.</li>
+<li>Daily average number of pick-ups (<code>num_of_trips</code>) grouped by <code>zone</code> from the preprocessed TLC dataframe was merged and used in tandem with <code>entries</code> column to calculate mode <code>preference</code> ratio per zone (as detailed in Equation 4).</li>
+</ul>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="14">
+<li id="fn14"><p>Correa, D., Xie, K., &amp; Ozbay, K. (2017). Exploring the taxi and Uber demand in New York City: An empirical analysis and spatial modeling. In 96th Annual Meeting of the Transportation Research Board, Washington, DC.<a href="1-3-data-preprocessing.html#fnref14" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="1-2-metrics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1-4-exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-phase1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

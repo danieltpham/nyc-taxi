@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Phase 1 Data Visualisation | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</title>
+  <meta name="description" content="Phase 1 Data Visualisation | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Phase 1 Data Visualisation | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Phase 1 Data Visualisation | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  
+  
+  
+
+<meta name="author" content="Daniel Pham" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="1-1-dataset.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/core-js-2.5.3/shim.min.js"></script>
+<script src="libs/react-16.12.0/react.min.js"></script>
+<script src="libs/react-16.12.0/react-dom.min.js"></script>
+<script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/reactable-binding-0.2.2/reactable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="1-phase1.html"><a href="1-phase1.html"><i class="fa fa-check"></i><b>1</b> Data Visualisation</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html"><i class="fa fa-check"></i><b>1.1</b> Dataset</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html#tlc-yellow-taxi-2019-data"><i class="fa fa-check"></i><b>1.1.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-1-dataset.html"><a href="1-1-dataset.html#mta-static-transport-accessibility-data"><i class="fa fa-check"></i><b>1.1.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-1-dataset.html"><a href="1-1-dataset.html#qri-transport-usage-data"><i class="fa fa-check"></i><b>1.1.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html"><i class="fa fa-check"></i><b>1.2</b> Metrics &amp; Feature Selection</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1-2-metrics.html"><a href="1-2-metrics.html#pick-up-zone-profitability"><i class="fa fa-check"></i><b>1.2.1</b> Pick-up Zone Profitability</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html#hourly-demands"><i class="fa fa-check"></i><b>1.2.2</b> Hourly Demands</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-2-metrics.html"><a href="1-2-metrics.html#public-transport-competition-factor"><i class="fa fa-check"></i><b>1.2.3</b> Public Transport Competition Factor</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html"><i class="fa fa-check"></i><b>1.3</b> Data Preprocessing</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#tlc-yellow-taxi-2019-data-1"><i class="fa fa-check"></i><b>1.3.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#mta-static-transport-accessibility-data-1"><i class="fa fa-check"></i><b>1.3.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#qri-transport-usage-data-1"><i class="fa fa-check"></i><b>1.3.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1.4</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#overall-trends-of-taxi-trips"><i class="fa fa-check"></i><b>1.4.1</b> Overall trends of taxi trips</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#hotspot-analysis"><i class="fa fa-check"></i><b>1.4.2</b> Hotspot Analysis</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#effect-of-public-transport-access"><i class="fa fa-check"></i><b>1.4.3</b> Effect of Public Transport Access</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1-5-conclusion.html"><a href="1-5-conclusion.html"><i class="fa fa-check"></i><b>1.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-phase2.html"><a href="2-phase2.html"><i class="fa fa-check"></i><b>2</b> Explanatory Modelling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html"><i class="fa fa-check"></i><b>2.1</b> Dataset &amp; Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#feature-engineering"><i class="fa fa-check"></i><b>2.1.1</b> Feature Engineering</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#sampling"><i class="fa fa-check"></i><b>2.1.2</b> Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html"><i class="fa fa-check"></i><b>2.2</b> Feature Transformation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#log-transformation-of-numerical-features"><i class="fa fa-check"></i><b>2.2.1</b> Log Transformation of Numerical Features</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#factorization-of-categorical-features"><i class="fa fa-check"></i><b>2.2.2</b> Factorization of Categorical Features</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html"><i class="fa fa-check"></i><b>2.3</b> Feature Analysis</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-distribution"><i class="fa fa-check"></i><b>2.3.1</b> Feature Distribution</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#pairwise-correlation"><i class="fa fa-check"></i><b>2.3.2</b> Pairwise Correlation</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#comparison-of-spatial-resolution"><i class="fa fa-check"></i><b>2.3.3</b> Comparison of Spatial Resolution</a></li>
+<li class="chapter" data-level="2.3.4" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#categorical-numerical-feature-interactions"><i class="fa fa-check"></i><b>2.3.4</b> Categorical – Numerical Feature Interactions</a></li>
+<li class="chapter" data-level="2.3.5" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-selection-for-explanatory-models"><i class="fa fa-check"></i><b>2.3.5</b> Feature Selection for Explanatory Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html"><i class="fa fa-check"></i><b>2.4</b> Model Selection</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-additive-models"><i class="fa fa-check"></i><b>2.4.1</b> Linear Additive Models</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-interaction-models"><i class="fa fa-check"></i><b>2.4.2</b> Linear Interaction Models</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-mixed-models-8"><i class="fa fa-check"></i><b>2.4.3</b> Linear Mixed Models </a></li>
+<li class="chapter" data-level="2.4.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#experimental-design"><i class="fa fa-check"></i><b>2.4.4</b> Experimental Design</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#model-selection-metrics"><i class="fa fa-check"></i><b>2.4.5</b> Model Selection Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html"><i class="fa fa-check"></i><b>2.5</b> Modelling Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#benchmark-model-term-relevance-analysis"><i class="fa fa-check"></i><b>2.5.1</b> Benchmark Model Term Relevance Analysis</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#model-comparison-on-the-10000-instance-subsample"><i class="fa fa-check"></i><b>2.5.2</b> Model Comparison on the 10000-Instance Subsample</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#final-model-inference"><i class="fa fa-check"></i><b>2.5.3</b> Final Model Inference</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#error-analysis"><i class="fa fa-check"></i><b>2.5.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2-6-conclusion-pt2.html"><a href="2-6-conclusion-pt2.html"><i class="fa fa-check"></i><b>2.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="code-section.html"><a href="code-section.html"><i class="fa fa-check"></i>Code Section</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html"><i class="fa fa-check"></i><b>2.7</b> Data Preprocessing (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-1"><i class="fa fa-check"></i><b>2.7.1</b> Phase 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-2"><i class="fa fa-check"></i><b>2.7.2</b> Phase 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html"><i class="fa fa-check"></i><b>2.8</b> Visualisation (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#sankey-diagram"><i class="fa fa-check"></i><b>2.8.1</b> Sankey diagram</a></li>
+<li class="chapter" data-level="2.8.2" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#profitability"><i class="fa fa-check"></i><b>2.8.2</b> Profitability</a></li>
+<li class="chapter" data-level="2.8.3" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#airport-stripe"><i class="fa fa-check"></i><b>2.8.3</b> Airport stripe</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="2-9-linear-modelling-r.html"><a href="2-9-linear-modelling-r.html"><i class="fa fa-check"></i><b>2.9</b> Linear Modelling (<code>R</code>)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="phase1" class="section level1" number="1">
+<h1><span class="header-section-number">Phase 1</span> Data Visualisation</h1>
+<p><img src="Phase1Cover.png" /><!-- --></p>
+<p>Ever since the Uber’s inception into the daily lives of New Yorkers, the booming of share-riding services has added another pressure on the deteriorating taxi industry that is characterized by low profitability and high running costs <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. While the Limousine Commission (TLC) has taken measures to prioritise the benefits of the owners of those yellow taxi medallions, most notably the 2019’s cap on registered for-hire vehicles and reduction on their no-passenger roaming time <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, the yellow taxi drivers still face heavy competition from alternative modes of transportation such as the popular New York Subway. With the release of the annual TLC Yellow Taxi Trip dataset since 2009, there has been an increasing number of literatures on using this open data to identify the factors that can improve the profitability of taxi drivers. Haggag, McManus and Paci (2017) <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> proposed that pick-up and drop-off locations constitute the “neighborhood-specific experience” that helps experienced drivers optimize their routes; while Hochmair (2016) <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> suggested that different time of the day affects passenger’s preference of taxi versus public transport which affects taxi demands. Despite the use of the dataset from different years, most of the literature reported a similar pattern in taxi usage, particularly the increased in taxi trips taken during peak hours, a strong correlation between fare amount and tip amount typical of the American gratuity culture, and the significant difference in demands between Manhattan, airports and other areas in NYC <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+<p>Phase I of the project aims to investigate the patterns between pick-up locations, time and the profitability of taxi trips against the competition of public transportation using the latest 2019 dataset released by TLC. Through geovisualising the datasets, the findings of this exploratory data analysis hope to reaffirm the abovementioned trends for trips taken in 2019, as well as identifying the characteristics of a profitable driving strategy.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Jiang, S., Chen, L., Mislove, A., &amp; Wilson, C. (2018). On Ridesharing Competition and Accessibility. Proceedings Of The 2018 World Wide Web Conference On World Wide Web - WWW ’18. doi: 10.1145/3178876.3186134<a href="1-phase1.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Mayor de Blasio Puts Into Effect For-Hire Vehicle Cruising Cap and Extends License Cap. (2020). Retrieved 30 August 2020, from <a href="https://www1.nyc.gov/office-of-the-mayor/news/384-19/mayor-de-blasio-puts-effect-for-hire-vehicle-cruising-cap-extends-license-cap" class="uri">https://www1.nyc.gov/office-of-the-mayor/news/384-19/mayor-de-blasio-puts-effect-for-hire-vehicle-cruising-cap-extends-license-cap</a><a href="1-phase1.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Haggag, K., McManus, B., &amp; Paci, G. (2017). Learning by Driving: Productivity Improvements by New York City Taxi Drivers. American Economic Journal: Applied Economics, 9(1), 70-95. doi: 10.1257/app.20150059<a href="1-phase1.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Hochmair, H. (2016). Spatiotemporal Pattern Analysis of Taxi Trips in New York City. Retrieved 30 August 2020, from <a href="https://doi.org/10.3141/2542-06" class="uri">https://doi.org/10.3141/2542-06</a><a href="1-phase1.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Correa, D., Xie, K., &amp; Ozbay, K. (2017). Exploring the taxi and Uber demand in New York City: An empirical analysis and spatial modeling. In 96th Annual Meeting of the Transportation Research Board, Washington, DC.<a href="1-phase1.html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1-1-dataset.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-phase1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

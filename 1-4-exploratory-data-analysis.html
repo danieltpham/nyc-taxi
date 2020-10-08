@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.4 Exploratory Data Analysis | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</title>
+  <meta name="description" content="1.4 Exploratory Data Analysis | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.4 Exploratory Data Analysis | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.4 Exploratory Data Analysis | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  
+  
+  
+
+<meta name="author" content="Daniel Pham" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="1-3-data-preprocessing.html"/>
+<link rel="next" href="1-5-conclusion.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/core-js-2.5.3/shim.min.js"></script>
+<script src="libs/react-16.12.0/react.min.js"></script>
+<script src="libs/react-16.12.0/react-dom.min.js"></script>
+<script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/reactable-binding-0.2.2/reactable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="1-phase1.html"><a href="1-phase1.html"><i class="fa fa-check"></i><b>1</b> Data Visualisation</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html"><i class="fa fa-check"></i><b>1.1</b> Dataset</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html#tlc-yellow-taxi-2019-data"><i class="fa fa-check"></i><b>1.1.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-1-dataset.html"><a href="1-1-dataset.html#mta-static-transport-accessibility-data"><i class="fa fa-check"></i><b>1.1.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-1-dataset.html"><a href="1-1-dataset.html#qri-transport-usage-data"><i class="fa fa-check"></i><b>1.1.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html"><i class="fa fa-check"></i><b>1.2</b> Metrics &amp; Feature Selection</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1-2-metrics.html"><a href="1-2-metrics.html#pick-up-zone-profitability"><i class="fa fa-check"></i><b>1.2.1</b> Pick-up Zone Profitability</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html#hourly-demands"><i class="fa fa-check"></i><b>1.2.2</b> Hourly Demands</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-2-metrics.html"><a href="1-2-metrics.html#public-transport-competition-factor"><i class="fa fa-check"></i><b>1.2.3</b> Public Transport Competition Factor</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html"><i class="fa fa-check"></i><b>1.3</b> Data Preprocessing</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#tlc-yellow-taxi-2019-data-1"><i class="fa fa-check"></i><b>1.3.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#mta-static-transport-accessibility-data-1"><i class="fa fa-check"></i><b>1.3.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#qri-transport-usage-data-1"><i class="fa fa-check"></i><b>1.3.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1.4</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#overall-trends-of-taxi-trips"><i class="fa fa-check"></i><b>1.4.1</b> Overall trends of taxi trips</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#hotspot-analysis"><i class="fa fa-check"></i><b>1.4.2</b> Hotspot Analysis</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#effect-of-public-transport-access"><i class="fa fa-check"></i><b>1.4.3</b> Effect of Public Transport Access</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1-5-conclusion.html"><a href="1-5-conclusion.html"><i class="fa fa-check"></i><b>1.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-phase2.html"><a href="2-phase2.html"><i class="fa fa-check"></i><b>2</b> Explanatory Modelling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html"><i class="fa fa-check"></i><b>2.1</b> Dataset &amp; Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#feature-engineering"><i class="fa fa-check"></i><b>2.1.1</b> Feature Engineering</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#sampling"><i class="fa fa-check"></i><b>2.1.2</b> Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html"><i class="fa fa-check"></i><b>2.2</b> Feature Transformation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#log-transformation-of-numerical-features"><i class="fa fa-check"></i><b>2.2.1</b> Log Transformation of Numerical Features</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#factorization-of-categorical-features"><i class="fa fa-check"></i><b>2.2.2</b> Factorization of Categorical Features</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html"><i class="fa fa-check"></i><b>2.3</b> Feature Analysis</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-distribution"><i class="fa fa-check"></i><b>2.3.1</b> Feature Distribution</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#pairwise-correlation"><i class="fa fa-check"></i><b>2.3.2</b> Pairwise Correlation</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#comparison-of-spatial-resolution"><i class="fa fa-check"></i><b>2.3.3</b> Comparison of Spatial Resolution</a></li>
+<li class="chapter" data-level="2.3.4" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#categorical-numerical-feature-interactions"><i class="fa fa-check"></i><b>2.3.4</b> Categorical – Numerical Feature Interactions</a></li>
+<li class="chapter" data-level="2.3.5" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-selection-for-explanatory-models"><i class="fa fa-check"></i><b>2.3.5</b> Feature Selection for Explanatory Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html"><i class="fa fa-check"></i><b>2.4</b> Model Selection</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-additive-models"><i class="fa fa-check"></i><b>2.4.1</b> Linear Additive Models</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-interaction-models"><i class="fa fa-check"></i><b>2.4.2</b> Linear Interaction Models</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-mixed-models-8"><i class="fa fa-check"></i><b>2.4.3</b> Linear Mixed Models </a></li>
+<li class="chapter" data-level="2.4.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#experimental-design"><i class="fa fa-check"></i><b>2.4.4</b> Experimental Design</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#model-selection-metrics"><i class="fa fa-check"></i><b>2.4.5</b> Model Selection Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html"><i class="fa fa-check"></i><b>2.5</b> Modelling Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#benchmark-model-term-relevance-analysis"><i class="fa fa-check"></i><b>2.5.1</b> Benchmark Model Term Relevance Analysis</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#model-comparison-on-the-10000-instance-subsample"><i class="fa fa-check"></i><b>2.5.2</b> Model Comparison on the 10000-Instance Subsample</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#final-model-inference"><i class="fa fa-check"></i><b>2.5.3</b> Final Model Inference</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#error-analysis"><i class="fa fa-check"></i><b>2.5.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2-6-conclusion-pt2.html"><a href="2-6-conclusion-pt2.html"><i class="fa fa-check"></i><b>2.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="code-section.html"><a href="code-section.html"><i class="fa fa-check"></i>Code Section</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html"><i class="fa fa-check"></i><b>2.7</b> Data Preprocessing (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-1"><i class="fa fa-check"></i><b>2.7.1</b> Phase 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-2"><i class="fa fa-check"></i><b>2.7.2</b> Phase 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html"><i class="fa fa-check"></i><b>2.8</b> Visualisation (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#sankey-diagram"><i class="fa fa-check"></i><b>2.8.1</b> Sankey diagram</a></li>
+<li class="chapter" data-level="2.8.2" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#profitability"><i class="fa fa-check"></i><b>2.8.2</b> Profitability</a></li>
+<li class="chapter" data-level="2.8.3" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#airport-stripe"><i class="fa fa-check"></i><b>2.8.3</b> Airport stripe</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="2-9-linear-modelling-r.html"><a href="2-9-linear-modelling-r.html"><i class="fa fa-check"></i><b>2.9</b> Linear Modelling (<code>R</code>)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-data-analysis" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Exploratory Data Analysis</h2>
+<div id="overall-trends-of-taxi-trips" class="section level3" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Overall trends of taxi trips</h3>
+<p><img src="D:/DS/0_ASS1/viz/trip_by_time-of-day.png" /><!-- --></p>
+<p><em>Figure 1. Total number of trips by time of day</em></p>
+<p>The total distribution of taxi trips taken by hour of day is summarized in Figure 1. The trend shown in the histogram is congruent with past findings, wherein daily trip demand rises gradually starting from 6AM, peaks during the afternoon rush hour (from 5PM to 7PM) and then gradually decreases during the night. The differences in the afternoon peak-hour demand and the morning peak-hour demand can be attributed to weekend night-outs, as more people prefer to hail private taxi rides than public transport for this purpose. For location factor, total trip counts are projected to the NYC map based on pick-up zones (Figure 2). Three hotspot areas, namely Manhattan, LaGuardia Airport and JFK Airport, contribute significantly to the yellow taxi demand of NYC as expected. Affluent neighborhoods such as Park Avenue and Maddison Avenue (Upper East side) as well as tourist attraction areas like Time Square (Midtown) recorded the greatest number of pick-ups, followed closely by JFK and LaGuardia Airport pick-ups.</p>
+<p><img src="D:/DS/0_ASS1/viz/tripcount.png" /><!-- --></p>
+<p><em>Figure 2</em></p>
+<p>Approximately 72.1% of the trips were paid by credit card (see Table 1). Among these trips, the fare amount (excluding any tips or fees) is typically between $5 and $20, except for a significant number of trips around the $52 mark (Figure 3). These trips are mostly airport pick-ups and drop-offs, which charge a flat rate of $52 per trip between JFK and Manhattan <a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>. A number of trips also recorded negative fare amount, which initially may seem invalid since money can only be positive. However, according to the Data Dictionary, a plausible explanation for these cases may be that there was a Dispute during the transaction and the driver ended up refunding the passenger. As there are only a few of these trips (i.e., mostly outliers according to the log box plot) and considering that this is not a rare event in the taxi industry, they will not be removed for analytical purposes.</p>
+<p><img src="D:/DS/0_ASS1/viz/trip_by_fare-amount.png" /><!-- --></p>
+<p><em>Figure 3. (Left) Box plot on log scale (Right) 1000-bin histogram</em></p>
+<p>The correlation matrix in Figure 4 shows that among the other numerical attributes, there is a strong positive correlation among trip duration, trip distance and fare amount. Although it is worth noting that tip amount has the strongest correlation with fare amount, which is expected from the American tipping culture, the profitability analysis will use the total amount paid as the variable for revenue as it encompasses both tip and base fare amount. The trip duration also shows a strong correlation with the fare amount, as the TLC fares are adjusted for speed to compensate drivers who are stuck in congestion <a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>.</p>
+<p><img src="D:/DS/0_ASS1/viz/corr.png" /><!-- --></p>
+<p><em>Figure 4</em></p>
+<p>The correlation matrix also shows that pickup hour is uncorrelated with the other variables, which are used to evaluate the zone profitability as per Equation 1. This supports the assumption that zone profitability does not account for hourly demands, and thus these two areas will be analysed separately.</p>
+<p><strong>Profitability metric</strong></p>
+<p>The “Rate per trip” measure (Equation 2) is the equivalent of hourly wage for taxi driver. Unlike hourly wage, which is a fixed rate, “Rate per trip” takes into account the efficiency of the driver; meaning that for the same trip distance, faster drivers will earn more than slower drivers. Interestingly, the rate per trip distribution (Figure 4 right) is inversely proportionate to taxi demand by zones shown earlier in Figure 2. One explanation is that trips beginning in the non-central areas are usually longer than those that circulate Manhattan, consequently netting a larger amount of total fare. Furthermore, the duration of these trips may also be shorter than trips originated from hotspots areas, as they may go on fast tollways and are thus less likely to experience traffic congestion.</p>
+<p><img src="D:/DS/0_ASS1/viz/profit.png" /><!-- --></p>
+<p><em>Figure 5. Profitability by pick-up zones</em></p>
+<p>However, this does not mean that taxi drivers should expect higher profitability from picking up passengers in these areas, as “rate per trip” does not take into account the frequency of trips (i.e., taxi demand) in each zone. The “zone profitability” (Equation 1) combines both information in one metric and is visualized on Figure 4 (left). By adjusting for zone demand, zones with high “rate per trip” are no longer desirable as they are far less frequent than trips from the three hotspot areas. Areas between the two airports are also moderately profitable, suggesting that aside from the typical Airport – Manhattan routes, taxi drivers can also look forward to profit made from trips between LGA – JFK.</p>
+</div>
+<div id="hotspot-analysis" class="section level3" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Hotspot Analysis</h3>
+<p>From our initial analysis and zone profitability visualization, it is clear that roaming around the hotspot areas, namely Manhattan and the two Airports, has a distinct advantage over seeking for pickups in non-central areas. The sheer taxi demand guarantees that a strategy focusing on targeting pickups in these areas is profitable in the long run. The following analysis further breaks down the characteristics of trips that are picked-up in these areas according to time of the day.</p>
+<p><strong>Manhattan</strong></p>
+<p><img src="D:/DS/0_ASS1/viz/Manhattan/begin_in_manhattan.png" /><!-- --></p>
+<p><em>Figure 6</em></p>
+<p>A sample of 10,000 trips that were picked-up in Manhattan were randomly selected. Figure 6a shows that nearly 80% of the trips originated in Manhattan also finish in Manhattan, and only a small number of those trips are towards the airports. The Sankey Transition Diagram (Figure 7) further breaks down the flow of these trips by drop-off locations. For each of the three sections of Manhattan, nearly half of the trips begin and end within the section, suggesting that the majority of taxi trips are short haul and is consistent with the fare amount distribution identified earlier. By far, Midtown Manhattan records the highest taxi demand, and inner city drivers can be reassured that there is a relatively low chance that the drop-off location of their trip falls outside the highly profitable zones (in which case they may have to undesirably drive back to the profitable zones to roam for new pick-ups, incurring a logistical cost).</p>
+<p><img src="D:/DS/0_ASS1/viz/Manhattan/sankey.png" /><!-- --></p>
+<p><em>Figure 7. Transition diagram depicting the proportion drop-off locations for trips beginning in each of the 6 areas. The size of the column is proportional to the number of trips beginning in that particular area.</em></p>
+<p>However, trips that take a driver out of a profitable zone generally net a higher total amount in returns (Figure 6b) albeit a high variance. These trips are most lucrative and common around the graveyard hours (10PM – 2AM), where public transport is more infrequent. The same scatterplot also gleans at the profitability of trips towards JFK Airport, which is generally much higher than the $52 flat rate due to high tip amount (between $60 and $80 in total). In comparison, trips towards LaGuardia Airport cost around $20 less. Trips towards both airports from Manhattan are notably only during working hours (5AM – 5PM).</p>
+<p><strong>Airport</strong></p>
+<p>Figure 8 shows the distribution heatmap of trips to and from the two major airports, broken down by time of the day and the origin or destination zones. While the drop-off pattern is similar for both airport, which is consistent with the findings from the scatterplot earlier, there is a clear cooldown period for pick-ups from LGA between 2AM and 5AM in contrast to JFK Airport where there is consistent pick-ups at all hours of the day. This suggests that targeting late trips to the airports are not favorable, as there is a high chance of not finding a potential pick-up after completing these trips. Although trips towards the airports from Manhattan are not very frequent as previously shown, they still account for most trips concluding at the airports, especially if the pick-up locations are from areas with high tourist density such as Midtown, Time Square and Upper Manhattan. Additionally, Yorkville and Hell’s Kitchen are the two residential neighborhoods with frequent taxi trips to and from the airports, as they are home to affluent young people with travelling as part of their working lives. The taxi zones between the airports also see an above-average demand throughout the day, supporting the findings from the log profitability choropleth map.</p>
+<p><img src="D:/DS/0_ASS1/viz/Airport/Airport.jpg" /><!-- --></p>
+<p><em>Figure 8. Each stripe is a trip count distribution heatmap, with the horizontal axis being the 131 taxi zones in ascending order from left to right, and the vertical axis being the time of day starting at 0AM from the top.</em></p>
+</div>
+<div id="effect-of-public-transport-access" class="section level3" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Effect of Public Transport Access</h3>
+<p><strong>Preferred mode of transportation</strong></p>
+<p>Figure 9a shows the daily average number of public transport entries as recorded by the turnstile usage data. Although non-central areas with low taxi usage were expected to see a higher public transport usage than the hotspots areas, it is not too surprising to see that the majority of trips on public transport still occurs in Manhattan. Most notably, Hell’s Kitchen attracts the highest number of commuters, while East Village also sees an average of more than 40000 public transport users a day. Consequently, the mode preference ratio is negative for these areas, suggesting a tendency towards public transportation, as compared to other Manhattan areas where passengers prefer taxi over subway (Figure 9b). Despite this, the numbers of taxi trips hailed from these two areas remain as high as the rest of Manhattan (Figure 2), which indicates that there is little competition between the subway and taxi industry in Manhattan as there are sufficiently high demands for both modes of transportation to cater for passengers. On the other hand, there is no subway connection to the two airports, which effectively limits potential taxi competitors to just personal vehicles and other share-riding services. Moreover, the lack of any clear mode preference in the non-central areas, coupled with abovementioned relatively low usage in both public transport and yellow taxis, suggests that residents in these areas may travel in their own cars. Further investigation into these alternative modes of transportation would benefit a big picture understanding of the transportation habits of NYC residents.</p>
+<p><img src="D:/DS/0_ASS1/viz/ptUsage.png" /><!-- --></p>
+<p><em>Figure 9</em></p>
+<p><strong>Transport Access Time (TAT)</strong></p>
+<p>The TAT measure offers a possible explanation to why residents would prefer public transport over taxis, as a zone with a low TAT means that public transport is more accessible and is a cheaper alternative to hailing a taxi. While TAT correlates strongly with the distance to the nearest station (Figure 10), areas with low TAT still overlaps with areas with a higher preference for taxis, especially in Manhattan. This suggests that accessibility does not play an important role in deciding the mode of transportation to use, and that most New Yorkers still prefer taxis for their convenience and higher privacy.</p>
+<p><img src="D:/DS/0_ASS1/viz/TAT/TAT.jpg" /><!-- --></p>
+<p><em>Figure 10</em></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="15">
+<li id="fn15"><p>Taxi car and van service. (2020). Retrieved 30 August 2020, from <a href="https://www.jfkairport.com/to-from-airport/taxi-car-and-van-service" class="uri">https://www.jfkairport.com/to-from-airport/taxi-car-and-van-service</a><a href="1-4-exploratory-data-analysis.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>Taxi Fare - TLC. (2020). Retrieved 30 August 2020, from <a href="https://www1.nyc.gov/site/tlc/passengers/taxi-fare.page" class="uri">https://www1.nyc.gov/site/tlc/passengers/taxi-fare.page</a><a href="1-4-exploratory-data-analysis.html#fnref16" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="1-3-data-preprocessing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1-5-conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-phase1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

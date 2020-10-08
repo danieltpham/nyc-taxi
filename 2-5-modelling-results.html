@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.5 Modelling Results | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</title>
+  <meta name="description" content="2.5 Modelling Results | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.5 Modelling Results | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.5 Modelling Results | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  
+  
+  
+
+<meta name="author" content="Daniel Pham" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="2-4-model-selection.html"/>
+<link rel="next" href="2-6-conclusion-pt2.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/core-js-2.5.3/shim.min.js"></script>
+<script src="libs/react-16.12.0/react.min.js"></script>
+<script src="libs/react-16.12.0/react-dom.min.js"></script>
+<script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/reactable-binding-0.2.2/reactable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="1-phase1.html"><a href="1-phase1.html"><i class="fa fa-check"></i><b>1</b> Data Visualisation</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html"><i class="fa fa-check"></i><b>1.1</b> Dataset</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html#tlc-yellow-taxi-2019-data"><i class="fa fa-check"></i><b>1.1.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-1-dataset.html"><a href="1-1-dataset.html#mta-static-transport-accessibility-data"><i class="fa fa-check"></i><b>1.1.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-1-dataset.html"><a href="1-1-dataset.html#qri-transport-usage-data"><i class="fa fa-check"></i><b>1.1.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html"><i class="fa fa-check"></i><b>1.2</b> Metrics &amp; Feature Selection</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1-2-metrics.html"><a href="1-2-metrics.html#pick-up-zone-profitability"><i class="fa fa-check"></i><b>1.2.1</b> Pick-up Zone Profitability</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html#hourly-demands"><i class="fa fa-check"></i><b>1.2.2</b> Hourly Demands</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-2-metrics.html"><a href="1-2-metrics.html#public-transport-competition-factor"><i class="fa fa-check"></i><b>1.2.3</b> Public Transport Competition Factor</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html"><i class="fa fa-check"></i><b>1.3</b> Data Preprocessing</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#tlc-yellow-taxi-2019-data-1"><i class="fa fa-check"></i><b>1.3.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#mta-static-transport-accessibility-data-1"><i class="fa fa-check"></i><b>1.3.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#qri-transport-usage-data-1"><i class="fa fa-check"></i><b>1.3.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1.4</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#overall-trends-of-taxi-trips"><i class="fa fa-check"></i><b>1.4.1</b> Overall trends of taxi trips</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#hotspot-analysis"><i class="fa fa-check"></i><b>1.4.2</b> Hotspot Analysis</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#effect-of-public-transport-access"><i class="fa fa-check"></i><b>1.4.3</b> Effect of Public Transport Access</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1-5-conclusion.html"><a href="1-5-conclusion.html"><i class="fa fa-check"></i><b>1.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-phase2.html"><a href="2-phase2.html"><i class="fa fa-check"></i><b>2</b> Explanatory Modelling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html"><i class="fa fa-check"></i><b>2.1</b> Dataset &amp; Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#feature-engineering"><i class="fa fa-check"></i><b>2.1.1</b> Feature Engineering</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#sampling"><i class="fa fa-check"></i><b>2.1.2</b> Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html"><i class="fa fa-check"></i><b>2.2</b> Feature Transformation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#log-transformation-of-numerical-features"><i class="fa fa-check"></i><b>2.2.1</b> Log Transformation of Numerical Features</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#factorization-of-categorical-features"><i class="fa fa-check"></i><b>2.2.2</b> Factorization of Categorical Features</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html"><i class="fa fa-check"></i><b>2.3</b> Feature Analysis</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-distribution"><i class="fa fa-check"></i><b>2.3.1</b> Feature Distribution</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#pairwise-correlation"><i class="fa fa-check"></i><b>2.3.2</b> Pairwise Correlation</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#comparison-of-spatial-resolution"><i class="fa fa-check"></i><b>2.3.3</b> Comparison of Spatial Resolution</a></li>
+<li class="chapter" data-level="2.3.4" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#categorical-numerical-feature-interactions"><i class="fa fa-check"></i><b>2.3.4</b> Categorical – Numerical Feature Interactions</a></li>
+<li class="chapter" data-level="2.3.5" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-selection-for-explanatory-models"><i class="fa fa-check"></i><b>2.3.5</b> Feature Selection for Explanatory Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html"><i class="fa fa-check"></i><b>2.4</b> Model Selection</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-additive-models"><i class="fa fa-check"></i><b>2.4.1</b> Linear Additive Models</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-interaction-models"><i class="fa fa-check"></i><b>2.4.2</b> Linear Interaction Models</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-mixed-models-8"><i class="fa fa-check"></i><b>2.4.3</b> Linear Mixed Models </a></li>
+<li class="chapter" data-level="2.4.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#experimental-design"><i class="fa fa-check"></i><b>2.4.4</b> Experimental Design</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#model-selection-metrics"><i class="fa fa-check"></i><b>2.4.5</b> Model Selection Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html"><i class="fa fa-check"></i><b>2.5</b> Modelling Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#benchmark-model-term-relevance-analysis"><i class="fa fa-check"></i><b>2.5.1</b> Benchmark Model Term Relevance Analysis</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#model-comparison-on-the-10000-instance-subsample"><i class="fa fa-check"></i><b>2.5.2</b> Model Comparison on the 10000-Instance Subsample</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#final-model-inference"><i class="fa fa-check"></i><b>2.5.3</b> Final Model Inference</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#error-analysis"><i class="fa fa-check"></i><b>2.5.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2-6-conclusion-pt2.html"><a href="2-6-conclusion-pt2.html"><i class="fa fa-check"></i><b>2.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="code-section.html"><a href="code-section.html"><i class="fa fa-check"></i>Code Section</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html"><i class="fa fa-check"></i><b>2.7</b> Data Preprocessing (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-1"><i class="fa fa-check"></i><b>2.7.1</b> Phase 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-2"><i class="fa fa-check"></i><b>2.7.2</b> Phase 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html"><i class="fa fa-check"></i><b>2.8</b> Visualisation (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#sankey-diagram"><i class="fa fa-check"></i><b>2.8.1</b> Sankey diagram</a></li>
+<li class="chapter" data-level="2.8.2" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#profitability"><i class="fa fa-check"></i><b>2.8.2</b> Profitability</a></li>
+<li class="chapter" data-level="2.8.3" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#airport-stripe"><i class="fa fa-check"></i><b>2.8.3</b> Airport stripe</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="2-9-linear-modelling-r.html"><a href="2-9-linear-modelling-r.html"><i class="fa fa-check"></i><b>2.9</b> Linear Modelling (<code>R</code>)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelling-results" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Modelling Results</h2>
+<div id="benchmark-model-term-relevance-analysis" class="section level3" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Benchmark Model Term Relevance Analysis</h3>
+<p><a id=tab:tbl4></a></p>
+<p>Table 4: <strong>Benchmark Model M0 ANOVA Results</strong></p>
+<div id="htmlwidget-4fcf0c7ee1b6602ad677" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4fcf0c7ee1b6602ad677">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Predictor":["TAT","Duration","PUArea","DOArea","Duration:PUArea","Duration:DOArea","PUArea:DOArea","Error"],"Sum.of.Squares":[101.95,316.74,3.77,17.37,2.5,3.21,15.04,55.66],"DF":[1,1,5,5,5,5,25,9952],"Mean.Square":[101.95,316.74,0.75,3.47,0.5,0.64,0.6,0.01],"F":["18227.851","56628.468","134.94","620.974","89.233","114.91","107.539","-"]},"columns":[{"accessor":"Predictor","name":"Predictor","type":"character"},{"accessor":"Sum.of.Squares","name":"Sum.of.Squares","type":"numeric"},{"accessor":"DF","name":"DF","type":"numeric"},{"accessor":"Mean.Square","name":"Mean.Square","type":"numeric"},{"accessor":"F","name":"F","type":"character"}],"defaultPageSize":8,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e7fbb96f88f55aa673bf9ab368f1552b","key":"e7fbb96f88f55aa673bf9ab368f1552b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p>Table 4 reports the ANOVA analysis on the resulting coefficients of the AIC-based stepwise selection on the largest possible interaction model from the 4 selected predictors. As expected, there is a strong presence of interaction between Duration and Areas, especially the influence of drop-off areas on the trip duration. This result is not surprising since the destination should logically have a higher impact on the duration of the trip than the origin. This effect is also present in the direct effect of Areas on Total amount itself (the non-interaction terms), where the F-value for DOArea is observably higher than for PUArea and can be explained in a similar fashion. Comparing the F-values, however, only provides a relative indicator of which location information affects the Total amount and Duration more, rather than the magnitude of such effects. Nevertheless, the results imply that area-based grouping is efficient in retaining relevant information about the linear relationship at a cost of just 5 extra degrees of freedom.
+Another interesting is that although TAT has a significant relationship with Total amount, it does not interact with other features. One explanation for the non-interaction is that TAT itself has already embedded location-related information (as well as time-related information yet not clearly seen due to the omission of the Hour feature). On the other hand, the pairwise scatterplot also did not pick up on any significant relationship between TAT and Duration.</p>
+</div>
+<div id="model-comparison-on-the-10000-instance-subsample" class="section level3" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Model Comparison on the 10000-Instance Subsample</h3>
+<div id="htmlwidget-dc72614b81ea4f860842" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-dc72614b81ea4f860842">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Model":["M0 *","M1","M2","M3","M4","M5","M6","M7","M8","M9"],"AIC":[-23433.17387,-15553.63537,-20127.47713,-20335.31494,-22455.9248,-20910.08568,-23324.01015,-20009.00826,-20747.1262,-20622.05532],"DF":["49","3","13","14","38","23","48","-","-","-"],"MRL":[1,0,0,0,6.21e-213,0,1.97e-24,0,0,0],"RMSE":[1.184502991,1.279160499,1.2170065,1.214824167,1.194600268,1.210146046,1.185776795,1.2170065,1.210051892,1.211498572]},"columns":[{"accessor":"Model","name":"Model","type":"character"},{"accessor":"AIC","name":"AIC","type":"numeric"},{"accessor":"DF","name":"DF","type":"character"},{"accessor":"MRL","name":"MRL","type":"numeric"},{"accessor":"RMSE","name":"RMSE","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"b3f8eb5324d74fe93b7003a6bc152a84","key":"b3f8eb5324d74fe93b7003a6bc152a84"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p><img src="D:/DS/0_ASS1/ASS2/Viz/Model-comparison.png" /><!-- --></p>
+<p>The table and grouped bar plot above present the evaluation for the performance of all 10 models (recall that we are looking for lower values for both AIC and RMSE, so the darker the column implies a better fit of the model). Overall, although none of the alternative models surpasses the benchmark model in both AIC and RMSE, the differences in RMSE is trivial if rounding to the nearest cent is applied with each model’s average error is around $1.21 on any given prediction. Moreover, the AIC is consistent with RMSE, and the model relative likelihood column full of zeroes further highlights the benchmark superior performance over the alternative models. As such, the only model that will be further investigated is the benchmark M0.</p>
+<p><strong>Effect of Duration</strong></p>
+<p><img src="D:/DS/0_ASS1/ASS2/Viz/Diagnostic_LM.png" /><!-- --></p>
+<p><em>Figure 3. Standard diagnostics plot for M0 and M1</em></p>
+<p>The baseline model M1, despite recording the worst RMSE, isolates and reveals how strongly Duration drives the final Total amount of a trip. Compared to M1, the predictive power of the best-performing model M0 only increases by approximately $0.1 at the cost of 46 extra terms in the model, implying that as expected, the single major driver for the fare amount is the duration of the trip. However, the standard diagnostic plots for M1 (Figure 3) see some noticeable trends in the error distribution of the predictions, which violate the assumptions of a Linear Model. While this does not rule out the linear relationship between the two variables, it shows that a linear fit on Duration tends to overestimate Total amount, especially for trips totaling under $10 and more than $30. Compared this to the diagnostic plots for M0, the additional terms and interactions show significant improvement in “linearising” the predictions.</p>
+<p><strong>Effect of Areas</strong></p>
+<p>Perhaps two of the most significant results from Table 2 is the performance increase from M1 to M2 as we added the Area terms, and from M2 to M4 as we changed the relationship from additive to interactive. The additive improvement supports the findings from the Feature Analysis, as the baseline costs (i.e., the intercepts) for trips beginning in one area are different from another. While Duration is highly correlated to Total amount, the inclusion of Area terms helps to differentiate between long duration – short distance trips (e.g., trips in traffic jams) and long duration – long distance trips, as we opted not to include Distance as a predictor due to multicollinearity. The different factor levels in PUArea and DOArea serve as a rough estimate of trip distance, which can explain why performance improves. A visualization of the additive effect, as well as its mixed model equivalence (M7), is demonstrated in Figure 4.</p>
+<p><img src="D:/DS/0_ASS1/ASS2/Viz/Model-fits.png" /><!-- --></p>
+<p><em>Figure 4. Model fits (the dotted lines are LMEs and dashed lines are LMs). Note that LMEs and LMs are the same here.</em></p>
+<p>Meanwhile, the interactive model M4 is the second-best model notwithstanding M0, which further highlights the effects of different PUArea - DOArea combinations, rather than assuming that each area only individually affects Total amount. The intercept term for this model can be interpreted as a baseline distance, with 36 possible values, hence provides more information about the Total amount.</p>
+<p><strong>Effect of interactions between Duration and Areas</strong></p>
+<p>M5 provides information about how different Areas change the effect of Duration on Total amount. Not surprisingly, the interactive model M5 does not perform as well as M4, as the information about distance is not captured without the interaction between PUArea and DOArea.</p>
+<p><strong>Effect of TAT</strong></p>
+<p>Evidence from comparing M2 with M3 and M0 with M6 shows that the effect of TAT on Total amount is not as noticeable as other predictors, as it only increases predictive power by under $0.01. This is not surprising following the results from Phase 1, where it has been found that availability of public transport does not strongly influence the demand for taxi. Nonetheless, TAT remains a relevant predictor in the benchmark model with high significance (Table 4) and therefore will not be ruled out in the final model.</p>
+<p><strong>Random Effects</strong></p>
+<p>As mentioned in the Model section, LMEs can be thought of as a slightly improved version of LMs with more structured in its relationship. Therefore, it is expected that if the random effects are modelled correctly, the LMEs perform at least as well as its corresponding LM equivalents (i.e., treating the random effects as fixed effects) in terms of RMSE. Equivalent pairs in the current design are M2 – M7, M4 – M8, M3 – M9. The results show that for the current relationship, modelling Duration or TAT as random effects based on different Areas does not provide any significant improvement or even a different result (Figure 4) and thus interactive models are a better option. The result also implies that Duration and TAT does not seem to follow any specific distribution within each factor level of Areas, confirming good feature selection without any latent correlation.</p>
+</div>
+<div id="final-model-inference" class="section level3" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Final Model Inference</h3>
+<p>The benchmark model M0 is trained on the full training set and evaluated on the full testing set. With a training result of <span class="math inline">\(R^2 = 0.8965\)</span> and <span class="math inline">\(RSE = 10^{0.07249} = 1.18\)</span>, the final model does not vary much from the sampled model during evaluation, recording a <span class="math inline">\(RMSE = 1.183\)</span>. The stability of the results confirms the effectiveness of the sampling strategy used, as well as the validity of using the final model to infer the relationship between Total amount and the predictors. The reverse-transformed regression results are recorded in Table 5, which sheds light on the magnitude of the abovementioned effects from the various predictors. Using a fixed-variable cost model, with an increment of 10 minutes in trip duration, we can make simplified interpretation of the regression as:
+<span class="math display">\[\text{Total amount} = \text{Fixed base rate} + \text{Variable rate} * \text{Duration}\]</span>
+Note that since the interaction model implies a different base rate for each PUArea-DOArea combination, it does not make sense to analyse the coefficients in separation. For example, a LGA-bound trip from Midtown with a fixed base rate of $15.78 and variable rate of $2.19 does not necessarily net a higher total amount than a LGA-bound trip from Downtown with a fixed base rate of $14.36 as the latter has a higher variable rate of $2.26.</p>
+<p><a id=tab:tbl5></a></p>
+<p>Table 5: <strong>Reverse-transformed regression results of the final model</strong></p>
+<div id="htmlwidget-952bbc2849913a8a444a" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-952bbc2849913a8a444a">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Pick.up":["Downtown","Downtown","Downtown","Downtown","Downtown","Downtown","JFK","JFK","JFK","JFK","JFK","JFK","LGA","LGA","LGA","LGA","LGA","LGA","Midtown","Midtown","Midtown","Midtown","Midtown","Midtown","Other","Other","Other","Other","Other","Other","Uptown","Uptown","Uptown","Uptown","Uptown","Uptown"],"Drop.off":["JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other"],"Intercept":[47.32740922,14.35735482,6.011250337,5.002508685,4.4065665,3.206254599,187.261707,56.80815444,23.7848853,19.79356849,17.43558709,12.68627883,107.1920083,32.5180212,13.6149011,11.33019874,9.980447281,7.261856822,52.02770892,15.78324886,6.608254877,5.499330516,4.844202609,3.524682288,64.42320428,19.54357565,8.182658101,6.809534777,5.998323984,4.364430643,69.35232327,21.03888485,8.808725926,7.330542813,6.457265028,4.69835998],"Duration":[1.207554891,2.263806445,2.87534296,2.87979412,3.085309379,4.921262997,-1.277139755,1.467891605,1.864422554,1.867308763,2.000568444,3.191032809,1.043801137,1.956816836,2.485424284,2.489271832,2.666917638,4.253901789,1.169786752,2.193002412,2.785412181,2.789724124,2.988811577,4.767342918,1.232025854,2.309682225,2.933611459,2.938152821,3.147832823,5.020991833,1.085230242,2.034484092,2.584072293,2.588072553,2.772769229,4.422741751]},"columns":[{"accessor":"Pick.up","name":"Pick.up","type":"character"},{"accessor":"Drop.off","name":"Drop.off","type":"character"},{"accessor":"Intercept","name":"Intercept","type":"numeric"},{"accessor":"Duration","name":"Duration","type":"numeric"}],"defaultPageSize":36,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e0264f2103f8ea7491e91ed07374084c","key":"e0264f2103f8ea7491e91ed07374084c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<p><strong>Interpretations of fixed &amp; variable rates</strong></p>
+<p>Overall, variable rates are higher for the non-hotspot areas as they cover a much wider number of zones than the other five areas (note that the variable rates can assume an analogous role of a standard deviation), whereas airport-related trips enjoy an expectedly higher base rate. Trips within Manhattan have a base rate of only around $4 to $5, and for every 10 minutes within this metro area, the taxi drivers can average between $2.5 to $3. Trips around the Uptown zones have a higher base rate than in Midtown and Downtown, while the variable rates are around $0.5 higher in the latter two areas. One explanation could be due to the higher traffic around the tourist attraction areas such as Time Square, Rockefeller (Midtown) and Soho, Tribeca (Downtown), which may incur higher travelling time. This finding also highlights the advantage of taxi drivers over Uber drivers when driving in Manhattan, as Uber fees are distance-based rather than duration-based, thus do not protect drivers from being disadvantaged in high traffic situation.</p>
+<p>However, not all regression coefficients in the model are fully comprehensible. Particularly, base rate estimates for the JFK-JFK and LGA-JFK cases are unusually high, at more than $100 for trips that supposedly begin and end at the same area. A closer look at these trips in the training set reveals that the fare amount of these trips is indeed incredibly high despite the short distance, and hence potentially fraudulent or erroneous trip records in the data collection stage instead of model-related issues.</p>
+<p><strong>Interpretation of TAT effects</strong></p>
+<p>Since there is no interaction term for TAT, a regression coefficient of 1.01 means that taxi trips will cost $1 more for every 1 minute further away from the nearest subway station.</p>
+</div>
+<div id="error-analysis" class="section level3" number="2.5.4">
+<h3><span class="header-section-number">2.5.4</span> Error Analysis</h3>
+<p>Figure 5 summarises the distribution of reversed-transformed prediction errors for each PUArea – DOArea combination on the 199999 test instances. Trips picking up in Downtown and Midtown seems to have the most consistent predictions, while the airport trips have a much higher error range which seems to stem from the regression coefficient issues discussed earlier. The relative length of the whiskers also corresponds to the variable rates related to each combination, further cementing the validity of the coefficient inferences. While the results look approximately consistent across the areas, it is worth noticing that we did not extend the scope of error analysis to the outliers in the distribution, some of which are as extreme as $10 off the actual values.</p>
+<p><img src="D:/DS/0_ASS1/ASS2/Viz/error-distribution.JPG" /><!-- --></p>
+<p><em>Figure 5. Error Analysis</em></p>
+<p>Future work should allow for outlier analysis to reveal even more information about the more extreme trips in which the ordinary relationship between pick-up area, drop-off area, duration, TAT and total amount is not honoured due to special circumstances.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="2-4-model-selection.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="2-6-conclusion-pt2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-phase2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

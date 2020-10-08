@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.7 Data Preprocessing (Python) | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</title>
+  <meta name="description" content="2.7 Data Preprocessing (Python) | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.7 Data Preprocessing (Python) | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.7 Data Preprocessing (Python) | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  
+  
+  
+
+<meta name="author" content="Daniel Pham" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="code-section.html"/>
+<link rel="next" href="2-8-visualisation-python.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/core-js-2.5.3/shim.min.js"></script>
+<script src="libs/react-16.12.0/react.min.js"></script>
+<script src="libs/react-16.12.0/react-dom.min.js"></script>
+<script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/reactable-binding-0.2.2/reactable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="1-phase1.html"><a href="1-phase1.html"><i class="fa fa-check"></i><b>1</b> Data Visualisation</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html"><i class="fa fa-check"></i><b>1.1</b> Dataset</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html#tlc-yellow-taxi-2019-data"><i class="fa fa-check"></i><b>1.1.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-1-dataset.html"><a href="1-1-dataset.html#mta-static-transport-accessibility-data"><i class="fa fa-check"></i><b>1.1.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-1-dataset.html"><a href="1-1-dataset.html#qri-transport-usage-data"><i class="fa fa-check"></i><b>1.1.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html"><i class="fa fa-check"></i><b>1.2</b> Metrics &amp; Feature Selection</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1-2-metrics.html"><a href="1-2-metrics.html#pick-up-zone-profitability"><i class="fa fa-check"></i><b>1.2.1</b> Pick-up Zone Profitability</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html#hourly-demands"><i class="fa fa-check"></i><b>1.2.2</b> Hourly Demands</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-2-metrics.html"><a href="1-2-metrics.html#public-transport-competition-factor"><i class="fa fa-check"></i><b>1.2.3</b> Public Transport Competition Factor</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html"><i class="fa fa-check"></i><b>1.3</b> Data Preprocessing</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#tlc-yellow-taxi-2019-data-1"><i class="fa fa-check"></i><b>1.3.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#mta-static-transport-accessibility-data-1"><i class="fa fa-check"></i><b>1.3.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#qri-transport-usage-data-1"><i class="fa fa-check"></i><b>1.3.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1.4</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#overall-trends-of-taxi-trips"><i class="fa fa-check"></i><b>1.4.1</b> Overall trends of taxi trips</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#hotspot-analysis"><i class="fa fa-check"></i><b>1.4.2</b> Hotspot Analysis</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#effect-of-public-transport-access"><i class="fa fa-check"></i><b>1.4.3</b> Effect of Public Transport Access</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1-5-conclusion.html"><a href="1-5-conclusion.html"><i class="fa fa-check"></i><b>1.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-phase2.html"><a href="2-phase2.html"><i class="fa fa-check"></i><b>2</b> Explanatory Modelling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html"><i class="fa fa-check"></i><b>2.1</b> Dataset &amp; Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#feature-engineering"><i class="fa fa-check"></i><b>2.1.1</b> Feature Engineering</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#sampling"><i class="fa fa-check"></i><b>2.1.2</b> Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html"><i class="fa fa-check"></i><b>2.2</b> Feature Transformation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#log-transformation-of-numerical-features"><i class="fa fa-check"></i><b>2.2.1</b> Log Transformation of Numerical Features</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#factorization-of-categorical-features"><i class="fa fa-check"></i><b>2.2.2</b> Factorization of Categorical Features</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html"><i class="fa fa-check"></i><b>2.3</b> Feature Analysis</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-distribution"><i class="fa fa-check"></i><b>2.3.1</b> Feature Distribution</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#pairwise-correlation"><i class="fa fa-check"></i><b>2.3.2</b> Pairwise Correlation</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#comparison-of-spatial-resolution"><i class="fa fa-check"></i><b>2.3.3</b> Comparison of Spatial Resolution</a></li>
+<li class="chapter" data-level="2.3.4" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#categorical-numerical-feature-interactions"><i class="fa fa-check"></i><b>2.3.4</b> Categorical – Numerical Feature Interactions</a></li>
+<li class="chapter" data-level="2.3.5" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-selection-for-explanatory-models"><i class="fa fa-check"></i><b>2.3.5</b> Feature Selection for Explanatory Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html"><i class="fa fa-check"></i><b>2.4</b> Model Selection</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-additive-models"><i class="fa fa-check"></i><b>2.4.1</b> Linear Additive Models</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-interaction-models"><i class="fa fa-check"></i><b>2.4.2</b> Linear Interaction Models</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-mixed-models-8"><i class="fa fa-check"></i><b>2.4.3</b> Linear Mixed Models </a></li>
+<li class="chapter" data-level="2.4.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#experimental-design"><i class="fa fa-check"></i><b>2.4.4</b> Experimental Design</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#model-selection-metrics"><i class="fa fa-check"></i><b>2.4.5</b> Model Selection Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html"><i class="fa fa-check"></i><b>2.5</b> Modelling Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#benchmark-model-term-relevance-analysis"><i class="fa fa-check"></i><b>2.5.1</b> Benchmark Model Term Relevance Analysis</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#model-comparison-on-the-10000-instance-subsample"><i class="fa fa-check"></i><b>2.5.2</b> Model Comparison on the 10000-Instance Subsample</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#final-model-inference"><i class="fa fa-check"></i><b>2.5.3</b> Final Model Inference</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#error-analysis"><i class="fa fa-check"></i><b>2.5.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2-6-conclusion-pt2.html"><a href="2-6-conclusion-pt2.html"><i class="fa fa-check"></i><b>2.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="code-section.html"><a href="code-section.html"><i class="fa fa-check"></i>Code Section</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html"><i class="fa fa-check"></i><b>2.7</b> Data Preprocessing (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-1"><i class="fa fa-check"></i><b>2.7.1</b> Phase 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-2"><i class="fa fa-check"></i><b>2.7.2</b> Phase 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html"><i class="fa fa-check"></i><b>2.8</b> Visualisation (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#sankey-diagram"><i class="fa fa-check"></i><b>2.8.1</b> Sankey diagram</a></li>
+<li class="chapter" data-level="2.8.2" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#profitability"><i class="fa fa-check"></i><b>2.8.2</b> Profitability</a></li>
+<li class="chapter" data-level="2.8.3" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#airport-stripe"><i class="fa fa-check"></i><b>2.8.3</b> Airport stripe</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="2-9-linear-modelling-r.html"><a href="2-9-linear-modelling-r.html"><i class="fa fa-check"></i><b>2.9</b> Linear Modelling (<code>R</code>)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-preprocessing-python" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Data Preprocessing (<code>Python</code>)</h2>
+<div id="phase-1" class="section level3" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Phase 1</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="2-7-data-preprocessing-python.html#cb1-1" aria-hidden="true"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-2"><a href="2-7-data-preprocessing-python.html#cb1-2" aria-hidden="true"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb1-3"><a href="2-7-data-preprocessing-python.html#cb1-3" aria-hidden="true"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
+<span id="cb1-4"><a href="2-7-data-preprocessing-python.html#cb1-4" aria-hidden="true"></a><span class="im">import</span> os</span>
+<span id="cb1-5"><a href="2-7-data-preprocessing-python.html#cb1-5" aria-hidden="true"></a><span class="kw">def</span> preprocessing(path, month, save_name, sample<span class="op">=</span><span class="va">False</span>, profiling<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb1-6"><a href="2-7-data-preprocessing-python.html#cb1-6" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;FILENAME:&#39;</span>,path)</span>
+<span id="cb1-7"><a href="2-7-data-preprocessing-python.html#cb1-7" aria-hidden="true"></a>    <span class="cf">if</span> sample:</span>
+<span id="cb1-8"><a href="2-7-data-preprocessing-python.html#cb1-8" aria-hidden="true"></a>        df <span class="op">=</span> pd.read_csv(path, index_col<span class="op">=</span><span class="dv">0</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-9"><a href="2-7-data-preprocessing-python.html#cb1-9" aria-hidden="true"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-10"><a href="2-7-data-preprocessing-python.html#cb1-10" aria-hidden="true"></a>        df <span class="op">=</span> pd.read_csv(path)</span>
+<span id="cb1-11"><a href="2-7-data-preprocessing-python.html#cb1-11" aria-hidden="true"></a>        </span>
+<span id="cb1-12"><a href="2-7-data-preprocessing-python.html#cb1-12" aria-hidden="true"></a>    n_rows <span class="op">=</span> df.shape[<span class="dv">0</span>] <span class="co"># Original number of rows</span></span>
+<span id="cb1-13"><a href="2-7-data-preprocessing-python.html#cb1-13" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[0] Number of trips in the raw dataset:&#39;</span>, n_rows)</span>
+<span id="cb1-14"><a href="2-7-data-preprocessing-python.html#cb1-14" aria-hidden="true"></a>    </span>
+<span id="cb1-15"><a href="2-7-data-preprocessing-python.html#cb1-15" aria-hidden="true"></a>    <span class="co"># Feature selection</span></span>
+<span id="cb1-16"><a href="2-7-data-preprocessing-python.html#cb1-16" aria-hidden="true"></a>    extraction <span class="op">=</span> [<span class="st">&#39;trip_distance&#39;</span>, <span class="st">&#39;DOLocationID&#39;</span>,</span>
+<span id="cb1-17"><a href="2-7-data-preprocessing-python.html#cb1-17" aria-hidden="true"></a>                  <span class="st">&#39;PULocationID&#39;</span>, <span class="st">&#39;tpep_pickup_datetime&#39;</span>, <span class="st">&#39;tpep_dropoff_datetime&#39;</span>,</span>
+<span id="cb1-18"><a href="2-7-data-preprocessing-python.html#cb1-18" aria-hidden="true"></a>                  <span class="st">&#39;payment_type&#39;</span>, <span class="st">&#39;fare_amount&#39;</span>, <span class="st">&#39;tip_amount&#39;</span>, <span class="st">&#39;total_amount&#39;</span>]</span>
+<span id="cb1-19"><a href="2-7-data-preprocessing-python.html#cb1-19" aria-hidden="true"></a>    df <span class="op">=</span> df[extraction]</span>
+<span id="cb1-20"><a href="2-7-data-preprocessing-python.html#cb1-20" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[1] Select features&#39;</span>)</span>
+<span id="cb1-21"><a href="2-7-data-preprocessing-python.html#cb1-21" aria-hidden="true"></a>    </span>
+<span id="cb1-22"><a href="2-7-data-preprocessing-python.html#cb1-22" aria-hidden="true"></a>    <span class="co"># Remove trips with non-zero distance</span></span>
+<span id="cb1-23"><a href="2-7-data-preprocessing-python.html#cb1-23" aria-hidden="true"></a>    zero <span class="op">=</span> df[df[<span class="st">&#39;trip_distance&#39;</span>]<span class="op">&lt;=</span><span class="dv">0</span>].shape[<span class="dv">0</span>]</span>
+<span id="cb1-24"><a href="2-7-data-preprocessing-python.html#cb1-24" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[2] Remove trips with non-positive distance:&#39;</span>, zero)</span>
+<span id="cb1-25"><a href="2-7-data-preprocessing-python.html#cb1-25" aria-hidden="true"></a>    df <span class="op">=</span> df[df[<span class="st">&#39;trip_distance&#39;</span>]<span class="op">&gt;</span><span class="dv">0</span>]</span>
+<span id="cb1-26"><a href="2-7-data-preprocessing-python.html#cb1-26" aria-hidden="true"></a>    </span>
+<span id="cb1-27"><a href="2-7-data-preprocessing-python.html#cb1-27" aria-hidden="true"></a>    <span class="co"># Convert to datetime</span></span>
+<span id="cb1-28"><a href="2-7-data-preprocessing-python.html#cb1-28" aria-hidden="true"></a>    df[<span class="st">&#39;tpep_pickup_datetime&#39;</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">&#39;tpep_pickup_datetime&#39;</span>])</span>
+<span id="cb1-29"><a href="2-7-data-preprocessing-python.html#cb1-29" aria-hidden="true"></a>    df[<span class="st">&#39;tpep_dropoff_datetime&#39;</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">&#39;tpep_dropoff_datetime&#39;</span>])</span>
+<span id="cb1-30"><a href="2-7-data-preprocessing-python.html#cb1-30" aria-hidden="true"></a>    </span>
+<span id="cb1-31"><a href="2-7-data-preprocessing-python.html#cb1-31" aria-hidden="true"></a>    <span class="co"># Check datetime range</span></span>
+<span id="cb1-32"><a href="2-7-data-preprocessing-python.html#cb1-32" aria-hidden="true"></a>    d1 <span class="op">=</span> datetime(<span class="dv">2019</span>, month, <span class="dv">1</span>)</span>
+<span id="cb1-33"><a href="2-7-data-preprocessing-python.html#cb1-33" aria-hidden="true"></a>    <span class="cf">if</span> month<span class="op">==</span><span class="dv">12</span>:</span>
+<span id="cb1-34"><a href="2-7-data-preprocessing-python.html#cb1-34" aria-hidden="true"></a>        d2 <span class="op">=</span> datetime(<span class="dv">2020</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb1-35"><a href="2-7-data-preprocessing-python.html#cb1-35" aria-hidden="true"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-36"><a href="2-7-data-preprocessing-python.html#cb1-36" aria-hidden="true"></a>        d2 <span class="op">=</span> datetime(<span class="dv">2019</span>, month<span class="op">+</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb1-37"><a href="2-7-data-preprocessing-python.html#cb1-37" aria-hidden="true"></a>    <span class="co"># Check wrong date / month</span></span>
+<span id="cb1-38"><a href="2-7-data-preprocessing-python.html#cb1-38" aria-hidden="true"></a>    wrongdate <span class="op">=</span> df[(df[<span class="st">&#39;tpep_pickup_datetime&#39;</span>]<span class="op">&lt;</span>d1) <span class="op">|</span> (df[<span class="st">&#39;tpep_dropoff_datetime&#39;</span>]<span class="op">&gt;=</span>d2)].shape[<span class="dv">0</span>]</span>
+<span id="cb1-39"><a href="2-7-data-preprocessing-python.html#cb1-39" aria-hidden="true"></a>    df <span class="op">=</span> df[(df[<span class="st">&#39;tpep_pickup_datetime&#39;</span>]<span class="op">&gt;=</span>d1) <span class="op">&amp;</span> (df[<span class="st">&#39;tpep_dropoff_datetime&#39;</span>]<span class="op">&lt;</span>d2)]</span>
+<span id="cb1-40"><a href="2-7-data-preprocessing-python.html#cb1-40" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[3] Convert to date/time &amp; drop wrong dates:&#39;</span>, wrongdate)</span>
+<span id="cb1-41"><a href="2-7-data-preprocessing-python.html#cb1-41" aria-hidden="true"></a></span>
+<span id="cb1-42"><a href="2-7-data-preprocessing-python.html#cb1-42" aria-hidden="true"></a>    <span class="co"># Feature engineer &#39;trip_duration&#39; in minutes</span></span>
+<span id="cb1-43"><a href="2-7-data-preprocessing-python.html#cb1-43" aria-hidden="true"></a>    df[<span class="st">&#39;trip_duration&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;tpep_dropoff_datetime&#39;</span>]<span class="op">-</span>df[<span class="st">&#39;tpep_pickup_datetime&#39;</span>]</span>
+<span id="cb1-44"><a href="2-7-data-preprocessing-python.html#cb1-44" aria-hidden="true"></a>    df[<span class="st">&#39;trip_duration&#39;</span>] <span class="op">=</span> <span class="bu">round</span>(df[<span class="st">&#39;trip_duration&#39;</span>].dt.total_seconds().div(<span class="dv">60</span>)).astype(<span class="bu">int</span>)</span>
+<span id="cb1-45"><a href="2-7-data-preprocessing-python.html#cb1-45" aria-hidden="true"></a>    <span class="co"># Feature engineer &#39;pickup_hour&#39; as integer</span></span>
+<span id="cb1-46"><a href="2-7-data-preprocessing-python.html#cb1-46" aria-hidden="true"></a>    df[<span class="st">&#39;pickup_hour&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;tpep_pickup_datetime&#39;</span>].dt.hour.astype(<span class="bu">int</span>)</span>
+<span id="cb1-47"><a href="2-7-data-preprocessing-python.html#cb1-47" aria-hidden="true"></a>    <span class="co"># Remove `tpep_dropoff_datetime`</span></span>
+<span id="cb1-48"><a href="2-7-data-preprocessing-python.html#cb1-48" aria-hidden="true"></a>    df <span class="op">=</span> df.drop(<span class="st">&#39;tpep_dropoff_datetime&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-49"><a href="2-7-data-preprocessing-python.html#cb1-49" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[4] Feature engineer `trip_duration` in minutes and `pickup_hour` as nearest integer&#39;</span>)</span>
+<span id="cb1-50"><a href="2-7-data-preprocessing-python.html#cb1-50" aria-hidden="true"></a>    </span>
+<span id="cb1-51"><a href="2-7-data-preprocessing-python.html#cb1-51" aria-hidden="true"></a>    <span class="co"># Remove trips more than 12 hours (likely forgot to turn off meter)</span></span>
+<span id="cb1-52"><a href="2-7-data-preprocessing-python.html#cb1-52" aria-hidden="true"></a>    duration <span class="op">=</span> df[(df[<span class="st">&#39;trip_duration&#39;</span>]<span class="op">&gt;=</span><span class="dv">720</span>) <span class="op">|</span> (df[<span class="st">&#39;trip_duration&#39;</span>]<span class="op">&lt;=</span><span class="dv">0</span>)].shape[<span class="dv">0</span>]</span>
+<span id="cb1-53"><a href="2-7-data-preprocessing-python.html#cb1-53" aria-hidden="true"></a>    df <span class="op">=</span> df[(df[<span class="st">&#39;trip_duration&#39;</span>]<span class="op">&lt;</span><span class="dv">720</span>) <span class="op">&amp;</span> (df[<span class="st">&#39;trip_duration&#39;</span>]<span class="op">&gt;</span><span class="dv">0</span>)]</span>
+<span id="cb1-54"><a href="2-7-data-preprocessing-python.html#cb1-54" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[5] Remove trips more than 12 hours or non-positive:&#39;</span>, duration)</span>
+<span id="cb1-55"><a href="2-7-data-preprocessing-python.html#cb1-55" aria-hidden="true"></a>    </span>
+<span id="cb1-56"><a href="2-7-data-preprocessing-python.html#cb1-56" aria-hidden="true"></a>    <span class="co"># Recast `PULocationID` as integer</span></span>
+<span id="cb1-57"><a href="2-7-data-preprocessing-python.html#cb1-57" aria-hidden="true"></a>    df[<span class="st">&#39;PULocationID&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;PULocationID&#39;</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb1-58"><a href="2-7-data-preprocessing-python.html#cb1-58" aria-hidden="true"></a>    pu <span class="op">=</span> df[(df[<span class="st">&#39;PULocationID&#39;</span>]<span class="op">==</span><span class="dv">264</span>) <span class="op">|</span> (df[<span class="st">&#39;PULocationID&#39;</span>]<span class="op">==</span><span class="dv">265</span>)].shape[<span class="dv">0</span>]</span>
+<span id="cb1-59"><a href="2-7-data-preprocessing-python.html#cb1-59" aria-hidden="true"></a>    df <span class="op">=</span> df[(df[<span class="st">&#39;PULocationID&#39;</span>]<span class="op">!=</span><span class="dv">265</span>) <span class="op">&amp;</span> (df[<span class="st">&#39;PULocationID&#39;</span>]<span class="op">!=</span><span class="dv">264</span>)]</span>
+<span id="cb1-60"><a href="2-7-data-preprocessing-python.html#cb1-60" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[6] Recast `PULocationID` as integer &amp; remove unknown IDs:&#39;</span>, pu)</span>
+<span id="cb1-61"><a href="2-7-data-preprocessing-python.html#cb1-61" aria-hidden="true"></a>    </span>
+<span id="cb1-62"><a href="2-7-data-preprocessing-python.html#cb1-62" aria-hidden="true"></a>    <span class="co"># Recast `DOLocationID` as integer</span></span>
+<span id="cb1-63"><a href="2-7-data-preprocessing-python.html#cb1-63" aria-hidden="true"></a>    df[<span class="st">&#39;DOLocationID&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;DOLocationID&#39;</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb1-64"><a href="2-7-data-preprocessing-python.html#cb1-64" aria-hidden="true"></a>    pu <span class="op">=</span> df[(df[<span class="st">&#39;DOLocationID&#39;</span>]<span class="op">==</span><span class="dv">264</span>) <span class="op">|</span> (df[<span class="st">&#39;DOLocationID&#39;</span>]<span class="op">==</span><span class="dv">265</span>)].shape[<span class="dv">0</span>]</span>
+<span id="cb1-65"><a href="2-7-data-preprocessing-python.html#cb1-65" aria-hidden="true"></a>    df <span class="op">=</span> df[(df[<span class="st">&#39;DOLocationID&#39;</span>]<span class="op">!=</span><span class="dv">265</span>) <span class="op">&amp;</span> (df[<span class="st">&#39;DOLocationID&#39;</span>]<span class="op">!=</span><span class="dv">264</span>)]</span>
+<span id="cb1-66"><a href="2-7-data-preprocessing-python.html#cb1-66" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[7] Recast `DOLocationID` as integer &amp; remove unknown IDs:&#39;</span>, pu)</span>
+<span id="cb1-67"><a href="2-7-data-preprocessing-python.html#cb1-67" aria-hidden="true"></a>    </span>
+<span id="cb1-68"><a href="2-7-data-preprocessing-python.html#cb1-68" aria-hidden="true"></a>    <span class="co"># Impute and categorise missing &#39;payment_type&#39; with 0</span></span>
+<span id="cb1-69"><a href="2-7-data-preprocessing-python.html#cb1-69" aria-hidden="true"></a>    df[<span class="st">&#39;payment_type&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;payment_type&#39;</span>].fillna(<span class="dv">0</span>)</span>
+<span id="cb1-70"><a href="2-7-data-preprocessing-python.html#cb1-70" aria-hidden="true"></a>    df[<span class="st">&#39;payment_type&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;payment_type&#39;</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb1-71"><a href="2-7-data-preprocessing-python.html#cb1-71" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[8] Impute and categorise missing `payment_type` with 0&#39;</span>)</span>
+<span id="cb1-72"><a href="2-7-data-preprocessing-python.html#cb1-72" aria-hidden="true"></a>    </span>
+<span id="cb1-73"><a href="2-7-data-preprocessing-python.html#cb1-73" aria-hidden="true"></a>    <span class="co"># Drop duplication</span></span>
+<span id="cb1-74"><a href="2-7-data-preprocessing-python.html#cb1-74" aria-hidden="true"></a>    duplicate <span class="op">=</span> df.duplicated().<span class="bu">sum</span>()</span>
+<span id="cb1-75"><a href="2-7-data-preprocessing-python.html#cb1-75" aria-hidden="true"></a>    df <span class="op">=</span> df.drop_duplicates().reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-76"><a href="2-7-data-preprocessing-python.html#cb1-76" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;[9] Drop duplicates &amp; reset index:&#39;</span>, duplicate)</span>
+<span id="cb1-77"><a href="2-7-data-preprocessing-python.html#cb1-77" aria-hidden="true"></a>    </span>
+<span id="cb1-78"><a href="2-7-data-preprocessing-python.html#cb1-78" aria-hidden="true"></a>    <span class="co"># Summary</span></span>
+<span id="cb1-79"><a href="2-7-data-preprocessing-python.html#cb1-79" aria-hidden="true"></a>    <span class="bu">print</span>()</span>
+<span id="cb1-80"><a href="2-7-data-preprocessing-python.html#cb1-80" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;&gt;&gt; Final DF shape:&#39;</span>,df.shape)</span>
+<span id="cb1-81"><a href="2-7-data-preprocessing-python.html#cb1-81" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;&gt;&gt; Reduction size (%):&#39;</span>, (n_rows<span class="op">-</span>df.shape[<span class="dv">0</span>])<span class="op">/</span>n_rows<span class="op">*</span><span class="dv">100</span>)</span>
+<span id="cb1-82"><a href="2-7-data-preprocessing-python.html#cb1-82" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;&gt;&gt; Missing values:&#39;</span>)</span>
+<span id="cb1-83"><a href="2-7-data-preprocessing-python.html#cb1-83" aria-hidden="true"></a>    <span class="bu">print</span>(df.isnull().<span class="bu">sum</span>())</span>
+<span id="cb1-84"><a href="2-7-data-preprocessing-python.html#cb1-84" aria-hidden="true"></a>    </span>
+<span id="cb1-85"><a href="2-7-data-preprocessing-python.html#cb1-85" aria-hidden="true"></a>    <span class="co"># Save</span></span>
+<span id="cb1-86"><a href="2-7-data-preprocessing-python.html#cb1-86" aria-hidden="true"></a>    <span class="bu">print</span>()</span>
+<span id="cb1-87"><a href="2-7-data-preprocessing-python.html#cb1-87" aria-hidden="true"></a>    df.to_feather(save_name)</span>
+<span id="cb1-88"><a href="2-7-data-preprocessing-python.html#cb1-88" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;&gt;&gt; Saved to feather-format&#39;</span>)</span>
+<span id="cb1-89"><a href="2-7-data-preprocessing-python.html#cb1-89" aria-hidden="true"></a>    </span>
+<span id="cb1-90"><a href="2-7-data-preprocessing-python.html#cb1-90" aria-hidden="true"></a>    <span class="co"># Panda Profiling</span></span>
+<span id="cb1-91"><a href="2-7-data-preprocessing-python.html#cb1-91" aria-hidden="true"></a>    <span class="cf">if</span> profiling: </span>
+<span id="cb1-92"><a href="2-7-data-preprocessing-python.html#cb1-92" aria-hidden="true"></a>        ProfileReport(df, minimal<span class="op">=</span><span class="va">True</span>).to_file(output_file<span class="op">=</span>save_name<span class="op">+</span><span class="st">&#39;_profiling.html&#39;</span>)</span>
+<span id="cb1-93"><a href="2-7-data-preprocessing-python.html#cb1-93" aria-hidden="true"></a>    </span>
+<span id="cb1-94"><a href="2-7-data-preprocessing-python.html#cb1-94" aria-hidden="true"></a>    df <span class="op">=</span> df[df[<span class="st">&#39;payment_type&#39;</span>]<span class="op">==</span><span class="dv">1</span>].drop(<span class="st">&#39;payment_type&#39;</span>,axis<span class="op">=</span><span class="dv">1</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-95"><a href="2-7-data-preprocessing-python.html#cb1-95" aria-hidden="true"></a>    df.to_feather(save_name<span class="op">+</span><span class="st">&#39;_creditCard&#39;</span>)</span>
+<span id="cb1-96"><a href="2-7-data-preprocessing-python.html#cb1-96" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Credit Card only size:&#39;</span>,df.shape)</span>
+<span id="cb1-97"><a href="2-7-data-preprocessing-python.html#cb1-97" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;&gt;&gt; Saved to feather-format, credit-card only&#39;</span>)</span>
+<span id="cb1-98"><a href="2-7-data-preprocessing-python.html#cb1-98" aria-hidden="true"></a>    <span class="bu">print</span>()</span>
+<span id="cb1-99"><a href="2-7-data-preprocessing-python.html#cb1-99" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;-----------------------------------------------&#39;</span>)</span>
+<span id="cb1-100"><a href="2-7-data-preprocessing-python.html#cb1-100" aria-hidden="true"></a>    </span>
+<span id="cb1-101"><a href="2-7-data-preprocessing-python.html#cb1-101" aria-hidden="true"></a>    </span>
+<span id="cb1-102"><a href="2-7-data-preprocessing-python.html#cb1-102" aria-hidden="true"></a><span class="kw">def</span> load_attribute(attr, credit_card<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb1-103"><a href="2-7-data-preprocessing-python.html#cb1-103" aria-hidden="true"></a>    df <span class="op">=</span> np.array([]) </span>
+<span id="cb1-104"><a href="2-7-data-preprocessing-python.html#cb1-104" aria-hidden="true"></a>    <span class="cf">for</span> i <span class="kw">in</span> MONTHS:</span>
+<span id="cb1-105"><a href="2-7-data-preprocessing-python.html#cb1-105" aria-hidden="true"></a>        <span class="cf">if</span> credit_card:</span>
+<span id="cb1-106"><a href="2-7-data-preprocessing-python.html#cb1-106" aria-hidden="true"></a>            path <span class="op">=</span> os.path.abspath(os.path.join(<span class="st">&quot;taxi&quot;</span>, <span class="st">&quot;ETL&quot;</span>, i<span class="op">+</span><span class="st">&quot;19&quot;</span><span class="op">+</span><span class="st">&quot;_creditCard&quot;</span>))</span>
+<span id="cb1-107"><a href="2-7-data-preprocessing-python.html#cb1-107" aria-hidden="true"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-108"><a href="2-7-data-preprocessing-python.html#cb1-108" aria-hidden="true"></a>            path <span class="op">=</span> os.path.abspath(os.path.join(<span class="st">&quot;taxi&quot;</span>, <span class="st">&quot;ETL&quot;</span>, i<span class="op">+</span><span class="st">&quot;19&quot;</span>))</span>
+<span id="cb1-109"><a href="2-7-data-preprocessing-python.html#cb1-109" aria-hidden="true"></a>        df <span class="op">=</span> np.concatenate([df, pd.read_feather(path)[attr].to_numpy()])</span>
+<span id="cb1-110"><a href="2-7-data-preprocessing-python.html#cb1-110" aria-hidden="true"></a>    <span class="cf">return</span> df</span>
+<span id="cb1-111"><a href="2-7-data-preprocessing-python.html#cb1-111" aria-hidden="true"></a>    </span>
+<span id="cb1-112"><a href="2-7-data-preprocessing-python.html#cb1-112" aria-hidden="true"></a><span class="co"># Feature engineer</span></span>
+<span id="cb1-113"><a href="2-7-data-preprocessing-python.html#cb1-113" aria-hidden="true"></a>ACPM <span class="op">=</span> <span class="fl">0.58</span></span>
+<span id="cb1-114"><a href="2-7-data-preprocessing-python.html#cb1-114" aria-hidden="true"></a></span>
+<span id="cb1-115"><a href="2-7-data-preprocessing-python.html#cb1-115" aria-hidden="true"></a>df <span class="op">=</span> {<span class="st">&#39;location&#39;</span>: np.load(<span class="st">&#39;PULocationID_Credit.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>],</span>
+<span id="cb1-116"><a href="2-7-data-preprocessing-python.html#cb1-116" aria-hidden="true"></a>      <span class="st">&#39;total_amount&#39;</span>: np.load(<span class="st">&#39;total_amount_Credit.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>],</span>
+<span id="cb1-117"><a href="2-7-data-preprocessing-python.html#cb1-117" aria-hidden="true"></a>      <span class="st">&#39;tip_amount&#39;</span>: np.load(<span class="st">&#39;tip_amount_Credit.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>],</span>
+<span id="cb1-118"><a href="2-7-data-preprocessing-python.html#cb1-118" aria-hidden="true"></a>      <span class="st">&#39;trip_distance&#39;</span>: np.load(<span class="st">&#39;trip_distance_Credit.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>],</span>
+<span id="cb1-119"><a href="2-7-data-preprocessing-python.html#cb1-119" aria-hidden="true"></a>      <span class="st">&#39;trip_duration&#39;</span>: np.load(<span class="st">&#39;trip_duration_Credit.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>]}</span>
+<span id="cb1-120"><a href="2-7-data-preprocessing-python.html#cb1-120" aria-hidden="true"></a>df <span class="op">=</span> pd.DataFrame(df)</span>
+<span id="cb1-121"><a href="2-7-data-preprocessing-python.html#cb1-121" aria-hidden="true"></a></span>
+<span id="cb1-122"><a href="2-7-data-preprocessing-python.html#cb1-122" aria-hidden="true"></a>df[<span class="st">&#39;rate_per_trip&#39;</span>]<span class="op">=</span>(df[<span class="st">&#39;total_amount&#39;</span>]<span class="op">-</span>ACPM<span class="op">*</span>df[<span class="st">&#39;trip_distance&#39;</span>])<span class="op">/</span>df[<span class="st">&#39;trip_duration&#39;</span>]</span>
+<span id="cb1-123"><a href="2-7-data-preprocessing-python.html#cb1-123" aria-hidden="true"></a>df <span class="op">=</span> df.drop([<span class="st">&#39;trip_distance&#39;</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-124"><a href="2-7-data-preprocessing-python.html#cb1-124" aria-hidden="true"></a></span>
+<span id="cb1-125"><a href="2-7-data-preprocessing-python.html#cb1-125" aria-hidden="true"></a>df[<span class="st">&#39;tip_rate&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;tip_amount&#39;</span>]<span class="op">/</span>(df[<span class="st">&#39;total_amount&#39;</span>]<span class="op">-</span>df[<span class="st">&#39;tip_amount&#39;</span>])</span>
+<span id="cb1-126"><a href="2-7-data-preprocessing-python.html#cb1-126" aria-hidden="true"></a>df <span class="op">=</span> df.drop([<span class="st">&#39;tip_amount&#39;</span>,<span class="st">&#39;total_amount&#39;</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-127"><a href="2-7-data-preprocessing-python.html#cb1-127" aria-hidden="true"></a></span>
+<span id="cb1-128"><a href="2-7-data-preprocessing-python.html#cb1-128" aria-hidden="true"></a>df <span class="op">=</span> df.groupby(<span class="st">&#39;location&#39;</span>).mean().reset_index()</span>
+<span id="cb1-129"><a href="2-7-data-preprocessing-python.html#cb1-129" aria-hidden="true"></a>df[<span class="st">&#39;location&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;location&#39;</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb1-130"><a href="2-7-data-preprocessing-python.html#cb1-130" aria-hidden="true"></a>df.to_csv(<span class="st">&#39;feature-engineer_by_PULocationID.csv&#39;</span>)</span>
+<span id="cb1-131"><a href="2-7-data-preprocessing-python.html#cb1-131" aria-hidden="true"></a>df.head() <span class="co"># 103 (Statue of Liberty Island) &amp; 110 doesn&#39;t have any trips</span></span></code></pre></div>
+</div>
+<div id="phase-2" class="section level3" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Phase 2</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="2-7-data-preprocessing-python.html#cb2-1" aria-hidden="true"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb2-2"><a href="2-7-data-preprocessing-python.html#cb2-2" aria-hidden="true"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb2-3"><a href="2-7-data-preprocessing-python.html#cb2-3" aria-hidden="true"></a><span class="im">import</span> random</span>
+<span id="cb2-4"><a href="2-7-data-preprocessing-python.html#cb2-4" aria-hidden="true"></a><span class="im">from</span> datetime <span class="im">import</span> datetime, timedelta</span>
+<span id="cb2-5"><a href="2-7-data-preprocessing-python.html#cb2-5" aria-hidden="true"></a><span class="im">import</span> os</span>
+<span id="cb2-6"><a href="2-7-data-preprocessing-python.html#cb2-6" aria-hidden="true"></a></span>
+<span id="cb2-7"><a href="2-7-data-preprocessing-python.html#cb2-7" aria-hidden="true"></a><span class="co"># Stage 1 - Sampling</span></span>
+<span id="cb2-8"><a href="2-7-data-preprocessing-python.html#cb2-8" aria-hidden="true"></a></span>
+<span id="cb2-9"><a href="2-7-data-preprocessing-python.html#cb2-9" aria-hidden="true"></a><span class="co"># Set seed</span></span>
+<span id="cb2-10"><a href="2-7-data-preprocessing-python.html#cb2-10" aria-hidden="true"></a>random.seed(<span class="dv">26</span>)</span>
+<span id="cb2-11"><a href="2-7-data-preprocessing-python.html#cb2-11" aria-hidden="true"></a><span class="co"># Randomize 1 million indices</span></span>
+<span id="cb2-12"><a href="2-7-data-preprocessing-python.html#cb2-12" aria-hidden="true"></a>ONEMILLION <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="dv">59360231</span>), <span class="dv">1000000</span>)</span>
+<span id="cb2-13"><a href="2-7-data-preprocessing-python.html#cb2-13" aria-hidden="true"></a><span class="co"># 80-20 train test split</span></span>
+<span id="cb2-14"><a href="2-7-data-preprocessing-python.html#cb2-14" aria-hidden="true"></a>TRAIN_INDEX <span class="op">=</span> random.sample(ONEMILLION, <span class="dv">800000</span>)</span>
+<span id="cb2-15"><a href="2-7-data-preprocessing-python.html#cb2-15" aria-hidden="true"></a>TEST_INDEX <span class="op">=</span> np.setdiff1d(ONEMILLION, TRAIN_INDEX)</span>
+<span id="cb2-16"><a href="2-7-data-preprocessing-python.html#cb2-16" aria-hidden="true"></a></span>
+<span id="cb2-17"><a href="2-7-data-preprocessing-python.html#cb2-17" aria-hidden="true"></a>ATTRS <span class="op">=</span> [<span class="st">&#39;trip_distance&#39;</span>, <span class="st">&#39;trip_duration&#39;</span>, <span class="st">&#39;PULocationID&#39;</span>, <span class="st">&#39;DOLocationID&#39;</span>, <span class="st">&#39;pickup_hour&#39;</span>]</span>
+<span id="cb2-18"><a href="2-7-data-preprocessing-python.html#cb2-18" aria-hidden="true"></a>CREDIT <span class="op">=</span> [<span class="st">&#39;fare_amount&#39;</span>, <span class="st">&#39;tip_amount&#39;</span>, <span class="st">&#39;total_amount&#39;</span>]</span>
+<span id="cb2-19"><a href="2-7-data-preprocessing-python.html#cb2-19" aria-hidden="true"></a></span>
+<span id="cb2-20"><a href="2-7-data-preprocessing-python.html#cb2-20" aria-hidden="true"></a><span class="cf">for</span> i <span class="kw">in</span> ATTRS<span class="op">+</span>CREDIT:</span>
+<span id="cb2-21"><a href="2-7-data-preprocessing-python.html#cb2-21" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;&gt;&gt; Atribute:&#39;</span>,i)</span>
+<span id="cb2-22"><a href="2-7-data-preprocessing-python.html#cb2-22" aria-hidden="true"></a>    df <span class="op">=</span> np.load(i<span class="op">+</span><span class="st">&#39;_credit.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>]</span>
+<span id="cb2-23"><a href="2-7-data-preprocessing-python.html#cb2-23" aria-hidden="true"></a>    train_df <span class="op">=</span> df[TRAIN_INDEX]</span>
+<span id="cb2-24"><a href="2-7-data-preprocessing-python.html#cb2-24" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Train Size (MB):&#39;</span>, train_df.nbytes<span class="op">/</span><span class="dv">1000000</span>)</span>
+<span id="cb2-25"><a href="2-7-data-preprocessing-python.html#cb2-25" aria-hidden="true"></a>    np.savez_compressed(i<span class="op">+</span><span class="st">&#39;_train.npz&#39;</span>, data<span class="op">=</span>train_df)</span>
+<span id="cb2-26"><a href="2-7-data-preprocessing-python.html#cb2-26" aria-hidden="true"></a>    <span class="kw">del</span>(train_df)</span>
+<span id="cb2-27"><a href="2-7-data-preprocessing-python.html#cb2-27" aria-hidden="true"></a>    test_df <span class="op">=</span> df[TEST_INDEX]</span>
+<span id="cb2-28"><a href="2-7-data-preprocessing-python.html#cb2-28" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;Test Size (MB):&#39;</span>, test_df.nbytes<span class="op">/</span><span class="dv">1000000</span>)</span>
+<span id="cb2-29"><a href="2-7-data-preprocessing-python.html#cb2-29" aria-hidden="true"></a>    np.savez_compressed(i<span class="op">+</span><span class="st">&#39;_test.npz&#39;</span>, data<span class="op">=</span>test_df)</span>
+<span id="cb2-30"><a href="2-7-data-preprocessing-python.html#cb2-30" aria-hidden="true"></a>    <span class="kw">del</span>(test_df)</span>
+<span id="cb2-31"><a href="2-7-data-preprocessing-python.html#cb2-31" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;-------------------------------&#39;</span>)</span>
+<span id="cb2-32"><a href="2-7-data-preprocessing-python.html#cb2-32" aria-hidden="true"></a>    <span class="kw">del</span>(df)</span>
+<span id="cb2-33"><a href="2-7-data-preprocessing-python.html#cb2-33" aria-hidden="true"></a>    </span>
+<span id="cb2-34"><a href="2-7-data-preprocessing-python.html#cb2-34" aria-hidden="true"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ks_2samp</span>
+<span id="cb2-35"><a href="2-7-data-preprocessing-python.html#cb2-35" aria-hidden="true"></a><span class="co"># K-S Test for checking sampling integrity</span></span>
+<span id="cb2-36"><a href="2-7-data-preprocessing-python.html#cb2-36" aria-hidden="true"></a><span class="cf">for</span> i <span class="kw">in</span> ATTRS<span class="op">+</span>CREDIT:</span>
+<span id="cb2-37"><a href="2-7-data-preprocessing-python.html#cb2-37" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;&gt;&gt; Atribute:&#39;</span>,i)</span>
+<span id="cb2-38"><a href="2-7-data-preprocessing-python.html#cb2-38" aria-hidden="true"></a>    test_df <span class="op">=</span> np.load(i<span class="op">+</span><span class="st">&#39;_test.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>]</span>
+<span id="cb2-39"><a href="2-7-data-preprocessing-python.html#cb2-39" aria-hidden="true"></a>    train_df <span class="op">=</span> np.load(i<span class="op">+</span><span class="st">&#39;_train.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>]</span>
+<span id="cb2-40"><a href="2-7-data-preprocessing-python.html#cb2-40" aria-hidden="true"></a>    p <span class="op">=</span> ks_2samp(test_df, train_df)[<span class="dv">1</span>]</span>
+<span id="cb2-41"><a href="2-7-data-preprocessing-python.html#cb2-41" aria-hidden="true"></a>    <span class="cf">if</span> p<span class="op">&lt;</span><span class="fl">0.05</span>:</span>
+<span id="cb2-42"><a href="2-7-data-preprocessing-python.html#cb2-42" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&#39;The test set and train set have different distribution&#39;</span>)</span>
+<span id="cb2-43"><a href="2-7-data-preprocessing-python.html#cb2-43" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&#39;p-value for KS Test is:&#39;</span>,p)</span>
+<span id="cb2-44"><a href="2-7-data-preprocessing-python.html#cb2-44" aria-hidden="true"></a>    <span class="cf">if</span> p<span class="op">&gt;=</span><span class="fl">0.05</span>:</span>
+<span id="cb2-45"><a href="2-7-data-preprocessing-python.html#cb2-45" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&#39;The test set and train set have similar distribution&#39;</span>)</span>
+<span id="cb2-46"><a href="2-7-data-preprocessing-python.html#cb2-46" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&#39;p-value for KS Test is:&#39;</span>,p)</span>
+<span id="cb2-47"><a href="2-7-data-preprocessing-python.html#cb2-47" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;-------------------------------&#39;</span>)</span>
+<span id="cb2-48"><a href="2-7-data-preprocessing-python.html#cb2-48" aria-hidden="true"></a>    <span class="kw">del</span>(test_df)</span>
+<span id="cb2-49"><a href="2-7-data-preprocessing-python.html#cb2-49" aria-hidden="true"></a>    <span class="kw">del</span>(train_df)</span>
+<span id="cb2-50"><a href="2-7-data-preprocessing-python.html#cb2-50" aria-hidden="true"></a>    </span>
+<span id="cb2-51"><a href="2-7-data-preprocessing-python.html#cb2-51" aria-hidden="true"></a><span class="co"># Stage 2 - Dataset Creation</span></span>
+<span id="cb2-52"><a href="2-7-data-preprocessing-python.html#cb2-52" aria-hidden="true"></a>train <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb2-53"><a href="2-7-data-preprocessing-python.html#cb2-53" aria-hidden="true"></a>test <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb2-54"><a href="2-7-data-preprocessing-python.html#cb2-54" aria-hidden="true"></a></span>
+<span id="cb2-55"><a href="2-7-data-preprocessing-python.html#cb2-55" aria-hidden="true"></a><span class="cf">for</span> i <span class="kw">in</span> ATTRS<span class="op">+</span>CREDIT:</span>
+<span id="cb2-56"><a href="2-7-data-preprocessing-python.html#cb2-56" aria-hidden="true"></a>    train[i] <span class="op">=</span> np.load(i<span class="op">+</span><span class="st">&#39;_train.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>]</span>
+<span id="cb2-57"><a href="2-7-data-preprocessing-python.html#cb2-57" aria-hidden="true"></a>    test[i] <span class="op">=</span> np.load(i<span class="op">+</span><span class="st">&#39;_test.npz&#39;</span>)[<span class="st">&#39;data&#39;</span>]</span>
+<span id="cb2-58"><a href="2-7-data-preprocessing-python.html#cb2-58" aria-hidden="true"></a>    </span>
+<span id="cb2-59"><a href="2-7-data-preprocessing-python.html#cb2-59" aria-hidden="true"></a>NUM_COLS <span class="op">=</span> [<span class="st">&#39;trip_distance&#39;</span>, <span class="st">&#39;trip_duration&#39;</span>, <span class="st">&#39;fare_amount&#39;</span>, <span class="st">&#39;tip_amount&#39;</span>, <span class="st">&#39;total_amount&#39;</span>]</span>
+<span id="cb2-60"><a href="2-7-data-preprocessing-python.html#cb2-60" aria-hidden="true"></a><span class="co"># Filter non-negative values</span></span>
+<span id="cb2-61"><a href="2-7-data-preprocessing-python.html#cb2-61" aria-hidden="true"></a>train <span class="op">=</span> train[(train[NUM_COLS]<span class="op">&gt;=</span><span class="dv">0</span>).<span class="bu">all</span>(<span class="dv">1</span>)]</span>
+<span id="cb2-62"><a href="2-7-data-preprocessing-python.html#cb2-62" aria-hidden="true"></a>test <span class="op">=</span> test[(test[NUM_COLS]<span class="op">&gt;=</span><span class="dv">0</span>).<span class="bu">all</span>(<span class="dv">1</span>)]</span>
+<span id="cb2-63"><a href="2-7-data-preprocessing-python.html#cb2-63" aria-hidden="true"></a></span>
+<span id="cb2-64"><a href="2-7-data-preprocessing-python.html#cb2-64" aria-hidden="true"></a><span class="co"># Log transform the numerical cols (+0.001 to handle log(0))</span></span>
+<span id="cb2-65"><a href="2-7-data-preprocessing-python.html#cb2-65" aria-hidden="true"></a><span class="cf">for</span> col <span class="kw">in</span> NUM_COLS:</span>
+<span id="cb2-66"><a href="2-7-data-preprocessing-python.html#cb2-66" aria-hidden="true"></a>    train[col] <span class="op">=</span> np.log10(train[col]<span class="op">+</span><span class="fl">0.001</span>)</span>
+<span id="cb2-67"><a href="2-7-data-preprocessing-python.html#cb2-67" aria-hidden="true"></a>    test[col] <span class="op">=</span> np.log10(test[col]<span class="op">+</span><span class="fl">0.001</span>)</span>
+<span id="cb2-68"><a href="2-7-data-preprocessing-python.html#cb2-68" aria-hidden="true"></a>    </span>
+<span id="cb2-69"><a href="2-7-data-preprocessing-python.html#cb2-69" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&quot;Train set shape:&quot;</span>, train.shape)</span>
+<span id="cb2-70"><a href="2-7-data-preprocessing-python.html#cb2-70" aria-hidden="true"></a><span class="bu">print</span>(<span class="st">&quot;Test set shape:&quot;</span>, test.shape)</span>
+<span id="cb2-71"><a href="2-7-data-preprocessing-python.html#cb2-71" aria-hidden="true"></a></span>
+<span id="cb2-72"><a href="2-7-data-preprocessing-python.html#cb2-72" aria-hidden="true"></a><span class="co"># Save to feather format</span></span>
+<span id="cb2-73"><a href="2-7-data-preprocessing-python.html#cb2-73" aria-hidden="true"></a>train.reset_index(drop<span class="op">=</span><span class="va">True</span>).to_feather(<span class="st">&#39;train_set&#39;</span>)</span>
+<span id="cb2-74"><a href="2-7-data-preprocessing-python.html#cb2-74" aria-hidden="true"></a>test.reset_index(drop<span class="op">=</span><span class="va">True</span>).to_feather(<span class="st">&#39;test_set&#39;</span>)</span>
+<span id="cb2-75"><a href="2-7-data-preprocessing-python.html#cb2-75" aria-hidden="true"></a></span>
+<span id="cb2-76"><a href="2-7-data-preprocessing-python.html#cb2-76" aria-hidden="true"></a><span class="co"># Stage 3: Feature Scaling</span></span>
+<span id="cb2-77"><a href="2-7-data-preprocessing-python.html#cb2-77" aria-hidden="true"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb2-78"><a href="2-7-data-preprocessing-python.html#cb2-78" aria-hidden="true"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-79"><a href="2-7-data-preprocessing-python.html#cb2-79" aria-hidden="true"></a>plt.style.use(<span class="st">&#39;D:/DS/0_ASS1/stylesheet.mplstyle&#39;</span>)</span>
+<span id="cb2-80"><a href="2-7-data-preprocessing-python.html#cb2-80" aria-hidden="true"></a><span class="co">### TRIP DISTANCE DISTRIBUTION (LOG SCALE)</span></span>
+<span id="cb2-81"><a href="2-7-data-preprocessing-python.html#cb2-81" aria-hidden="true"></a><span class="co">#plt.figure(figsize=(10,5))</span></span>
+<span id="cb2-82"><a href="2-7-data-preprocessing-python.html#cb2-82" aria-hidden="true"></a>sns.distplot(train[<span class="st">&#39;trip_distance&#39;</span>], hist<span class="op">=</span><span class="va">True</span>, kde<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb2-83"><a href="2-7-data-preprocessing-python.html#cb2-83" aria-hidden="true"></a>             bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">&#39;#86bfd0&#39;</span>,</span>
+<span id="cb2-84"><a href="2-7-data-preprocessing-python.html#cb2-84" aria-hidden="true"></a>             kde_kws<span class="op">=</span>{<span class="st">&#39;linewidth&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;bw&#39;</span>:<span class="fl">0.05</span>, <span class="st">&#39;color&#39;</span>:<span class="st">&#39;#147f9f&#39;</span>})</span>
+<span id="cb2-85"><a href="2-7-data-preprocessing-python.html#cb2-85" aria-hidden="true"></a>plt.ylabel(<span class="st">&#39;Density&#39;</span>)</span>
+<span id="cb2-86"><a href="2-7-data-preprocessing-python.html#cb2-86" aria-hidden="true"></a>plt.xlabel(<span class="st">&#39;Log(Trip distance)&#39;</span>)</span>
+<span id="cb2-87"><a href="2-7-data-preprocessing-python.html#cb2-87" aria-hidden="true"></a>plt.suptitle(<span class="st">&quot;Log Distribution of Trip distance (miles) in Train Set&quot;</span>,</span>
+<span id="cb2-88"><a href="2-7-data-preprocessing-python.html#cb2-88" aria-hidden="true"></a>            ha <span class="op">=</span> <span class="st">&#39;right&#39;</span>)</span>
+<span id="cb2-89"><a href="2-7-data-preprocessing-python.html#cb2-89" aria-hidden="true"></a>plt.show()</span>
+<span id="cb2-90"><a href="2-7-data-preprocessing-python.html#cb2-90" aria-hidden="true"></a><span class="co">### TOTAL AMOUNT DISTRIBUTION (LOG SCALE)</span></span>
+<span id="cb2-91"><a href="2-7-data-preprocessing-python.html#cb2-91" aria-hidden="true"></a><span class="co">#plt.figure(figsize=(10,5))</span></span>
+<span id="cb2-92"><a href="2-7-data-preprocessing-python.html#cb2-92" aria-hidden="true"></a>sns.distplot(train[<span class="st">&#39;total_amount&#39;</span>], hist<span class="op">=</span><span class="va">True</span>, kde<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb2-93"><a href="2-7-data-preprocessing-python.html#cb2-93" aria-hidden="true"></a>             bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">&#39;#fed38f&#39;</span>,</span>
+<span id="cb2-94"><a href="2-7-data-preprocessing-python.html#cb2-94" aria-hidden="true"></a>             </span>
+<span id="cb2-95"><a href="2-7-data-preprocessing-python.html#cb2-95" aria-hidden="true"></a>             kde_kws<span class="op">=</span>{<span class="st">&#39;linewidth&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;bw&#39;</span>:<span class="fl">0.05</span>, <span class="st">&#39;color&#39;</span>:<span class="st">&#39;#f9ab17&#39;</span>})</span>
+<span id="cb2-96"><a href="2-7-data-preprocessing-python.html#cb2-96" aria-hidden="true"></a>plt.xlabel(<span class="st">&#39;Log(Total amount)&#39;</span>)</span>
+<span id="cb2-97"><a href="2-7-data-preprocessing-python.html#cb2-97" aria-hidden="true"></a>plt.ylabel(<span class="st">&#39;Density&#39;</span>)</span>
+<span id="cb2-98"><a href="2-7-data-preprocessing-python.html#cb2-98" aria-hidden="true"></a>plt.suptitle(<span class="st">&quot;Log Distribution of Total amount ($) in Train Set&quot;</span>,</span>
+<span id="cb2-99"><a href="2-7-data-preprocessing-python.html#cb2-99" aria-hidden="true"></a>            ha <span class="op">=</span> <span class="st">&#39;right&#39;</span>)</span>
+<span id="cb2-100"><a href="2-7-data-preprocessing-python.html#cb2-100" aria-hidden="true"></a>plt.show()</span>
+<span id="cb2-101"><a href="2-7-data-preprocessing-python.html#cb2-101" aria-hidden="true"></a><span class="co">### TIP AMOUNT DISTRIBUTION (LOG SCALE)</span></span>
+<span id="cb2-102"><a href="2-7-data-preprocessing-python.html#cb2-102" aria-hidden="true"></a><span class="co">#plt.figure(figsize=(10,5))</span></span>
+<span id="cb2-103"><a href="2-7-data-preprocessing-python.html#cb2-103" aria-hidden="true"></a>sns.distplot(train[<span class="st">&#39;tip_amount&#39;</span>], hist<span class="op">=</span><span class="va">True</span>, kde<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb2-104"><a href="2-7-data-preprocessing-python.html#cb2-104" aria-hidden="true"></a>             bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">&#39;#c7827b&#39;</span>,</span>
+<span id="cb2-105"><a href="2-7-data-preprocessing-python.html#cb2-105" aria-hidden="true"></a>             kde_kws<span class="op">=</span>{<span class="st">&#39;linewidth&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;bw&#39;</span>:<span class="fl">0.05</span>, <span class="st">&#39;color&#39;</span>:<span class="st">&#39;#a80000&#39;</span>})</span>
+<span id="cb2-106"><a href="2-7-data-preprocessing-python.html#cb2-106" aria-hidden="true"></a>plt.xlabel(<span class="st">&#39;Log(Tip amount)&#39;</span>)</span>
+<span id="cb2-107"><a href="2-7-data-preprocessing-python.html#cb2-107" aria-hidden="true"></a>plt.ylabel(<span class="st">&#39;Density&#39;</span>)</span>
+<span id="cb2-108"><a href="2-7-data-preprocessing-python.html#cb2-108" aria-hidden="true"></a>plt.suptitle(<span class="st">&quot;Log Distribution of Tip amount ($) in Train Set&quot;</span>,</span>
+<span id="cb2-109"><a href="2-7-data-preprocessing-python.html#cb2-109" aria-hidden="true"></a>            ha <span class="op">=</span> <span class="st">&#39;right&#39;</span>)</span>
+<span id="cb2-110"><a href="2-7-data-preprocessing-python.html#cb2-110" aria-hidden="true"></a>plt.show()</span>
+<span id="cb2-111"><a href="2-7-data-preprocessing-python.html#cb2-111" aria-hidden="true"></a><span class="co">### TRIP DURATION DISTRIBUTION (LOG SCALE)</span></span>
+<span id="cb2-112"><a href="2-7-data-preprocessing-python.html#cb2-112" aria-hidden="true"></a><span class="co">#plt.figure(figsize=(10,5))</span></span>
+<span id="cb2-113"><a href="2-7-data-preprocessing-python.html#cb2-113" aria-hidden="true"></a>sns.distplot(train[<span class="st">&#39;trip_duration&#39;</span>], hist<span class="op">=</span><span class="va">True</span>, kde<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb2-114"><a href="2-7-data-preprocessing-python.html#cb2-114" aria-hidden="true"></a>             bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">&#39;#abc27e&#39;</span>,</span>
+<span id="cb2-115"><a href="2-7-data-preprocessing-python.html#cb2-115" aria-hidden="true"></a>             kde_kws<span class="op">=</span>{<span class="st">&#39;linewidth&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;bw&#39;</span>:<span class="fl">0.05</span>, <span class="st">&#39;color&#39;</span>:<span class="st">&#39;#5a8303&#39;</span>})</span>
+<span id="cb2-116"><a href="2-7-data-preprocessing-python.html#cb2-116" aria-hidden="true"></a>plt.xlabel(<span class="st">&#39;Log(Trip duration)&#39;</span>)</span>
+<span id="cb2-117"><a href="2-7-data-preprocessing-python.html#cb2-117" aria-hidden="true"></a>plt.ylabel(<span class="st">&#39;Density&#39;</span>)</span>
+<span id="cb2-118"><a href="2-7-data-preprocessing-python.html#cb2-118" aria-hidden="true"></a>plt.suptitle(<span class="st">&quot;Log Distribution of Trip duration (min) in Train Set&quot;</span>,</span>
+<span id="cb2-119"><a href="2-7-data-preprocessing-python.html#cb2-119" aria-hidden="true"></a>            ha <span class="op">=</span> <span class="st">&#39;right&#39;</span>)</span>
+<span id="cb2-120"><a href="2-7-data-preprocessing-python.html#cb2-120" aria-hidden="true"></a>plt.show()</span>
+<span id="cb2-121"><a href="2-7-data-preprocessing-python.html#cb2-121" aria-hidden="true"></a><span class="co">### PICK UP HOURS</span></span>
+<span id="cb2-122"><a href="2-7-data-preprocessing-python.html#cb2-122" aria-hidden="true"></a><span class="co">#plt.figure(figsize=(30,20))</span></span>
+<span id="cb2-123"><a href="2-7-data-preprocessing-python.html#cb2-123" aria-hidden="true"></a>pickup_hour <span class="op">=</span> train[<span class="st">&#39;pickup_hour&#39;</span>]</span>
+<span id="cb2-124"><a href="2-7-data-preprocessing-python.html#cb2-124" aria-hidden="true"></a>(unique, counts) <span class="op">=</span> np.unique(pickup_hour, return_counts<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-125"><a href="2-7-data-preprocessing-python.html#cb2-125" aria-hidden="true"></a>plt.bar(unique, counts,</span>
+<span id="cb2-126"><a href="2-7-data-preprocessing-python.html#cb2-126" aria-hidden="true"></a>       tick_label<span class="op">=</span>[<span class="bu">str</span>(<span class="bu">int</span>(x))<span class="op">+</span><span class="st">&#39;:00&#39;</span> <span class="cf">for</span> x <span class="kw">in</span> unique],</span>
+<span id="cb2-127"><a href="2-7-data-preprocessing-python.html#cb2-127" aria-hidden="true"></a>       width<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb2-128"><a href="2-7-data-preprocessing-python.html#cb2-128" aria-hidden="true"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">70</span>)</span>
+<span id="cb2-129"><a href="2-7-data-preprocessing-python.html#cb2-129" aria-hidden="true"></a>plt.xlabel(<span class="st">&#39;Time of day (hour)&#39;</span>)</span>
+<span id="cb2-130"><a href="2-7-data-preprocessing-python.html#cb2-130" aria-hidden="true"></a>plt.ylabel(<span class="st">&#39;Number of trips&#39;</span>)</span>
+<span id="cb2-131"><a href="2-7-data-preprocessing-python.html#cb2-131" aria-hidden="true"></a>plt.suptitle(<span class="st">&quot;Number of trips by time of day in Train Set&quot;</span>,</span>
+<span id="cb2-132"><a href="2-7-data-preprocessing-python.html#cb2-132" aria-hidden="true"></a>            ha <span class="op">=</span> <span class="st">&#39;right&#39;</span>)</span>
+<span id="cb2-133"><a href="2-7-data-preprocessing-python.html#cb2-133" aria-hidden="true"></a>plt.show()</span>
+<span id="cb2-134"><a href="2-7-data-preprocessing-python.html#cb2-134" aria-hidden="true"></a><span class="co">### PICK-UP ZONES</span></span>
+<span id="cb2-135"><a href="2-7-data-preprocessing-python.html#cb2-135" aria-hidden="true"></a><span class="co">#plt.figure(figsize=(30,20))</span></span>
+<span id="cb2-136"><a href="2-7-data-preprocessing-python.html#cb2-136" aria-hidden="true"></a>pickup_zone <span class="op">=</span> train[<span class="st">&#39;PULocationID&#39;</span>]</span>
+<span id="cb2-137"><a href="2-7-data-preprocessing-python.html#cb2-137" aria-hidden="true"></a>(unique, counts) <span class="op">=</span> np.unique(pickup_zone, return_counts<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-138"><a href="2-7-data-preprocessing-python.html#cb2-138" aria-hidden="true"></a>plt.bar(unique, counts,</span>
+<span id="cb2-139"><a href="2-7-data-preprocessing-python.html#cb2-139" aria-hidden="true"></a>       width<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">&#39;#e5a5ff&#39;</span>)</span>
+<span id="cb2-140"><a href="2-7-data-preprocessing-python.html#cb2-140" aria-hidden="true"></a><span class="co">#plt.xticks(rotation=70)</span></span>
+<span id="cb2-141"><a href="2-7-data-preprocessing-python.html#cb2-141" aria-hidden="true"></a>plt.xlabel(<span class="st">&#39;Pick-up Zone ID&#39;</span>)</span>
+<span id="cb2-142"><a href="2-7-data-preprocessing-python.html#cb2-142" aria-hidden="true"></a>plt.ylabel(<span class="st">&#39;Number of trips&#39;</span>)</span>
+<span id="cb2-143"><a href="2-7-data-preprocessing-python.html#cb2-143" aria-hidden="true"></a>plt.suptitle(<span class="st">&quot;Number of trips by Pick-up Zone in Train Set&quot;</span>,</span>
+<span id="cb2-144"><a href="2-7-data-preprocessing-python.html#cb2-144" aria-hidden="true"></a>            ha <span class="op">=</span> <span class="st">&#39;right&#39;</span>)</span>
+<span id="cb2-145"><a href="2-7-data-preprocessing-python.html#cb2-145" aria-hidden="true"></a>plt.show()</span>
+<span id="cb2-146"><a href="2-7-data-preprocessing-python.html#cb2-146" aria-hidden="true"></a><span class="co">### DROP-OFF ZONES</span></span>
+<span id="cb2-147"><a href="2-7-data-preprocessing-python.html#cb2-147" aria-hidden="true"></a><span class="co">#plt.figure(figsize=(30,20))</span></span>
+<span id="cb2-148"><a href="2-7-data-preprocessing-python.html#cb2-148" aria-hidden="true"></a>dropoff_zone <span class="op">=</span> train[<span class="st">&#39;DOLocationID&#39;</span>]</span>
+<span id="cb2-149"><a href="2-7-data-preprocessing-python.html#cb2-149" aria-hidden="true"></a>(unique, counts) <span class="op">=</span> np.unique(dropoff_zone, return_counts<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-150"><a href="2-7-data-preprocessing-python.html#cb2-150" aria-hidden="true"></a>plt.bar(unique, counts,</span>
+<span id="cb2-151"><a href="2-7-data-preprocessing-python.html#cb2-151" aria-hidden="true"></a>       width<span class="op">=</span><span class="fl">0.9</span>, color<span class="op">=</span><span class="st">&#39;#8ef1df&#39;</span>)</span>
+<span id="cb2-152"><a href="2-7-data-preprocessing-python.html#cb2-152" aria-hidden="true"></a>plt.xlabel(<span class="st">&#39;Drop-off Zone ID&#39;</span>)</span>
+<span id="cb2-153"><a href="2-7-data-preprocessing-python.html#cb2-153" aria-hidden="true"></a>plt.ylabel(<span class="st">&#39;Number of trips&#39;</span>)</span>
+<span id="cb2-154"><a href="2-7-data-preprocessing-python.html#cb2-154" aria-hidden="true"></a>plt.suptitle(<span class="st">&quot;Number of trips by Drop-off Zone in Train Set&quot;</span>,</span>
+<span id="cb2-155"><a href="2-7-data-preprocessing-python.html#cb2-155" aria-hidden="true"></a>            ha <span class="op">=</span> <span class="st">&#39;right&#39;</span>)</span>
+<span id="cb2-156"><a href="2-7-data-preprocessing-python.html#cb2-156" aria-hidden="true"></a>plt.show()</span>
+<span id="cb2-157"><a href="2-7-data-preprocessing-python.html#cb2-157" aria-hidden="true"></a><span class="co"># Omnibus test of normality &amp; Shapiro-Wilk test of normality</span></span>
+<span id="cb2-158"><a href="2-7-data-preprocessing-python.html#cb2-158" aria-hidden="true"></a><span class="co"># https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.normaltest.html</span></span>
+<span id="cb2-159"><a href="2-7-data-preprocessing-python.html#cb2-159" aria-hidden="true"></a><span class="co"># H0 := sample comes from normal dist</span></span>
+<span id="cb2-160"><a href="2-7-data-preprocessing-python.html#cb2-160" aria-hidden="true"></a><span class="im">from</span> scipy.stats <span class="im">import</span> normaltest, shapiro</span>
+<span id="cb2-161"><a href="2-7-data-preprocessing-python.html#cb2-161" aria-hidden="true"></a></span>
+<span id="cb2-162"><a href="2-7-data-preprocessing-python.html#cb2-162" aria-hidden="true"></a><span class="cf">for</span> col <span class="kw">in</span> NUM_COLS:</span>
+<span id="cb2-163"><a href="2-7-data-preprocessing-python.html#cb2-163" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;&gt;&gt; Attribute:&#39;</span>, col)</span>
+<span id="cb2-164"><a href="2-7-data-preprocessing-python.html#cb2-164" aria-hidden="true"></a>    p_train <span class="op">=</span> normaltest(train[col])[<span class="dv">1</span>]</span>
+<span id="cb2-165"><a href="2-7-data-preprocessing-python.html#cb2-165" aria-hidden="true"></a>    p_test <span class="op">=</span> normaltest(test[col])[<span class="dv">1</span>]</span>
+<span id="cb2-166"><a href="2-7-data-preprocessing-python.html#cb2-166" aria-hidden="true"></a>    <span class="cf">if</span> p_train<span class="op">&lt;</span><span class="fl">0.05</span>:</span>
+<span id="cb2-167"><a href="2-7-data-preprocessing-python.html#cb2-167" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&#39;The train set is NOT approximately normal&#39;</span>)</span>
+<span id="cb2-168"><a href="2-7-data-preprocessing-python.html#cb2-168" aria-hidden="true"></a>    <span class="cf">if</span> p_train<span class="op">&gt;=</span><span class="fl">0.05</span>:</span>
+<span id="cb2-169"><a href="2-7-data-preprocessing-python.html#cb2-169" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&#39;The train set is approximately normal&#39;</span>)</span>
+<span id="cb2-170"><a href="2-7-data-preprocessing-python.html#cb2-170" aria-hidden="true"></a>    <span class="cf">if</span> p_test<span class="op">&lt;</span><span class="fl">0.05</span>:</span>
+<span id="cb2-171"><a href="2-7-data-preprocessing-python.html#cb2-171" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&#39;The test set is NOT approximately normal&#39;</span>)</span>
+<span id="cb2-172"><a href="2-7-data-preprocessing-python.html#cb2-172" aria-hidden="true"></a>    <span class="cf">if</span> p_test<span class="op">&gt;=</span><span class="fl">0.05</span>:</span>
+<span id="cb2-173"><a href="2-7-data-preprocessing-python.html#cb2-173" aria-hidden="true"></a>        <span class="bu">print</span>(<span class="st">&#39;The test set is approximately normal&#39;</span>)</span>
+<span id="cb2-174"><a href="2-7-data-preprocessing-python.html#cb2-174" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&#39;-------------------------------&#39;</span>)</span></code></pre></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="code-section.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="2-8-visualisation-python.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-code.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.9 Linear Modelling (R) | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</title>
+  <meta name="description" content="2.9 Linear Modelling (R) | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.9 Linear Modelling (R) | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.9 Linear Modelling (R) | Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis" />
+  
+  
+  
+
+<meta name="author" content="Daniel Pham" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="2-8-visualisation-python.html"/>
+
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/core-js-2.5.3/shim.min.js"></script>
+<script src="libs/react-16.12.0/react.min.js"></script>
+<script src="libs/react-16.12.0/react-dom.min.js"></script>
+<script src="libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/reactable-binding-0.2.2/reactable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="1-phase1.html"><a href="1-phase1.html"><i class="fa fa-check"></i><b>1</b> Data Visualisation</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html"><i class="fa fa-check"></i><b>1.1</b> Dataset</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="1-1-dataset.html"><a href="1-1-dataset.html#tlc-yellow-taxi-2019-data"><i class="fa fa-check"></i><b>1.1.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1-1-dataset.html"><a href="1-1-dataset.html#mta-static-transport-accessibility-data"><i class="fa fa-check"></i><b>1.1.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1-1-dataset.html"><a href="1-1-dataset.html#qri-transport-usage-data"><i class="fa fa-check"></i><b>1.1.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html"><i class="fa fa-check"></i><b>1.2</b> Metrics &amp; Feature Selection</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="1-2-metrics.html"><a href="1-2-metrics.html#pick-up-zone-profitability"><i class="fa fa-check"></i><b>1.2.1</b> Pick-up Zone Profitability</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-2-metrics.html"><a href="1-2-metrics.html#hourly-demands"><i class="fa fa-check"></i><b>1.2.2</b> Hourly Demands</a></li>
+<li class="chapter" data-level="1.2.3" data-path="1-2-metrics.html"><a href="1-2-metrics.html#public-transport-competition-factor"><i class="fa fa-check"></i><b>1.2.3</b> Public Transport Competition Factor</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html"><i class="fa fa-check"></i><b>1.3</b> Data Preprocessing</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#tlc-yellow-taxi-2019-data-1"><i class="fa fa-check"></i><b>1.3.1</b> TLC Yellow Taxi 2019 Data</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#mta-static-transport-accessibility-data-1"><i class="fa fa-check"></i><b>1.3.2</b> MTA Static Transport Accessibility Data</a></li>
+<li class="chapter" data-level="1.3.3" data-path="1-3-data-preprocessing.html"><a href="1-3-data-preprocessing.html#qri-transport-usage-data-1"><i class="fa fa-check"></i><b>1.3.3</b> qri Transport Usage Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html"><i class="fa fa-check"></i><b>1.4</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#overall-trends-of-taxi-trips"><i class="fa fa-check"></i><b>1.4.1</b> Overall trends of taxi trips</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#hotspot-analysis"><i class="fa fa-check"></i><b>1.4.2</b> Hotspot Analysis</a></li>
+<li class="chapter" data-level="1.4.3" data-path="1-4-exploratory-data-analysis.html"><a href="1-4-exploratory-data-analysis.html#effect-of-public-transport-access"><i class="fa fa-check"></i><b>1.4.3</b> Effect of Public Transport Access</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="1-5-conclusion.html"><a href="1-5-conclusion.html"><i class="fa fa-check"></i><b>1.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-phase2.html"><a href="2-phase2.html"><i class="fa fa-check"></i><b>2</b> Explanatory Modelling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html"><i class="fa fa-check"></i><b>2.1</b> Dataset &amp; Sampling</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#feature-engineering"><i class="fa fa-check"></i><b>2.1.1</b> Feature Engineering</a></li>
+<li class="chapter" data-level="2.1.2" data-path="2-1-dataset-sampling.html"><a href="2-1-dataset-sampling.html#sampling"><i class="fa fa-check"></i><b>2.1.2</b> Sampling</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html"><i class="fa fa-check"></i><b>2.2</b> Feature Transformation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#log-transformation-of-numerical-features"><i class="fa fa-check"></i><b>2.2.1</b> Log Transformation of Numerical Features</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2-2-feature-transformation.html"><a href="2-2-feature-transformation.html#factorization-of-categorical-features"><i class="fa fa-check"></i><b>2.2.2</b> Factorization of Categorical Features</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html"><i class="fa fa-check"></i><b>2.3</b> Feature Analysis</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-distribution"><i class="fa fa-check"></i><b>2.3.1</b> Feature Distribution</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#pairwise-correlation"><i class="fa fa-check"></i><b>2.3.2</b> Pairwise Correlation</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#comparison-of-spatial-resolution"><i class="fa fa-check"></i><b>2.3.3</b> Comparison of Spatial Resolution</a></li>
+<li class="chapter" data-level="2.3.4" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#categorical-numerical-feature-interactions"><i class="fa fa-check"></i><b>2.3.4</b> Categorical – Numerical Feature Interactions</a></li>
+<li class="chapter" data-level="2.3.5" data-path="2-3-feature-analysis.html"><a href="2-3-feature-analysis.html#feature-selection-for-explanatory-models"><i class="fa fa-check"></i><b>2.3.5</b> Feature Selection for Explanatory Models</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html"><i class="fa fa-check"></i><b>2.4</b> Model Selection</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-additive-models"><i class="fa fa-check"></i><b>2.4.1</b> Linear Additive Models</a></li>
+<li class="chapter" data-level="2.4.2" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-interaction-models"><i class="fa fa-check"></i><b>2.4.2</b> Linear Interaction Models</a></li>
+<li class="chapter" data-level="2.4.3" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#linear-mixed-models-8"><i class="fa fa-check"></i><b>2.4.3</b> Linear Mixed Models </a></li>
+<li class="chapter" data-level="2.4.4" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#experimental-design"><i class="fa fa-check"></i><b>2.4.4</b> Experimental Design</a></li>
+<li class="chapter" data-level="2.4.5" data-path="2-4-model-selection.html"><a href="2-4-model-selection.html#model-selection-metrics"><i class="fa fa-check"></i><b>2.4.5</b> Model Selection Metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html"><i class="fa fa-check"></i><b>2.5</b> Modelling Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#benchmark-model-term-relevance-analysis"><i class="fa fa-check"></i><b>2.5.1</b> Benchmark Model Term Relevance Analysis</a></li>
+<li class="chapter" data-level="2.5.2" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#model-comparison-on-the-10000-instance-subsample"><i class="fa fa-check"></i><b>2.5.2</b> Model Comparison on the 10000-Instance Subsample</a></li>
+<li class="chapter" data-level="2.5.3" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#final-model-inference"><i class="fa fa-check"></i><b>2.5.3</b> Final Model Inference</a></li>
+<li class="chapter" data-level="2.5.4" data-path="2-5-modelling-results.html"><a href="2-5-modelling-results.html#error-analysis"><i class="fa fa-check"></i><b>2.5.4</b> Error Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="2-6-conclusion-pt2.html"><a href="2-6-conclusion-pt2.html"><i class="fa fa-check"></i><b>2.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="code-section.html"><a href="code-section.html"><i class="fa fa-check"></i>Code Section</a>
+<ul>
+<li class="chapter" data-level="2.7" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html"><i class="fa fa-check"></i><b>2.7</b> Data Preprocessing (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-1"><i class="fa fa-check"></i><b>2.7.1</b> Phase 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="2-7-data-preprocessing-python.html"><a href="2-7-data-preprocessing-python.html#phase-2"><i class="fa fa-check"></i><b>2.7.2</b> Phase 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html"><i class="fa fa-check"></i><b>2.8</b> Visualisation (<code>Python</code>)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#sankey-diagram"><i class="fa fa-check"></i><b>2.8.1</b> Sankey diagram</a></li>
+<li class="chapter" data-level="2.8.2" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#profitability"><i class="fa fa-check"></i><b>2.8.2</b> Profitability</a></li>
+<li class="chapter" data-level="2.8.3" data-path="2-8-visualisation-python.html"><a href="2-8-visualisation-python.html#airport-stripe"><i class="fa fa-check"></i><b>2.8.3</b> Airport stripe</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="2-9-linear-modelling-r.html"><a href="2-9-linear-modelling-r.html"><i class="fa fa-check"></i><b>2.9</b> Linear Modelling (<code>R</code>)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring Yellow Taxi Profitability in NYC: A Spatio-Temporal Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-modelling-r" class="section level2" number="2.9">
+<h2><span class="header-section-number">2.9</span> Linear Modelling (<code>R</code>)</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="2-9-linear-modelling-r.html#cb6-1" aria-hidden="true"></a><span class="kw">library</span>(feather)</span>
+<span id="cb6-2"><a href="2-9-linear-modelling-r.html#cb6-2" aria-hidden="true"></a><span class="kw">library</span>(psych)</span>
+<span id="cb6-3"><a href="2-9-linear-modelling-r.html#cb6-3" aria-hidden="true"></a><span class="kw">library</span>(plotly)</span>
+<span id="cb6-4"><a href="2-9-linear-modelling-r.html#cb6-4" aria-hidden="true"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb6-5"><a href="2-9-linear-modelling-r.html#cb6-5" aria-hidden="true"></a><span class="kw">library</span>(tidyr)</span>
+<span id="cb6-6"><a href="2-9-linear-modelling-r.html#cb6-6" aria-hidden="true"></a><span class="kw">library</span>(lme4)</span>
+<span id="cb6-7"><a href="2-9-linear-modelling-r.html#cb6-7" aria-hidden="true"></a><span class="kw">library</span>(infotheo)</span>
+<span id="cb6-8"><a href="2-9-linear-modelling-r.html#cb6-8" aria-hidden="true"></a></span>
+<span id="cb6-9"><a href="2-9-linear-modelling-r.html#cb6-9" aria-hidden="true"></a><span class="co"># PALETTE</span></span>
+<span id="cb6-10"><a href="2-9-linear-modelling-r.html#cb6-10" aria-hidden="true"></a>PALETTE &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;#1380A1&#39;</span>, <span class="st">&#39;#FAAB18&#39;</span>, <span class="st">&#39;#990000&#39;</span>, <span class="st">&#39;#588300&#39;</span>, <span class="st">&#39;#bf55fb&#39;</span>, <span class="st">&#39;#1ce4c1&#39;</span>)</span>
+<span id="cb6-11"><a href="2-9-linear-modelling-r.html#cb6-11" aria-hidden="true"></a>FONT &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">family=</span><span class="st">&#39;Helvetica&#39;</span>)</span>
+<span id="cb6-12"><a href="2-9-linear-modelling-r.html#cb6-12" aria-hidden="true"></a></span>
+<span id="cb6-13"><a href="2-9-linear-modelling-r.html#cb6-13" aria-hidden="true"></a><span class="co"># Load DS</span></span>
+<span id="cb6-14"><a href="2-9-linear-modelling-r.html#cb6-14" aria-hidden="true"></a>train &lt;-<span class="st"> </span><span class="kw">read_feather</span>(<span class="st">&#39;train_set&#39;</span>)</span>
+<span id="cb6-15"><a href="2-9-linear-modelling-r.html#cb6-15" aria-hidden="true"></a>test &lt;-<span class="st"> </span><span class="kw">read_feather</span>(<span class="st">&#39;test_set&#39;</span>)</span>
+<span id="cb6-16"><a href="2-9-linear-modelling-r.html#cb6-16" aria-hidden="true"></a>manhattan &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;manhattan.csv&#39;</span>)</span>
+<span id="cb6-17"><a href="2-9-linear-modelling-r.html#cb6-17" aria-hidden="true"></a>TAT &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;Loc_Hour_TAT.csv&#39;</span>)</span>
+<span id="cb6-18"><a href="2-9-linear-modelling-r.html#cb6-18" aria-hidden="true"></a></span>
+<span id="cb6-19"><a href="2-9-linear-modelling-r.html#cb6-19" aria-hidden="true"></a><span class="kw">head</span>(train)</span>
+<span id="cb6-20"><a href="2-9-linear-modelling-r.html#cb6-20" aria-hidden="true"></a></span>
+<span id="cb6-21"><a href="2-9-linear-modelling-r.html#cb6-21" aria-hidden="true"></a>train &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-22"><a href="2-9-linear-modelling-r.html#cb6-22" aria-hidden="true"></a><span class="st">  </span><span class="kw">left_join</span>(manhattan,</span>
+<span id="cb6-23"><a href="2-9-linear-modelling-r.html#cb6-23" aria-hidden="true"></a>            <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&#39;PULocationID&#39;</span>=<span class="st">&#39;LocationID&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-24"><a href="2-9-linear-modelling-r.html#cb6-24" aria-hidden="true"></a><span class="st">  </span><span class="kw">replace_na</span>(<span class="kw">list</span>(<span class="st">&#39;Area&#39;</span>=<span class="st">&#39;Other&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-25"><a href="2-9-linear-modelling-r.html#cb6-25" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">PUArea=</span>Area) <span class="op">%&gt;%</span></span>
+<span id="cb6-26"><a href="2-9-linear-modelling-r.html#cb6-26" aria-hidden="true"></a><span class="st">  </span><span class="kw">left_join</span>(manhattan,</span>
+<span id="cb6-27"><a href="2-9-linear-modelling-r.html#cb6-27" aria-hidden="true"></a>            <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&#39;DOLocationID&#39;</span>=<span class="st">&#39;LocationID&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-28"><a href="2-9-linear-modelling-r.html#cb6-28" aria-hidden="true"></a><span class="st">  </span><span class="kw">replace_na</span>(<span class="kw">list</span>(<span class="st">&#39;Area&#39;</span>=<span class="st">&#39;Other&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-29"><a href="2-9-linear-modelling-r.html#cb6-29" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">DOArea=</span>Area) <span class="op">%&gt;%</span></span>
+<span id="cb6-30"><a href="2-9-linear-modelling-r.html#cb6-30" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(total_amount <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-31"><a href="2-9-linear-modelling-r.html#cb6-31" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">PUArea =</span> <span class="kw">as.factor</span>(PUArea),</span>
+<span id="cb6-32"><a href="2-9-linear-modelling-r.html#cb6-32" aria-hidden="true"></a>         <span class="dt">DOArea =</span> <span class="kw">as.factor</span>(DOArea),</span>
+<span id="cb6-33"><a href="2-9-linear-modelling-r.html#cb6-33" aria-hidden="true"></a>         <span class="dt">DOLocationID =</span> <span class="kw">as.factor</span>(DOLocationID),</span>
+<span id="cb6-34"><a href="2-9-linear-modelling-r.html#cb6-34" aria-hidden="true"></a>         <span class="dt">PULocationID =</span> <span class="kw">as.factor</span>(PULocationID)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-35"><a href="2-9-linear-modelling-r.html#cb6-35" aria-hidden="true"></a><span class="st">  </span><span class="kw">left_join</span>(TAT <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">LocationID=</span><span class="kw">as.factor</span>(LocationID)),</span>
+<span id="cb6-36"><a href="2-9-linear-modelling-r.html#cb6-36" aria-hidden="true"></a>            <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&#39;PULocationID&#39;</span>=<span class="st">&#39;LocationID&#39;</span>,</span>
+<span id="cb6-37"><a href="2-9-linear-modelling-r.html#cb6-37" aria-hidden="true"></a>                 <span class="st">&#39;pickup_hour&#39;</span>=<span class="st">&#39;Hour&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()</span>
+<span id="cb6-38"><a href="2-9-linear-modelling-r.html#cb6-38" aria-hidden="true"></a></span>
+<span id="cb6-39"><a href="2-9-linear-modelling-r.html#cb6-39" aria-hidden="true"></a>test &lt;-<span class="st"> </span>test <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-40"><a href="2-9-linear-modelling-r.html#cb6-40" aria-hidden="true"></a><span class="st">  </span><span class="kw">left_join</span>(manhattan,</span>
+<span id="cb6-41"><a href="2-9-linear-modelling-r.html#cb6-41" aria-hidden="true"></a>            <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&#39;PULocationID&#39;</span>=<span class="st">&#39;LocationID&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-42"><a href="2-9-linear-modelling-r.html#cb6-42" aria-hidden="true"></a><span class="st">  </span><span class="kw">replace_na</span>(<span class="kw">list</span>(<span class="st">&#39;Area&#39;</span>=<span class="st">&#39;Other&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-43"><a href="2-9-linear-modelling-r.html#cb6-43" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">PUArea=</span>Area) <span class="op">%&gt;%</span></span>
+<span id="cb6-44"><a href="2-9-linear-modelling-r.html#cb6-44" aria-hidden="true"></a><span class="st">  </span><span class="kw">left_join</span>(manhattan,</span>
+<span id="cb6-45"><a href="2-9-linear-modelling-r.html#cb6-45" aria-hidden="true"></a>            <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&#39;DOLocationID&#39;</span>=<span class="st">&#39;LocationID&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-46"><a href="2-9-linear-modelling-r.html#cb6-46" aria-hidden="true"></a><span class="st">  </span><span class="kw">replace_na</span>(<span class="kw">list</span>(<span class="st">&#39;Area&#39;</span>=<span class="st">&#39;Other&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-47"><a href="2-9-linear-modelling-r.html#cb6-47" aria-hidden="true"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">DOArea=</span>Area) <span class="op">%&gt;%</span></span>
+<span id="cb6-48"><a href="2-9-linear-modelling-r.html#cb6-48" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(total_amount <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-49"><a href="2-9-linear-modelling-r.html#cb6-49" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">PUArea =</span> <span class="kw">as.factor</span>(PUArea),</span>
+<span id="cb6-50"><a href="2-9-linear-modelling-r.html#cb6-50" aria-hidden="true"></a>         <span class="dt">DOArea =</span> <span class="kw">as.factor</span>(DOArea),</span>
+<span id="cb6-51"><a href="2-9-linear-modelling-r.html#cb6-51" aria-hidden="true"></a>         <span class="dt">DOLocationID =</span> <span class="kw">as.factor</span>(DOLocationID),</span>
+<span id="cb6-52"><a href="2-9-linear-modelling-r.html#cb6-52" aria-hidden="true"></a>         <span class="dt">PULocationID =</span> <span class="kw">as.factor</span>(PULocationID)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-53"><a href="2-9-linear-modelling-r.html#cb6-53" aria-hidden="true"></a><span class="st">  </span><span class="kw">left_join</span>(TAT <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">LocationID=</span><span class="kw">as.factor</span>(LocationID)),</span>
+<span id="cb6-54"><a href="2-9-linear-modelling-r.html#cb6-54" aria-hidden="true"></a>            <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&#39;PULocationID&#39;</span>=<span class="st">&#39;LocationID&#39;</span>,</span>
+<span id="cb6-55"><a href="2-9-linear-modelling-r.html#cb6-55" aria-hidden="true"></a>                 <span class="st">&#39;pickup_hour&#39;</span>=<span class="st">&#39;Hour&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()</span>
+<span id="cb6-56"><a href="2-9-linear-modelling-r.html#cb6-56" aria-hidden="true"></a></span>
+<span id="cb6-57"><a href="2-9-linear-modelling-r.html#cb6-57" aria-hidden="true"></a><span class="co"># Outlier analysis</span></span>
+<span id="cb6-58"><a href="2-9-linear-modelling-r.html#cb6-58" aria-hidden="true"></a>tip_rate &lt;-<span class="st"> </span>train<span class="op">$</span>tip_amount<span class="op">-</span>train<span class="op">$</span>fare_amount</span>
+<span id="cb6-59"><a href="2-9-linear-modelling-r.html#cb6-59" aria-hidden="true"></a>upperbound &lt;-<span class="st"> </span><span class="kw">quantile</span>(tip_rate[tip_rate<span class="op">&gt;</span><span class="dv">0</span>], <span class="fl">0.75</span>)<span class="op">+</span><span class="fl">1.5</span><span class="op">*</span><span class="kw">quantile</span>(tip_rate[tip_rate<span class="op">&gt;</span><span class="dv">0</span>], <span class="fl">0.75</span>)<span class="op">-</span><span class="fl">1.5</span><span class="op">*</span><span class="kw">quantile</span>(tip_rate[tip_rate<span class="op">&gt;</span><span class="dv">0</span>], <span class="fl">0.25</span>)</span>
+<span id="cb6-60"><a href="2-9-linear-modelling-r.html#cb6-60" aria-hidden="true"></a>outliers &lt;-<span class="st"> </span>train[train<span class="op">$</span>tip_amount<span class="op">-</span>train<span class="op">$</span>fare_amount<span class="op">&gt;=</span>upperbound,]</span>
+<span id="cb6-61"><a href="2-9-linear-modelling-r.html#cb6-61" aria-hidden="true"></a>outliers &lt;-<span class="st"> </span><span class="kw">rbind</span>(outliers, train[train<span class="op">$</span>total_amount<span class="op">&gt;</span><span class="fl">2.23</span>,])</span>
+<span id="cb6-62"><a href="2-9-linear-modelling-r.html#cb6-62" aria-hidden="true"></a><span class="kw">write.csv</span>(outliers, <span class="st">&#39;outliers.csv&#39;</span>)</span>
+<span id="cb6-63"><a href="2-9-linear-modelling-r.html#cb6-63" aria-hidden="true"></a>train &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">anti_join</span>(outliers)</span>
+<span id="cb6-64"><a href="2-9-linear-modelling-r.html#cb6-64" aria-hidden="true"></a></span>
+<span id="cb6-65"><a href="2-9-linear-modelling-r.html#cb6-65" aria-hidden="true"></a><span class="co"># Plot pairwise for 100 random points</span></span>
+<span id="cb6-66"><a href="2-9-linear-modelling-r.html#cb6-66" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">26</span>)</span>
+<span id="cb6-67"><a href="2-9-linear-modelling-r.html#cb6-67" aria-hidden="true"></a>sample &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">100</span>) </span>
+<span id="cb6-68"><a href="2-9-linear-modelling-r.html#cb6-68" aria-hidden="true"></a></span>
+<span id="cb6-69"><a href="2-9-linear-modelling-r.html#cb6-69" aria-hidden="true"></a><span class="kw">pairs.panels</span>(sample,</span>
+<span id="cb6-70"><a href="2-9-linear-modelling-r.html#cb6-70" aria-hidden="true"></a>             <span class="dt">bg=</span>PALETTE[sample<span class="op">$</span>PUArea],</span>
+<span id="cb6-71"><a href="2-9-linear-modelling-r.html#cb6-71" aria-hidden="true"></a>             <span class="dt">pch=</span><span class="dv">21</span>,</span>
+<span id="cb6-72"><a href="2-9-linear-modelling-r.html#cb6-72" aria-hidden="true"></a>             <span class="dt">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="co"># correlation method</span></span>
+<span id="cb6-73"><a href="2-9-linear-modelling-r.html#cb6-73" aria-hidden="true"></a>             <span class="dt">hist.col =</span> <span class="st">&quot;#FAAB18&quot;</span>,</span>
+<span id="cb6-74"><a href="2-9-linear-modelling-r.html#cb6-74" aria-hidden="true"></a>             <span class="dt">density =</span> <span class="ot">FALSE</span>,  <span class="co"># show density plot,</span></span>
+<span id="cb6-75"><a href="2-9-linear-modelling-r.html#cb6-75" aria-hidden="true"></a>             <span class="dt">ellipses=</span><span class="ot">FALSE</span>,</span>
+<span id="cb6-76"><a href="2-9-linear-modelling-r.html#cb6-76" aria-hidden="true"></a>             <span class="dt">rug =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb6-77"><a href="2-9-linear-modelling-r.html#cb6-77" aria-hidden="true"></a>             <span class="dt">stars =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb6-78"><a href="2-9-linear-modelling-r.html#cb6-78" aria-hidden="true"></a>             <span class="dt">cex.cor =</span> <span class="fl">2.5</span></span>
+<span id="cb6-79"><a href="2-9-linear-modelling-r.html#cb6-79" aria-hidden="true"></a>)</span>
+<span id="cb6-80"><a href="2-9-linear-modelling-r.html#cb6-80" aria-hidden="true"></a></span>
+<span id="cb6-81"><a href="2-9-linear-modelling-r.html#cb6-81" aria-hidden="true"></a><span class="co"># Comparing levels of locations</span></span>
+<span id="cb6-82"><a href="2-9-linear-modelling-r.html#cb6-82" aria-hidden="true"></a>bins &lt;-<span class="st"> </span><span class="kw">cut</span>(train<span class="op">$</span>total_amount, <span class="dv">100000</span>)</span>
+<span id="cb6-83"><a href="2-9-linear-modelling-r.html#cb6-83" aria-hidden="true"></a>nmi &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) {</span>
+<span id="cb6-84"><a href="2-9-linear-modelling-r.html#cb6-84" aria-hidden="true"></a>  <span class="kw">return</span>(<span class="dv">2</span><span class="op">*</span><span class="kw">mutinformation</span>(x,y)<span class="op">/</span>(<span class="kw">entropy</span>(x)<span class="op">+</span><span class="kw">entropy</span>(y)))</span>
+<span id="cb6-85"><a href="2-9-linear-modelling-r.html#cb6-85" aria-hidden="true"></a>}</span>
+<span id="cb6-86"><a href="2-9-linear-modelling-r.html#cb6-86" aria-hidden="true"></a></span>
+<span id="cb6-87"><a href="2-9-linear-modelling-r.html#cb6-87" aria-hidden="true"></a><span class="kw">nmi</span>(bins, train<span class="op">$</span>PULocationID)</span>
+<span id="cb6-88"><a href="2-9-linear-modelling-r.html#cb6-88" aria-hidden="true"></a><span class="kw">nmi</span>(bins, train<span class="op">$</span>PUArea)</span>
+<span id="cb6-89"><a href="2-9-linear-modelling-r.html#cb6-89" aria-hidden="true"></a><span class="kw">nmi</span>(bins, train<span class="op">$</span>DOLocationID)</span>
+<span id="cb6-90"><a href="2-9-linear-modelling-r.html#cb6-90" aria-hidden="true"></a><span class="kw">nmi</span>(bins, train<span class="op">$</span>DOArea)</span>
+<span id="cb6-91"><a href="2-9-linear-modelling-r.html#cb6-91" aria-hidden="true"></a></span>
+<span id="cb6-92"><a href="2-9-linear-modelling-r.html#cb6-92" aria-hidden="true"></a><span class="co"># Test effect of PU Area on Total Amount</span></span>
+<span id="cb6-93"><a href="2-9-linear-modelling-r.html#cb6-93" aria-hidden="true"></a><span class="co"># Non-parametric (median-based) ANOVA</span></span>
+<span id="cb6-94"><a href="2-9-linear-modelling-r.html#cb6-94" aria-hidden="true"></a><span class="kw">kruskal.test</span>(total_amount <span class="op">~</span><span class="st"> </span>PUArea, <span class="dt">data=</span>sample)</span>
+<span id="cb6-95"><a href="2-9-linear-modelling-r.html#cb6-95" aria-hidden="true"></a><span class="co"># Plot boxplot to compare data</span></span>
+<span id="cb6-96"><a href="2-9-linear-modelling-r.html#cb6-96" aria-hidden="true"></a> <span class="kw">plot_ly</span>(<span class="dt">data=</span>train,</span>
+<span id="cb6-97"><a href="2-9-linear-modelling-r.html#cb6-97" aria-hidden="true"></a>         <span class="dt">x=</span><span class="op">~</span>PUArea, <span class="dt">y=</span><span class="op">~</span>total_amount,</span>
+<span id="cb6-98"><a href="2-9-linear-modelling-r.html#cb6-98" aria-hidden="true"></a>         <span class="dt">type=</span><span class="st">&#39;box&#39;</span>, <span class="dt">color=</span><span class="op">~</span>Area, <span class="dt">colors=</span>PALETTE) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layout</span>(<span class="dt">font=</span>FONT, <span class="dt">yaxis=</span><span class="kw">list</span>(<span class="dt">title=</span><span class="st">&#39;Total Amount&#39;</span>))</span>
+<span id="cb6-99"><a href="2-9-linear-modelling-r.html#cb6-99" aria-hidden="true"></a></span>
+<span id="cb6-100"><a href="2-9-linear-modelling-r.html#cb6-100" aria-hidden="true"></a><span class="co"># Freq plot (Not used)</span></span>
+<span id="cb6-101"><a href="2-9-linear-modelling-r.html#cb6-101" aria-hidden="true"></a>ttable &lt;-<span class="st"> </span><span class="kw">as.data.frame.matrix</span>(<span class="kw">table</span>(train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Area, pickup_hour)))</span>
+<span id="cb6-102"><a href="2-9-linear-modelling-r.html#cb6-102" aria-hidden="true"></a>ttable<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw">row.names</span>(ttable)</span>
+<span id="cb6-103"><a href="2-9-linear-modelling-r.html#cb6-103" aria-hidden="true"></a><span class="kw">row.names</span>(ttable) &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb6-104"><a href="2-9-linear-modelling-r.html#cb6-104" aria-hidden="true"></a>ttable &lt;-<span class="st"> </span>ttable <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="dt">key=</span><span class="st">&#39;Hour&#39;</span>, <span class="dt">value=</span><span class="st">&#39;Freq&#39;</span>, <span class="st">`</span><span class="dt">0</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">23</span><span class="st">`</span>)</span>
+<span id="cb6-105"><a href="2-9-linear-modelling-r.html#cb6-105" aria-hidden="true"></a>ttable<span class="op">$</span>Hour &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(ttable<span class="op">$</span>Hour)</span>
+<span id="cb6-106"><a href="2-9-linear-modelling-r.html#cb6-106" aria-hidden="true"></a></span>
+<span id="cb6-107"><a href="2-9-linear-modelling-r.html#cb6-107" aria-hidden="true"></a><span class="kw">plot_ly</span>(</span>
+<span id="cb6-108"><a href="2-9-linear-modelling-r.html#cb6-108" aria-hidden="true"></a>  <span class="dt">data=</span>ttable,</span>
+<span id="cb6-109"><a href="2-9-linear-modelling-r.html#cb6-109" aria-hidden="true"></a>  <span class="dt">x=</span><span class="op">~</span>Hour, <span class="dt">y=</span><span class="op">~</span>Freq, <span class="dt">color=</span><span class="op">~</span>Area, <span class="dt">name=</span><span class="op">~</span>Area, <span class="dt">colors=</span>PALETTE,</span>
+<span id="cb6-110"><a href="2-9-linear-modelling-r.html#cb6-110" aria-hidden="true"></a>  <span class="dt">type=</span><span class="st">&#39;bar&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layout</span>(<span class="dt">barmode=</span><span class="st">&#39;stack&#39;</span>, <span class="dt">bargap=</span><span class="fl">0.1</span>, </span>
+<span id="cb6-111"><a href="2-9-linear-modelling-r.html#cb6-111" aria-hidden="true"></a>                         <span class="dt">xaxis=</span><span class="kw">list</span>(<span class="dt">type=</span><span class="st">&#39;linear&#39;</span>),</span>
+<span id="cb6-112"><a href="2-9-linear-modelling-r.html#cb6-112" aria-hidden="true"></a>                         <span class="dt">yaxis=</span><span class="kw">list</span>(<span class="dt">title=</span><span class="st">&#39;Total number of trips&#39;</span>),</span>
+<span id="cb6-113"><a href="2-9-linear-modelling-r.html#cb6-113" aria-hidden="true"></a>                         <span class="dt">font=</span>FONT)</span>
+<span id="cb6-114"><a href="2-9-linear-modelling-r.html#cb6-114" aria-hidden="true"></a></span>
+<span id="cb6-115"><a href="2-9-linear-modelling-r.html#cb6-115" aria-hidden="true"></a><span class="co"># Proportion plot (Not used)</span></span>
+<span id="cb6-116"><a href="2-9-linear-modelling-r.html#cb6-116" aria-hidden="true"></a>ptable &lt;-<span class="st"> </span><span class="kw">prop.table</span>(<span class="kw">table</span>(train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Area, pickup_hour)),<span class="dv">2</span>)</span>
+<span id="cb6-117"><a href="2-9-linear-modelling-r.html#cb6-117" aria-hidden="true"></a>ptable &lt;-<span class="st"> </span><span class="kw">as.data.frame.matrix</span>(ptable)</span>
+<span id="cb6-118"><a href="2-9-linear-modelling-r.html#cb6-118" aria-hidden="true"></a>ptable<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw">row.names</span>(ptable)</span>
+<span id="cb6-119"><a href="2-9-linear-modelling-r.html#cb6-119" aria-hidden="true"></a><span class="kw">row.names</span>(ptable) &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb6-120"><a href="2-9-linear-modelling-r.html#cb6-120" aria-hidden="true"></a>ptable &lt;-<span class="st"> </span>ptable <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gather</span>(<span class="dt">key=</span><span class="st">&#39;Hour&#39;</span>, <span class="dt">value=</span><span class="st">&#39;Prop&#39;</span>, <span class="st">`</span><span class="dt">0</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">23</span><span class="st">`</span>)</span>
+<span id="cb6-121"><a href="2-9-linear-modelling-r.html#cb6-121" aria-hidden="true"></a>ptable<span class="op">$</span>Hour &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(ptable<span class="op">$</span>Hour)</span>
+<span id="cb6-122"><a href="2-9-linear-modelling-r.html#cb6-122" aria-hidden="true"></a>ptable<span class="op">$</span>Prop &lt;-<span class="st"> </span>ptable<span class="op">$</span>Prop<span class="op">*</span><span class="dv">100</span></span>
+<span id="cb6-123"><a href="2-9-linear-modelling-r.html#cb6-123" aria-hidden="true"></a></span>
+<span id="cb6-124"><a href="2-9-linear-modelling-r.html#cb6-124" aria-hidden="true"></a><span class="kw">plot_ly</span>(</span>
+<span id="cb6-125"><a href="2-9-linear-modelling-r.html#cb6-125" aria-hidden="true"></a>  <span class="dt">data=</span>ptable,</span>
+<span id="cb6-126"><a href="2-9-linear-modelling-r.html#cb6-126" aria-hidden="true"></a>  <span class="dt">x=</span><span class="op">~</span>Hour, <span class="dt">y=</span><span class="op">~</span>Prop, <span class="dt">color=</span><span class="op">~</span>Area, <span class="dt">name=</span><span class="op">~</span>Area, <span class="dt">colors=</span>PALETTE,</span>
+<span id="cb6-127"><a href="2-9-linear-modelling-r.html#cb6-127" aria-hidden="true"></a>  <span class="dt">type=</span><span class="st">&#39;bar&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layout</span>(<span class="dt">barmode=</span><span class="st">&#39;stack&#39;</span>, <span class="dt">bargap=</span><span class="fl">0.1</span>, </span>
+<span id="cb6-128"><a href="2-9-linear-modelling-r.html#cb6-128" aria-hidden="true"></a>                         <span class="dt">xaxis=</span><span class="kw">list</span>(<span class="dt">type=</span><span class="st">&#39;linear&#39;</span>),</span>
+<span id="cb6-129"><a href="2-9-linear-modelling-r.html#cb6-129" aria-hidden="true"></a>                         <span class="dt">yaxis=</span><span class="kw">list</span>(<span class="dt">title=</span><span class="st">&#39;Proportion (%)&#39;</span>),</span>
+<span id="cb6-130"><a href="2-9-linear-modelling-r.html#cb6-130" aria-hidden="true"></a>                         <span class="dt">font=</span>FONT)</span>
+<span id="cb6-131"><a href="2-9-linear-modelling-r.html#cb6-131" aria-hidden="true"></a></span>
+<span id="cb6-132"><a href="2-9-linear-modelling-r.html#cb6-132" aria-hidden="true"></a><span class="co"># Simple linear model for sample 500 random points</span></span>
+<span id="cb6-133"><a href="2-9-linear-modelling-r.html#cb6-133" aria-hidden="true"></a><span class="kw">set.seed</span>(<span class="dv">26</span>)</span>
+<span id="cb6-134"><a href="2-9-linear-modelling-r.html#cb6-134" aria-hidden="true"></a>sample &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">10000</span>) </span>
+<span id="cb6-135"><a href="2-9-linear-modelling-r.html#cb6-135" aria-hidden="true"></a></span>
+<span id="cb6-136"><a href="2-9-linear-modelling-r.html#cb6-136" aria-hidden="true"></a><span class="co"># Forward feature selection &gt;&gt; Remove &quot;posteriori&quot; features aka dist, fare, tip</span></span>
+<span id="cb6-137"><a href="2-9-linear-modelling-r.html#cb6-137" aria-hidden="true"></a>m0.sample &lt;-<span class="st"> </span><span class="kw">lm</span>(total_amount <span class="op">~</span><span class="st"> </span>(trip_duration<span class="op">+</span>TAT<span class="op">+</span>PUArea<span class="op">+</span>DOArea)<span class="op">^</span><span class="dv">2</span>, <span class="dt">data=</span>sample)</span>
+<span id="cb6-138"><a href="2-9-linear-modelling-r.html#cb6-138" aria-hidden="true"></a>m0.sample &lt;-<span class="st"> </span><span class="kw">step</span>(m0.sample, <span class="dt">scope =</span> <span class="op">~</span>., <span class="dt">data=</span>sample)</span>
+<span id="cb6-139"><a href="2-9-linear-modelling-r.html#cb6-139" aria-hidden="true"></a><span class="kw">anova</span>(m0.sample)</span>
+<span id="cb6-140"><a href="2-9-linear-modelling-r.html#cb6-140" aria-hidden="true"></a>m0.sample &lt;-<span class="st"> </span><span class="kw">lm</span>(total_amount <span class="op">~</span><span class="st"> </span>TAT<span class="op">+</span>(trip_duration<span class="op">+</span>PUArea<span class="op">+</span>DOArea)<span class="op">^</span><span class="dv">2</span>, <span class="dt">data=</span>sample)</span>
+<span id="cb6-141"><a href="2-9-linear-modelling-r.html#cb6-141" aria-hidden="true"></a><span class="kw">anova</span>(m0.sample)</span>
+<span id="cb6-142"><a href="2-9-linear-modelling-r.html#cb6-142" aria-hidden="true"></a></span>
+<span id="cb6-143"><a href="2-9-linear-modelling-r.html#cb6-143" aria-hidden="true"></a><span class="co"># Build models</span></span>
+<span id="cb6-144"><a href="2-9-linear-modelling-r.html#cb6-144" aria-hidden="true"></a>m1.sample &lt;-<span class="st"> </span><span class="kw">lm</span>(total_amount <span class="op">~</span><span class="st"> </span>trip_duration, <span class="dt">data=</span>sample)</span>
+<span id="cb6-145"><a href="2-9-linear-modelling-r.html#cb6-145" aria-hidden="true"></a>m2.sample &lt;-<span class="st"> </span><span class="kw">lm</span>(total_amount <span class="op">~</span><span class="st"> </span>trip_duration <span class="op">+</span><span class="st"> </span>PUArea <span class="op">+</span><span class="st"> </span>DOArea, <span class="dt">data=</span>sample)</span>
+<span id="cb6-146"><a href="2-9-linear-modelling-r.html#cb6-146" aria-hidden="true"></a>m3.sample &lt;-<span class="st"> </span><span class="kw">lm</span>(total_amount <span class="op">~</span><span class="st"> </span>trip_duration <span class="op">+</span><span class="st"> </span>PUArea <span class="op">+</span><span class="st"> </span>DOArea <span class="op">+</span><span class="st"> </span>TAT, <span class="dt">data=</span>sample)</span>
+<span id="cb6-147"><a href="2-9-linear-modelling-r.html#cb6-147" aria-hidden="true"></a>m4.sample &lt;-<span class="st"> </span><span class="kw">lm</span>(total_amount <span class="op">~</span><span class="st"> </span>trip_duration <span class="op">+</span><span class="st"> </span>PUArea <span class="op">*</span><span class="st"> </span>DOArea, <span class="dt">data=</span>sample)</span>
+<span id="cb6-148"><a href="2-9-linear-modelling-r.html#cb6-148" aria-hidden="true"></a>m5.sample &lt;-<span class="st"> </span><span class="kw">lm</span>(total_amount <span class="op">~</span><span class="st"> </span>trip_duration <span class="op">*</span><span class="st"> </span>(PUArea <span class="op">+</span><span class="st"> </span>DOArea), <span class="dt">data=</span>sample)</span>
+<span id="cb6-149"><a href="2-9-linear-modelling-r.html#cb6-149" aria-hidden="true"></a>m6.sample &lt;-<span class="st"> </span><span class="kw">lm</span>(total_amount <span class="op">~</span><span class="st"> </span>(trip_duration <span class="op">+</span><span class="st"> </span>PUArea <span class="op">+</span><span class="st"> </span>DOArea)<span class="op">^</span><span class="dv">2</span>, <span class="dt">data=</span>sample)</span>
+<span id="cb6-150"><a href="2-9-linear-modelling-r.html#cb6-150" aria-hidden="true"></a>m7.sample &lt;-<span class="st"> </span><span class="kw">lmer</span>(total_amount <span class="op">~</span><span class="st"> </span>trip_duration <span class="op">+</span><span class="st"> </span>PUArea <span class="op">+</span><span class="st"> </span>DOArea <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>PUArea) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>DOArea), <span class="dt">data=</span>sample)</span>
+<span id="cb6-151"><a href="2-9-linear-modelling-r.html#cb6-151" aria-hidden="true"></a>m8.sample &lt;-<span class="st"> </span><span class="kw">lmer</span>(total_amount <span class="op">~</span><span class="st"> </span>trip_duration <span class="op">+</span><span class="st"> </span>PUArea <span class="op">+</span><span class="st"> </span>DOArea <span class="op">+</span><span class="st"> </span>(trip_duration<span class="op">|</span>PUArea) <span class="op">+</span><span class="st"> </span>(trip_duration<span class="op">|</span>DOArea), <span class="dt">data=</span>sample)</span>
+<span id="cb6-152"><a href="2-9-linear-modelling-r.html#cb6-152" aria-hidden="true"></a>m9.sample &lt;-<span class="st"> </span><span class="kw">lmer</span>(total_amount <span class="op">~</span><span class="st"> </span>trip_duration <span class="op">+</span><span class="st"> </span>PUArea <span class="op">+</span><span class="st"> </span>DOArea <span class="op">+</span><span class="st"> </span>(TAT<span class="op">|</span>PUArea) <span class="op">+</span><span class="st"> </span>(TAT<span class="op">|</span>DOArea), <span class="dt">data=</span>sample, <span class="dt">control =</span> <span class="kw">lmerControl</span>(<span class="dt">optimizer =</span><span class="st">&quot;Nelder_Mead&quot;</span>))</span>
+<span id="cb6-153"><a href="2-9-linear-modelling-r.html#cb6-153" aria-hidden="true"></a></span>
+<span id="cb6-154"><a href="2-9-linear-modelling-r.html#cb6-154" aria-hidden="true"></a><span class="co"># Model comparison</span></span>
+<span id="cb6-155"><a href="2-9-linear-modelling-r.html#cb6-155" aria-hidden="true"></a>model_comparison &lt;-<span class="st"> </span><span class="kw">AIC</span>(m0.sample, m1.sample, m2.sample, m3.sample, m4.sample, </span>
+<span id="cb6-156"><a href="2-9-linear-modelling-r.html#cb6-156" aria-hidden="true"></a>                        m5.sample, m6.sample, m7.sample, m8.sample, m9.sample)</span>
+<span id="cb6-157"><a href="2-9-linear-modelling-r.html#cb6-157" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb6-158"><a href="2-9-linear-modelling-r.html#cb6-158" aria-hidden="true"></a>score &lt;-<span class="st"> </span><span class="cf">function</span>(model) {</span>
+<span id="cb6-159"><a href="2-9-linear-modelling-r.html#cb6-159" aria-hidden="true"></a>  <span class="dv">10</span><span class="op">^</span>(<span class="kw">sqrt</span>(<span class="kw">sum</span>((<span class="kw">predict</span>(model, test) <span class="op">-</span><span class="st"> </span>test<span class="op">$</span>total_amount)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="kw">dim</span>(test)[<span class="dv">1</span>]))</span>
+<span id="cb6-160"><a href="2-9-linear-modelling-r.html#cb6-160" aria-hidden="true"></a>}</span>
+<span id="cb6-161"><a href="2-9-linear-modelling-r.html#cb6-161" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m0.sample))</span>
+<span id="cb6-162"><a href="2-9-linear-modelling-r.html#cb6-162" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m1.sample))</span>
+<span id="cb6-163"><a href="2-9-linear-modelling-r.html#cb6-163" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m2.sample))</span>
+<span id="cb6-164"><a href="2-9-linear-modelling-r.html#cb6-164" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m3.sample))</span>
+<span id="cb6-165"><a href="2-9-linear-modelling-r.html#cb6-165" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m4.sample))</span>
+<span id="cb6-166"><a href="2-9-linear-modelling-r.html#cb6-166" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m5.sample))</span>
+<span id="cb6-167"><a href="2-9-linear-modelling-r.html#cb6-167" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m6.sample))</span>
+<span id="cb6-168"><a href="2-9-linear-modelling-r.html#cb6-168" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m7.sample))</span>
+<span id="cb6-169"><a href="2-9-linear-modelling-r.html#cb6-169" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m8.sample))</span>
+<span id="cb6-170"><a href="2-9-linear-modelling-r.html#cb6-170" aria-hidden="true"></a>rmse &lt;-<span class="st"> </span><span class="kw">c</span>(rmse, <span class="kw">score</span>(m9.sample))</span>
+<span id="cb6-171"><a href="2-9-linear-modelling-r.html#cb6-171" aria-hidden="true"></a>model_comparison<span class="op">$</span>RMSE &lt;-<span class="st"> </span>rmse</span>
+<span id="cb6-172"><a href="2-9-linear-modelling-r.html#cb6-172" aria-hidden="true"></a></span>
+<span id="cb6-173"><a href="2-9-linear-modelling-r.html#cb6-173" aria-hidden="true"></a>model_comparison<span class="op">$</span>MLR &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span><span class="op">*</span>(model_comparison<span class="op">$</span>AIC[<span class="dv">1</span>]<span class="op">-</span>model_comparison<span class="op">$</span>AIC))</span>
+<span id="cb6-174"><a href="2-9-linear-modelling-r.html#cb6-174" aria-hidden="true"></a></span>
+<span id="cb6-175"><a href="2-9-linear-modelling-r.html#cb6-175" aria-hidden="true"></a><span class="co"># Model comparison using AIC &amp; rmse plot</span></span>
+<span id="cb6-176"><a href="2-9-linear-modelling-r.html#cb6-176" aria-hidden="true"></a>model_comparison <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-177"><a href="2-9-linear-modelling-r.html#cb6-177" aria-hidden="true"></a><span class="st">  </span><span class="kw">plot_ly</span>(</span>
+<span id="cb6-178"><a href="2-9-linear-modelling-r.html#cb6-178" aria-hidden="true"></a>  <span class="dt">type=</span><span class="st">&#39;bar&#39;</span>, <span class="dt">y=</span><span class="op">~</span>RMSE, <span class="dt">color=</span><span class="op">~</span>RMSE, <span class="dt">colors=</span><span class="st">&#39;viridis&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-179"><a href="2-9-linear-modelling-r.html#cb6-179" aria-hidden="true"></a><span class="st">  </span><span class="kw">layout</span>(<span class="dt">font=</span>FONT, </span>
+<span id="cb6-180"><a href="2-9-linear-modelling-r.html#cb6-180" aria-hidden="true"></a>         <span class="dt">yaxis=</span><span class="kw">list</span>(<span class="dt">range=</span><span class="kw">c</span>(<span class="fl">1.18</span>,<span class="fl">1.5</span>)),</span>
+<span id="cb6-181"><a href="2-9-linear-modelling-r.html#cb6-181" aria-hidden="true"></a>         <span class="dt">xaxis=</span><span class="kw">list</span>(<span class="dt">title=</span><span class="st">&#39;Model&#39;</span>, <span class="dt">dtick=</span><span class="dv">1</span>))</span>
+<span id="cb6-182"><a href="2-9-linear-modelling-r.html#cb6-182" aria-hidden="true"></a></span>
+<span id="cb6-183"><a href="2-9-linear-modelling-r.html#cb6-183" aria-hidden="true"></a><span class="co"># Model comparison using AIC &amp; rmse</span></span>
+<span id="cb6-184"><a href="2-9-linear-modelling-r.html#cb6-184" aria-hidden="true"></a>model_comparison <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-185"><a href="2-9-linear-modelling-r.html#cb6-185" aria-hidden="true"></a><span class="st">  </span><span class="kw">plot_ly</span>(</span>
+<span id="cb6-186"><a href="2-9-linear-modelling-r.html#cb6-186" aria-hidden="true"></a>    <span class="dt">type=</span><span class="st">&#39;bar&#39;</span>, <span class="dt">y=</span><span class="op">~</span>AIC, <span class="dt">color=</span><span class="op">~</span>AIC, <span class="dt">colors=</span><span class="st">&#39;viridis&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-187"><a href="2-9-linear-modelling-r.html#cb6-187" aria-hidden="true"></a><span class="st">  </span><span class="kw">layout</span>(<span class="dt">font=</span>FONT, </span>
+<span id="cb6-188"><a href="2-9-linear-modelling-r.html#cb6-188" aria-hidden="true"></a>         <span class="dt">yaxis=</span><span class="kw">list</span>(<span class="dt">range=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">25500</span>,<span class="op">-</span><span class="dv">18500</span>)),</span>
+<span id="cb6-189"><a href="2-9-linear-modelling-r.html#cb6-189" aria-hidden="true"></a>         <span class="dt">xaxis=</span><span class="kw">list</span>(<span class="dt">title=</span><span class="st">&#39;Model&#39;</span>, <span class="dt">dtick=</span><span class="dv">1</span>))</span>
+<span id="cb6-190"><a href="2-9-linear-modelling-r.html#cb6-190" aria-hidden="true"></a></span>
+<span id="cb6-191"><a href="2-9-linear-modelling-r.html#cb6-191" aria-hidden="true"></a><span class="kw">write.csv</span>(model_comparison, <span class="st">&#39;model_comparison.csv&#39;</span>)</span>
+<span id="cb6-192"><a href="2-9-linear-modelling-r.html#cb6-192" aria-hidden="true"></a></span>
+<span id="cb6-193"><a href="2-9-linear-modelling-r.html#cb6-193" aria-hidden="true"></a><span class="co"># Diagnostics</span></span>
+<span id="cb6-194"><a href="2-9-linear-modelling-r.html#cb6-194" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb6-195"><a href="2-9-linear-modelling-r.html#cb6-195" aria-hidden="true"></a><span class="kw">plot</span>(m1.sample)</span>
+<span id="cb6-196"><a href="2-9-linear-modelling-r.html#cb6-196" aria-hidden="true"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb6-197"><a href="2-9-linear-modelling-r.html#cb6-197" aria-hidden="true"></a><span class="kw">plot</span>(m0.sample)</span>
+<span id="cb6-198"><a href="2-9-linear-modelling-r.html#cb6-198" aria-hidden="true"></a></span>
+<span id="cb6-199"><a href="2-9-linear-modelling-r.html#cb6-199" aria-hidden="true"></a><span class="co"># Plot predictions</span></span>
+<span id="cb6-200"><a href="2-9-linear-modelling-r.html#cb6-200" aria-hidden="true"></a>sample_visual &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb6-201"><a href="2-9-linear-modelling-r.html#cb6-201" aria-hidden="true"></a><span class="cf">for</span> (area <span class="cf">in</span> <span class="kw">unique</span>(test<span class="op">$</span>PUArea)) {</span>
+<span id="cb6-202"><a href="2-9-linear-modelling-r.html#cb6-202" aria-hidden="true"></a>  <span class="kw">set.seed</span>(<span class="dv">7</span>)</span>
+<span id="cb6-203"><a href="2-9-linear-modelling-r.html#cb6-203" aria-hidden="true"></a>  sample_visual[[area]] &lt;-<span class="st"> </span>test <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(PUArea<span class="op">==</span>area) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-204"><a href="2-9-linear-modelling-r.html#cb6-204" aria-hidden="true"></a><span class="st">    </span><span class="kw">sample_n</span>(<span class="dv">20</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-205"><a href="2-9-linear-modelling-r.html#cb6-205" aria-hidden="true"></a><span class="st">    </span><span class="kw">select</span>(trip_duration, total_amount, PUArea, DOArea) <span class="op">%&gt;%</span></span>
+<span id="cb6-206"><a href="2-9-linear-modelling-r.html#cb6-206" aria-hidden="true"></a><span class="st">    </span><span class="kw">distinct</span>(trip_duration, PUArea, DOArea, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-207"><a href="2-9-linear-modelling-r.html#cb6-207" aria-hidden="true"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pred.m1=</span><span class="kw">predict</span>(m1.sample, .),</span>
+<span id="cb6-208"><a href="2-9-linear-modelling-r.html#cb6-208" aria-hidden="true"></a>           <span class="dt">pred.m4=</span><span class="kw">predict</span>(m2.sample, .),</span>
+<span id="cb6-209"><a href="2-9-linear-modelling-r.html#cb6-209" aria-hidden="true"></a>           <span class="dt">pred.m7=</span><span class="kw">predict</span>(m7.sample, .))</span>
+<span id="cb6-210"><a href="2-9-linear-modelling-r.html#cb6-210" aria-hidden="true"></a>}</span>
+<span id="cb6-211"><a href="2-9-linear-modelling-r.html#cb6-211" aria-hidden="true"></a>sample_visual &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, sample_visual) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(trip_duration)</span>
+<span id="cb6-212"><a href="2-9-linear-modelling-r.html#cb6-212" aria-hidden="true"></a></span>
+<span id="cb6-213"><a href="2-9-linear-modelling-r.html#cb6-213" aria-hidden="true"></a>sample_visual <span class="op">%&gt;%</span></span>
+<span id="cb6-214"><a href="2-9-linear-modelling-r.html#cb6-214" aria-hidden="true"></a><span class="st">  </span><span class="kw">plot_ly</span>() <span class="op">%&gt;%</span></span>
+<span id="cb6-215"><a href="2-9-linear-modelling-r.html#cb6-215" aria-hidden="true"></a><span class="st">  </span><span class="kw">add_trace</span>(<span class="dt">x=</span><span class="op">~</span>trip_duration,</span>
+<span id="cb6-216"><a href="2-9-linear-modelling-r.html#cb6-216" aria-hidden="true"></a>            <span class="dt">y=</span><span class="op">~</span>total_amount,</span>
+<span id="cb6-217"><a href="2-9-linear-modelling-r.html#cb6-217" aria-hidden="true"></a>            <span class="dt">type=</span><span class="st">&#39;scatter&#39;</span>, <span class="dt">mode=</span><span class="st">&#39;markers&#39;</span>, <span class="dt">color=</span><span class="op">~</span>PUArea, <span class="dt">colors=</span>PALETTE, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">marker=</span><span class="kw">list</span>(<span class="dt">symbol=</span><span class="st">&#39;circle-open&#39;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-218"><a href="2-9-linear-modelling-r.html#cb6-218" aria-hidden="true"></a><span class="st">  </span><span class="kw">add_trace</span>(<span class="dt">x=</span><span class="op">~</span>trip_duration,</span>
+<span id="cb6-219"><a href="2-9-linear-modelling-r.html#cb6-219" aria-hidden="true"></a>            <span class="dt">y=</span><span class="op">~</span>pred.m1,</span>
+<span id="cb6-220"><a href="2-9-linear-modelling-r.html#cb6-220" aria-hidden="true"></a>            <span class="dt">type=</span><span class="st">&#39;scatter&#39;</span>, <span class="dt">mode=</span><span class="st">&#39;lines&#39;</span>, <span class="dt">name=</span><span class="st">&#39;Baseline&#39;</span>, <span class="dt">colors=</span><span class="st">&#39;black&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-221"><a href="2-9-linear-modelling-r.html#cb6-221" aria-hidden="true"></a><span class="st">  </span><span class="kw">add_trace</span>(<span class="dt">x=</span><span class="op">~</span>trip_duration,</span>
+<span id="cb6-222"><a href="2-9-linear-modelling-r.html#cb6-222" aria-hidden="true"></a>            <span class="dt">y=</span><span class="op">~</span>pred.m4,</span>
+<span id="cb6-223"><a href="2-9-linear-modelling-r.html#cb6-223" aria-hidden="true"></a>            <span class="dt">type=</span><span class="st">&#39;scatter&#39;</span>, <span class="dt">mode=</span><span class="st">&#39;lines&#39;</span>, <span class="dt">color=</span><span class="op">~</span>PUArea, <span class="dt">colors=</span>PALETTE, <span class="dt">line=</span><span class="kw">list</span>(<span class="dt">dash=</span><span class="st">&#39;dot&#39;</span>), <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-224"><a href="2-9-linear-modelling-r.html#cb6-224" aria-hidden="true"></a><span class="st">  </span><span class="kw">add_trace</span>(<span class="dt">x=</span><span class="op">~</span>trip_duration,</span>
+<span id="cb6-225"><a href="2-9-linear-modelling-r.html#cb6-225" aria-hidden="true"></a>            <span class="dt">y=</span><span class="op">~</span>pred.m7,</span>
+<span id="cb6-226"><a href="2-9-linear-modelling-r.html#cb6-226" aria-hidden="true"></a>            <span class="dt">type=</span><span class="st">&#39;scatter&#39;</span>, <span class="dt">mode=</span><span class="st">&#39;lines&#39;</span>, <span class="dt">color=</span><span class="op">~</span>PUArea, <span class="dt">colors=</span>PALETTE, <span class="dt">line=</span><span class="kw">list</span>(<span class="dt">dash=</span><span class="st">&#39;dash&#39;</span>), <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-227"><a href="2-9-linear-modelling-r.html#cb6-227" aria-hidden="true"></a><span class="st">  </span><span class="kw">layout</span>(<span class="dt">xaxis=</span><span class="kw">list</span>(<span class="dt">type=</span><span class="st">&#39;linear&#39;</span>, <span class="dt">title=</span><span class="st">&#39;Trip duration&#39;</span>),</span>
+<span id="cb6-228"><a href="2-9-linear-modelling-r.html#cb6-228" aria-hidden="true"></a>         <span class="dt">yaxis=</span><span class="kw">list</span>(<span class="dt">type=</span><span class="st">&#39;linear&#39;</span>, <span class="dt">title=</span><span class="st">&#39;Total amount&#39;</span>), <span class="dt">font=</span>FONT)</span>
+<span id="cb6-229"><a href="2-9-linear-modelling-r.html#cb6-229" aria-hidden="true"></a></span>
+<span id="cb6-230"><a href="2-9-linear-modelling-r.html#cb6-230" aria-hidden="true"></a><span class="co"># Fit m0 for the whole train set</span></span>
+<span id="cb6-231"><a href="2-9-linear-modelling-r.html#cb6-231" aria-hidden="true"></a>mfinal &lt;-<span class="st"> </span><span class="kw">lm</span>(total_amount <span class="op">~</span><span class="st"> </span>TAT<span class="op">+</span>(trip_duration<span class="op">+</span>PUArea<span class="op">+</span>DOArea)<span class="op">^</span><span class="dv">2</span>, <span class="dt">data=</span>train)</span>
+<span id="cb6-232"><a href="2-9-linear-modelling-r.html#cb6-232" aria-hidden="true"></a><span class="kw">summary</span>(mfinal)</span>
+<span id="cb6-233"><a href="2-9-linear-modelling-r.html#cb6-233" aria-hidden="true"></a></span>
+<span id="cb6-234"><a href="2-9-linear-modelling-r.html#cb6-234" aria-hidden="true"></a>predicted &lt;-<span class="st"> </span>test <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">pred=</span><span class="kw">predict</span>(mfinal, .)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(total_amount, pred, PUArea, DOArea)</span>
+<span id="cb6-235"><a href="2-9-linear-modelling-r.html#cb6-235" aria-hidden="true"></a><span class="kw">write.csv</span>(<span class="kw">summary</span>(mfinal)<span class="op">$</span>coef, <span class="st">&#39;finalModel.csv&#39;</span>)</span>
+<span id="cb6-236"><a href="2-9-linear-modelling-r.html#cb6-236" aria-hidden="true"></a><span class="kw">remove</span>(mfinal) <span class="co"># Free memory</span></span>
+<span id="cb6-237"><a href="2-9-linear-modelling-r.html#cb6-237" aria-hidden="true"></a></span>
+<span id="cb6-238"><a href="2-9-linear-modelling-r.html#cb6-238" aria-hidden="true"></a><span class="co"># Error analysis</span></span>
+<span id="cb6-239"><a href="2-9-linear-modelling-r.html#cb6-239" aria-hidden="true"></a>predicted <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#head(100) %&gt;% </span></span>
+<span id="cb6-240"><a href="2-9-linear-modelling-r.html#cb6-240" aria-hidden="true"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">errors=</span><span class="dv">10</span><span class="op">^</span>(total_amount<span class="op">-</span>pred),</span>
+<span id="cb6-241"><a href="2-9-linear-modelling-r.html#cb6-241" aria-hidden="true"></a>         <span class="dt">logerrors=</span>total_amount<span class="op">-</span>pred,</span>
+<span id="cb6-242"><a href="2-9-linear-modelling-r.html#cb6-242" aria-hidden="true"></a>         <span class="dt">Area=</span><span class="kw">paste0</span>(PUArea,<span class="st">&#39;:&#39;</span>,DOArea)) <span class="op">%&gt;%</span></span>
+<span id="cb6-243"><a href="2-9-linear-modelling-r.html#cb6-243" aria-hidden="true"></a><span class="st">  </span><span class="kw">plot_ly</span>(<span class="dt">x=</span><span class="op">~</span>Area, <span class="dt">y=</span><span class="op">~</span>errors, <span class="dt">type=</span><span class="st">&#39;box&#39;</span>, <span class="dt">marker=</span><span class="kw">list</span>(<span class="dt">opacity=</span><span class="dv">0</span>), <span class="dt">color=</span><span class="op">~</span>Area, <span class="dt">colors=</span>PALETTE) <span class="op">%&gt;%</span></span>
+<span id="cb6-244"><a href="2-9-linear-modelling-r.html#cb6-244" aria-hidden="true"></a><span class="st">  </span><span class="kw">layout</span>(<span class="dt">yaxis=</span><span class="kw">list</span>(<span class="dt">type=</span><span class="st">&#39;linear&#39;</span>, <span class="dt">title=</span><span class="st">&#39;Error&#39;</span>),</span>
+<span id="cb6-245"><a href="2-9-linear-modelling-r.html#cb6-245" aria-hidden="true"></a>         <span class="dt">xaxis=</span><span class="kw">list</span>(<span class="dt">title=</span><span class="st">&#39;Area&#39;</span>), <span class="dt">font=</span>FONT)</span></code></pre></div>
+
+</div>
+<!-- </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="2-8-visualisation-python.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-code.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
