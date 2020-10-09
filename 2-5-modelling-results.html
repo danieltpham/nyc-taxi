@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">NYC Taxi - Data Science Project</a></li>
+<li><a href="https://danielpham.com.au/about-me" target="blank"><img src="Logomark-2020.png" width="100%"></img></a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
@@ -220,7 +220,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.9" data-path="2-9-linear-modelling-r.html"><a href="2-9-linear-modelling-r.html"><i class="fa fa-check"></i><b>2.9</b> Linear Modelling (<code>R</code>)</a></li>
 </ul></li>
 <li class="divider"></li>
-<li><a href="https://thenifinity.com/about-me" target="blank">Copyright: Daniel Pham</a></li>
+<li><a href="https://danielpham.com.au/about-me" target="blank">&#10026; About the author (Melbourne, AU)</a></li>
+<li><a href="mailto:thenifinity@gmail.com" target="blank">&#10026; Send me an Email</a></li>
+<li><a href="https://github.com/danieltpham" target="blank">&#10026; Check out my GitHub</a></li>
+<li><a href="https://www.linkedin.com/in/daniel-pham-data" target="blank">&#10026; Connect on LinkedIn</a></li>
 
 </ul>
 
@@ -245,15 +248,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.5.1</span> Benchmark Model Term Relevance Analysis</h3>
 <p><a id=tab:tbl4></a></p>
 <p>Table 4: <strong>Benchmark Model M0 ANOVA Results</strong></p>
-<div id="htmlwidget-4a11a69d18580618d560" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4a11a69d18580618d560">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Predictor":["TAT","Duration","PUArea","DOArea","Duration:PUArea","Duration:DOArea","PUArea:DOArea","Error"],"Sum.of.Squares":[101.95,316.74,3.77,17.37,2.5,3.21,15.04,55.66],"DF":[1,1,5,5,5,5,25,9952],"Mean.Square":[101.95,316.74,0.75,3.47,0.5,0.64,0.6,0.01],"F":["18227.851","56628.468","134.94","620.974","89.233","114.91","107.539","-"]},"columns":[{"accessor":"Predictor","name":"Predictor","type":"character"},{"accessor":"Sum.of.Squares","name":"Sum.of.Squares","type":"numeric"},{"accessor":"DF","name":"DF","type":"numeric"},{"accessor":"Mean.Square","name":"Mean.Square","type":"numeric"},{"accessor":"F","name":"F","type":"character"}],"defaultPageSize":8,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e7fbb96f88f55aa673bf9ab368f1552b","key":"e7fbb96f88f55aa673bf9ab368f1552b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-071c94a76e3f691a9d10" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-071c94a76e3f691a9d10">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Predictor":["TAT","Duration","PUArea","DOArea","Duration:PUArea","Duration:DOArea","PUArea:DOArea","Error"],"Sum.of.Squares":[101.95,316.74,3.77,17.37,2.5,3.21,15.04,55.66],"DF":[1,1,5,5,5,5,25,9952],"Mean.Square":[101.95,316.74,0.75,3.47,0.5,0.64,0.6,0.01],"F":["18227.851","56628.468","134.94","620.974","89.233","114.91","107.539","-"]},"columns":[{"accessor":"Predictor","name":"Predictor","type":"character"},{"accessor":"Sum.of.Squares","name":"Sum.of.Squares","type":"numeric"},{"accessor":"DF","name":"DF","type":"numeric"},{"accessor":"Mean.Square","name":"Mean.Square","type":"numeric"},{"accessor":"F","name":"F","type":"character"}],"defaultPageSize":8,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e7fbb96f88f55aa673bf9ab368f1552b","key":"e7fbb96f88f55aa673bf9ab368f1552b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>Table 4 reports the ANOVA analysis on the resulting coefficients of the AIC-based stepwise selection on the largest possible interaction model from the 4 selected predictors. As expected, there is a strong presence of interaction between Duration and Areas, especially the influence of drop-off areas on the trip duration. This result is not surprising since the destination should logically have a higher impact on the duration of the trip than the origin. This effect is also present in the direct effect of Areas on Total amount itself (the non-interaction terms), where the F-value for DOArea is observably higher than for PUArea and can be explained in a similar fashion. Comparing the F-values, however, only provides a relative indicator of which location information affects the Total amount and Duration more, rather than the magnitude of such effects. Nevertheless, the results imply that area-based grouping is efficient in retaining relevant information about the linear relationship at a cost of just 5 extra degrees of freedom.
 Another interesting is that although TAT has a significant relationship with Total amount, it does not interact with other features. One explanation for the non-interaction is that TAT itself has already embedded location-related information (as well as time-related information yet not clearly seen due to the omission of the Hour feature). On the other hand, the pairwise scatterplot also did not pick up on any significant relationship between TAT and Duration.</p>
 </div>
 <div id="model-comparison-on-the-10000-instance-subsample" class="section level3" number="2.5.2">
 <h3><span class="header-section-number">2.5.2</span> Model Comparison on the 10000-Instance Subsample</h3>
-<div id="htmlwidget-272b3000628be0753e2f" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-272b3000628be0753e2f">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Model":["M0 *","M1","M2","M3","M4","M5","M6","M7","M8","M9"],"AIC":[-23433.17387,-15553.63537,-20127.47713,-20335.31494,-22455.9248,-20910.08568,-23324.01015,-20009.00826,-20747.1262,-20622.05532],"DF":["49","3","13","14","38","23","48","-","-","-"],"MRL":[1,0,0,0,6.21e-213,0,1.97e-24,0,0,0],"RMSE":[1.184502991,1.279160499,1.2170065,1.214824167,1.194600268,1.210146046,1.185776795,1.2170065,1.210051892,1.211498572]},"columns":[{"accessor":"Model","name":"Model","type":"character"},{"accessor":"AIC","name":"AIC","type":"numeric"},{"accessor":"DF","name":"DF","type":"character"},{"accessor":"MRL","name":"MRL","type":"numeric"},{"accessor":"RMSE","name":"RMSE","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"b3f8eb5324d74fe93b7003a6bc152a84","key":"b3f8eb5324d74fe93b7003a6bc152a84"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-aee3863d2e5ef1323314" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-aee3863d2e5ef1323314">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Model":["M0 *","M1","M2","M3","M4","M5","M6","M7","M8","M9"],"AIC":[-23433.17387,-15553.63537,-20127.47713,-20335.31494,-22455.9248,-20910.08568,-23324.01015,-20009.00826,-20747.1262,-20622.05532],"DF":["49","3","13","14","38","23","48","-","-","-"],"MRL":[1,0,0,0,6.21e-213,0,1.97e-24,0,0,0],"RMSE":[1.184502991,1.279160499,1.2170065,1.214824167,1.194600268,1.210146046,1.185776795,1.2170065,1.210051892,1.211498572]},"columns":[{"accessor":"Model","name":"Model","type":"character"},{"accessor":"AIC","name":"AIC","type":"numeric"},{"accessor":"DF","name":"DF","type":"character"},{"accessor":"MRL","name":"MRL","type":"numeric"},{"accessor":"RMSE","name":"RMSE","type":"numeric"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"b3f8eb5324d74fe93b7003a6bc152a84","key":"b3f8eb5324d74fe93b7003a6bc152a84"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p><img src="Model-comparison.png" /><!-- --></p>
 <p>The table and grouped bar plot above present the evaluation for the performance of all 10 models (recall that we are looking for lower values for both AIC and RMSE, so the darker the column implies a better fit of the model). Overall, although none of the alternative models surpasses the benchmark model in both AIC and RMSE, the differences in RMSE is trivial if rounding to the nearest cent is applied with each model’s average error is around $1.21 on any given prediction. Moreover, the AIC is consistent with RMSE, and the model relative likelihood column full of zeroes further highlights the benchmark superior performance over the alternative models. As such, the only model that will be further investigated is the benchmark M0.</p>
 <p><strong>Effect of Duration</strong></p>
@@ -279,8 +282,8 @@ Another interesting is that although TAT has a significant relationship with Tot
 Note that since the interaction model implies a different base rate for each PUArea-DOArea combination, it does not make sense to analyse the coefficients in separation. For example, a LGA-bound trip from Midtown with a fixed base rate of $15.78 and variable rate of $2.19 does not necessarily net a higher total amount than a LGA-bound trip from Downtown with a fixed base rate of $14.36 as the latter has a higher variable rate of $2.26.</p>
 <p><a id=tab:tbl5></a></p>
 <p>Table 5: <strong>Reverse-transformed regression results of the final model</strong></p>
-<div id="htmlwidget-3dd5bc3d17b1fe113720" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3dd5bc3d17b1fe113720">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Pick.up":["Downtown","Downtown","Downtown","Downtown","Downtown","Downtown","JFK","JFK","JFK","JFK","JFK","JFK","LGA","LGA","LGA","LGA","LGA","LGA","Midtown","Midtown","Midtown","Midtown","Midtown","Midtown","Other","Other","Other","Other","Other","Other","Uptown","Uptown","Uptown","Uptown","Uptown","Uptown"],"Drop.off":["JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other"],"Intercept":[47.32740922,14.35735482,6.011250337,5.002508685,4.4065665,3.206254599,187.261707,56.80815444,23.7848853,19.79356849,17.43558709,12.68627883,107.1920083,32.5180212,13.6149011,11.33019874,9.980447281,7.261856822,52.02770892,15.78324886,6.608254877,5.499330516,4.844202609,3.524682288,64.42320428,19.54357565,8.182658101,6.809534777,5.998323984,4.364430643,69.35232327,21.03888485,8.808725926,7.330542813,6.457265028,4.69835998],"Duration":[1.207554891,2.263806445,2.87534296,2.87979412,3.085309379,4.921262997,-1.277139755,1.467891605,1.864422554,1.867308763,2.000568444,3.191032809,1.043801137,1.956816836,2.485424284,2.489271832,2.666917638,4.253901789,1.169786752,2.193002412,2.785412181,2.789724124,2.988811577,4.767342918,1.232025854,2.309682225,2.933611459,2.938152821,3.147832823,5.020991833,1.085230242,2.034484092,2.584072293,2.588072553,2.772769229,4.422741751]},"columns":[{"accessor":"Pick.up","name":"Pick.up","type":"character"},{"accessor":"Drop.off","name":"Drop.off","type":"character"},{"accessor":"Intercept","name":"Intercept","type":"numeric"},{"accessor":"Duration","name":"Duration","type":"numeric"}],"defaultPageSize":36,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e0264f2103f8ea7491e91ed07374084c","key":"e0264f2103f8ea7491e91ed07374084c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0b5a7019ac1a158b1ea4" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0b5a7019ac1a158b1ea4">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Pick.up":["Downtown","Downtown","Downtown","Downtown","Downtown","Downtown","JFK","JFK","JFK","JFK","JFK","JFK","LGA","LGA","LGA","LGA","LGA","LGA","Midtown","Midtown","Midtown","Midtown","Midtown","Midtown","Other","Other","Other","Other","Other","Other","Uptown","Uptown","Uptown","Uptown","Uptown","Uptown"],"Drop.off":["JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other","JFK","LGA","Uptown","Midtown","Downtown","Other"],"Intercept":[47.32740922,14.35735482,6.011250337,5.002508685,4.4065665,3.206254599,187.261707,56.80815444,23.7848853,19.79356849,17.43558709,12.68627883,107.1920083,32.5180212,13.6149011,11.33019874,9.980447281,7.261856822,52.02770892,15.78324886,6.608254877,5.499330516,4.844202609,3.524682288,64.42320428,19.54357565,8.182658101,6.809534777,5.998323984,4.364430643,69.35232327,21.03888485,8.808725926,7.330542813,6.457265028,4.69835998],"Duration":[1.207554891,2.263806445,2.87534296,2.87979412,3.085309379,4.921262997,-1.277139755,1.467891605,1.864422554,1.867308763,2.000568444,3.191032809,1.043801137,1.956816836,2.485424284,2.489271832,2.666917638,4.253901789,1.169786752,2.193002412,2.785412181,2.789724124,2.988811577,4.767342918,1.232025854,2.309682225,2.933611459,2.938152821,3.147832823,5.020991833,1.085230242,2.034484092,2.584072293,2.588072553,2.772769229,4.422741751]},"columns":[{"accessor":"Pick.up","name":"Pick.up","type":"character"},{"accessor":"Drop.off","name":"Drop.off","type":"character"},{"accessor":"Intercept","name":"Intercept","type":"numeric"},{"accessor":"Duration","name":"Duration","type":"numeric"}],"defaultPageSize":36,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"e0264f2103f8ea7491e91ed07374084c","key":"e0264f2103f8ea7491e91ed07374084c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p><strong>Interpretations of fixed &amp; variable rates</strong></p>
 <p>Overall, variable rates are higher for the non-hotspot areas as they cover a much wider number of zones than the other five areas (note that the variable rates can assume an analogous role of a standard deviation), whereas airport-related trips enjoy an expectedly higher base rate. Trips within Manhattan have a base rate of only around $4 to $5, and for every 10 minutes within this metro area, the taxi drivers can average between $2.5 to $3. Trips around the Uptown zones have a higher base rate than in Midtown and Downtown, while the variable rates are around $0.5 higher in the latter two areas. One explanation could be due to the higher traffic around the tourist attraction areas such as Time Square, Rockefeller (Midtown) and Soho, Tribeca (Downtown), which may incur higher travelling time. This finding also highlights the advantage of taxi drivers over Uber drivers when driving in Manhattan, as Uber fees are distance-based rather than duration-based, thus do not protect drivers from being disadvantaged in high traffic situation.</p>
 <p>However, not all regression coefficients in the model are fully comprehensible. Particularly, base rate estimates for the JFK-JFK and LGA-JFK cases are unusually high, at more than $100 for trips that supposedly begin and end at the same area. A closer look at these trips in the training set reveals that the fare amount of these trips is indeed incredibly high despite the short distance, and hence potentially fraudulent or erroneous trip records in the data collection stage instead of model-related issues.</p>
@@ -316,24 +319,15 @@ Note that since the interaction model implies a different base rate for each PUA
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
+"sharing": null,
 "fontsettings": {
 "theme": "white",
 "family": "sans",
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-phase2.Rmd",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
@@ -343,7 +337,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

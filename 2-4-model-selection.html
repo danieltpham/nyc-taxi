@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">NYC Taxi - Data Science Project</a></li>
+<li><a href="https://danielpham.com.au/about-me" target="blank"><img src="Logomark-2020.png" width="100%"></img></a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
@@ -220,7 +220,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.9" data-path="2-9-linear-modelling-r.html"><a href="2-9-linear-modelling-r.html"><i class="fa fa-check"></i><b>2.9</b> Linear Modelling (<code>R</code>)</a></li>
 </ul></li>
 <li class="divider"></li>
-<li><a href="https://thenifinity.com/about-me" target="blank">Copyright: Daniel Pham</a></li>
+<li><a href="https://danielpham.com.au/about-me" target="blank">&#10026; About the author (Melbourne, AU)</a></li>
+<li><a href="mailto:thenifinity@gmail.com" target="blank">&#10026; Send me an Email</a></li>
+<li><a href="https://github.com/danieltpham" target="blank">&#10026; Check out my GitHub</a></li>
+<li><a href="https://www.linkedin.com/in/daniel-pham-data" target="blank">&#10026; Connect on LinkedIn</a></li>
 
 </ul>
 
@@ -265,8 +268,8 @@ For example, from the Feature Analysis section, the Total Amount for trips finis
 <h3><span class="header-section-number">2.4.4</span> Experimental Design</h3>
 <p><a id=tab:tbl3></a></p>
 <p>Table 3: <strong>Experimental design</strong></p>
-<div id="htmlwidget-054941fc111e327c2bf5" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-054941fc111e327c2bf5">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Model":["M0 *","M1","M2","M3","M4","M5","M6","M7","M8","M9"],"Description":["Step model (Benchmark)","Baseline","Additive (Area)","Additive (TAT)","Interaction (Area)","Interaction (Duration x Area)","Step model without TAT","Random intercept per Area","Random Duration per Area","Random TAT per Area"],"Formula":["~ TAT + (Duration + PU + DO)^2","~ Duration","~ Duration + PU + DO","~ Duration + PU + DO + TAT","~ Duration + PU * DO","~ Duration * (PU + DO)","~ (Duration + PU + DO)^2","~ Duration + PU + DO + (1 | PU + DO)","~ Duration + PU + DO + (Duration | PU + DO)","~ Duration + PU + DO + (TAT | PU + DO)"],"DF":["49","3","13","14","38","23","48","-","-","-"]},"columns":[{"accessor":"Model","name":"Model","type":"character"},{"accessor":"Description","name":"Description","type":"character"},{"accessor":"Formula","name":"Formula","type":"character"},{"accessor":"DF","name":"DF","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"f4594bb8bca786bfaaf8ea54417f39cd","key":"f4594bb8bca786bfaaf8ea54417f39cd"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8deb3338135fc7255e79" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8deb3338135fc7255e79">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Model":["M0 *","M1","M2","M3","M4","M5","M6","M7","M8","M9"],"Description":["Step model (Benchmark)","Baseline","Additive (Area)","Additive (TAT)","Interaction (Area)","Interaction (Duration x Area)","Step model without TAT","Random intercept per Area","Random Duration per Area","Random TAT per Area"],"Formula":["~ TAT + (Duration + PU + DO)^2","~ Duration","~ Duration + PU + DO","~ Duration + PU + DO + TAT","~ Duration + PU * DO","~ Duration * (PU + DO)","~ (Duration + PU + DO)^2","~ Duration + PU + DO + (1 | PU + DO)","~ Duration + PU + DO + (Duration | PU + DO)","~ Duration + PU + DO + (TAT | PU + DO)"],"DF":["49","3","13","14","38","23","48","-","-","-"]},"columns":[{"accessor":"Model","name":"Model","type":"character"},{"accessor":"Description","name":"Description","type":"character"},{"accessor":"Formula","name":"Formula","type":"character"},{"accessor":"DF","name":"DF","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"f4594bb8bca786bfaaf8ea54417f39cd","key":"f4594bb8bca786bfaaf8ea54417f39cd"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>A benchmark model M0 is first established by running an AIC-based stepwise feature selection on the largest-possible interaction model of all 4 predictors (<code>Duration</code> + <code>TAT</code> + <code>PUArea</code> + <code>DOArea</code>). As we are not interested in maximizing predictive power but rather the effect of each term in the model, the experimental design (Table 3) mostly considers models of a smaller scope than M0 (except for M9). The description column highlights the feature of interest in each model, as well as the type of model used (additive, interactive, or mixed model). The initial phase of model building is to investigate how closely the performance of the alternative models M1 – M9 come to the benchmark level, as well as comparing the performance level of related additive, interaction and mixed models to identify which one is most suitable to describe the relationship between each predictor and the target variable. The second phase of model building is to train the best model on the full training set, evaluate with the testing set and perform error analysis.</p>
 </div>
 <div id="model-selection-metrics" class="section level3" number="2.4.5">
@@ -311,24 +314,15 @@ For example, from the Feature Analysis section, the Total Amount for trips finis
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
+"sharing": null,
 "fontsettings": {
 "theme": "white",
 "family": "sans",
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-phase2.Rmd",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
@@ -338,7 +332,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

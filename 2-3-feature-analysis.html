@@ -135,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">NYC Taxi - Data Science Project</a></li>
+<li><a href="https://danielpham.com.au/about-me" target="blank"><img src="Logomark-2020.png" width="100%"></img></a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
@@ -220,7 +220,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.9" data-path="2-9-linear-modelling-r.html"><a href="2-9-linear-modelling-r.html"><i class="fa fa-check"></i><b>2.9</b> Linear Modelling (<code>R</code>)</a></li>
 </ul></li>
 <li class="divider"></li>
-<li><a href="https://thenifinity.com/about-me" target="blank">Copyright: Daniel Pham</a></li>
+<li><a href="https://danielpham.com.au/about-me" target="blank">&#10026; About the author (Melbourne, AU)</a></li>
+<li><a href="mailto:thenifinity@gmail.com" target="blank">&#10026; Send me an Email</a></li>
+<li><a href="https://github.com/danieltpham" target="blank">&#10026; Check out my GitHub</a></li>
+<li><a href="https://www.linkedin.com/in/daniel-pham-data" target="blank">&#10026; Connect on LinkedIn</a></li>
 
 </ul>
 
@@ -263,8 +266,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="comparison-of-spatial-resolution" class="section level3" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> Comparison of Spatial Resolution</h3>
 <p>While visualizing the data on a zone-based resolution is effective in phase 1, the high cardinality of 250 different zones presents a challenge in model training. As such, a broader segmentation of location is proposed by grouping the zones into 6 areas: Downtown, Midtown, Uptown, LGA, JFK, Others. Although the initial plan was to compare the effectiveness of these two grouping strategies, the curse of dimensionality <a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> introduced by the number of zones bore an immense time complexity cost on training even the minimal dataset. Thus, this analysis is done pre-emptively to ensure that area-based grouping will not lose much information compared to zone-based grouping. As the analysis lends itself to the idea of information gain from information theory, the normalized mutual information (NMI) will be used as the metric for comparison <a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>.</p>
-<div id="htmlwidget-86d5547b8319b3a6aeb0" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-86d5547b8319b3a6aeb0">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Feature":["PULocationID","PUArea","DOLocationID","DOArea"],"NMI":[0.064,0.051,0.076,0.047]},"columns":[{"accessor":"Feature","name":"Feature","type":"character"},{"accessor":"NMI","name":"NMI","type":"numeric"}],"sortable":false,"defaultPageSize":4,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"c75cf8536ea711e70e133f0420e9a83f","key":"c75cf8536ea711e70e133f0420e9a83f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1ff7acc8d01d65ea5ba2" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1ff7acc8d01d65ea5ba2">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Feature":["PULocationID","PUArea","DOLocationID","DOArea"],"NMI":[0.064,0.051,0.076,0.047]},"columns":[{"accessor":"Feature","name":"Feature","type":"character"},{"accessor":"NMI","name":"NMI","type":"numeric"}],"sortable":false,"defaultPageSize":4,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"c75cf8536ea711e70e133f0420e9a83f","key":"c75cf8536ea711e70e133f0420e9a83f"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 <p>The Total amount is cut to 100000 bins, before being used to calculate the NMI with each of <code>PULocationID</code>, <code>PUArea</code>, <code>DOLocationID</code>, <code>DOArea.</code> While area-based grouping indeed results in information loss (see the NMI result table above), the trade-off between the loss and the reduction in training time as well as model simplicity is well-worth the use of area-based grouping over zone-based grouping strategy.</p>
 </div>
 <div id="categorical-numerical-feature-interactions" class="section level3" number="2.3.4">
@@ -309,24 +312,15 @@ The set of predictors X for the explanatory modelling phase is finalized as: <co
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
+"sharing": null,
 "fontsettings": {
 "theme": "white",
 "family": "sans",
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-phase2.Rmd",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
@@ -336,7 +330,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
